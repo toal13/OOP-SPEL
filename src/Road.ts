@@ -6,4 +6,7 @@ export class Road extends Level {
   }
 
   public draw() {}
+
+  public update() {}
 }
+
