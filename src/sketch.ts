@@ -13,6 +13,9 @@ function preload() {
   music = {
     mystery: loadSound("/assets/music/mystery.mp3"),
   };
+  redCarImg = {
+    redCar: loadImage("./assets/images/redCar.png"),
+  };
 }
 
 /**
