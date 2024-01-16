@@ -5,5 +5,3 @@ class FreeZone extends Level {
     super(x, y, height, img);
   }
 }
-
-const freeZone = new FreeZone(300, 500, 500, "./assets/freeZone.png");
