@@ -1,23 +1,19 @@
-import {EntityFactory} from "./entityFactory";
-export class GameBoard {
-  private playerOne: Player;
-  entityFactory: EntityFactory;
-
+class GameBoard {
+  private player: Player;
+  private levels: Level[];
   constructor() {
-    this.playerOne = new Player("white", 900, 1000, {
-      up: UP_ARROW,
-      down: DOWN_ARROW,
-    });
-    this.entityFactory = new EntityFactory();
+    this.player = new Player();
+    this.levels = [new Level(100, 100, 1000, 300, roadImg.road)];
   }
 
   public update() {
-    this.playerOne.update();
-    this.entityFactory.update();
+    this.player.update();
   }
   public draw() {
     background("black");
-    this.playerOne.draw();
-    this.entityFactory.draw();
+    for (let level of this.levels) {
+      level.draw();
+    }
+    this.player.draw();
   }
 }

@@ -1,7 +1,5 @@
 //---- GLOBAL VARIABLES ----//
-import p5 from "p5";
-import {GameBoard} from "./gameBoard";
-let gameBoard: GameBoard;
+let game: Game;
 
 let music: {
   mystery: p5.SoundFile;
@@ -51,7 +49,7 @@ let logImg: {
  * This is a good place to load assets such as
  * sound files, images etc...
  */
-export function preload() {
+function preload() {
   music = {
     mystery: loadSound("/assets/music/mystery.mp3"),
   };
@@ -102,11 +100,11 @@ export function preload() {
  * and save it as a global variable so it can be used
  * in the draw function belows
  */
-export function setup() {
+function setup() {
   createCanvas(windowWidth, windowHeight);
   frameRate(60);
   music.mystery.setVolume(0.8);
-  gameBoard = new GameBoard();
+  game = new Game();
 }
 
 /**
@@ -114,14 +112,14 @@ export function setup() {
  * This is a good place to call public methods of the object
  * you created in the setup function above
  */
-export function draw() {
-  gameBoard.update();
-  gameBoard.draw();
+function draw() {
+  game.update();
+  game.draw();
 }
 
 /**
  *  Built in windowResize listener function in P5
  */
-export function windowResized() {
+function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }

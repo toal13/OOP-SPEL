@@ -1,6 +1,6 @@
-import {GameEntity} from "./gameEntity";
+/// <reference path="./gameEntity.ts" />
 
-export class Car extends GameEntity {
+class Car extends GameEntity {
   constructor(
     x: number,
     y: number,
@@ -12,18 +12,7 @@ export class Car extends GameEntity {
     super(x, y, speed, width, height, img);
   }
 
-  public update() {
-    this.x += this.speed;
-    if (this.x < -20) {
-      this.x = width;
-    } else if (this.x > width) {
-      this.x = -20;
-    }
-  }
+  public update() {}
 
-  public draw() {
-    image(this.img, this.x, this.y);
-    noFill();
-    rect(this.x, this.y, 150, 100);
-  }
+  public draw() {}
 }

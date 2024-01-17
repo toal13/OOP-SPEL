@@ -1,6 +1,13 @@
 class Game {
-  constructor() {}
+  private gameBoard: GameBoard;
+  constructor() {
+    this.gameBoard = new GameBoard();
+  }
 
-  public update() {}
-  public draw() {}
+  public update() {
+    this.gameBoard.update();
+  }
+  public draw() {
+    this.gameBoard.draw();
+  }
 }
