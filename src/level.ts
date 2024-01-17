@@ -1,23 +1,31 @@
-import {Road} from "./Road";
-
-export class Level {
+class Level {
   private x: number;
   private y: number;
+  private width: number;
   private height: number;
-  private img: string;
+  private img: p5.Image;
+  private gameEntities: GameEntity[];
 
-  public constructor(x: number, y: number, height: number, img: string) {
+  public constructor(
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    img: p5.Image,
+  ) {
     this.x = x;
     this.y = y;
+    this.width = width;
     this.height = height;
     this.img = img;
+    this.gameEntities = [new Car(10, 10, -3, 150, 250, blueCarImg.blueCar)];
   }
 
   public draw() {
-    road.draw();
+    for (let car of this.gameEntities) {
+      car.draw();
+    }
   }
 
   public update() {}
 }
-
-const road = new Road(500, 500, 200, "./assets/road.png");
