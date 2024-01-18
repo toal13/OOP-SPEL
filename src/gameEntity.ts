@@ -22,19 +22,8 @@ abstract class GameEntity {
     this.img = img;
   }
 
-  protected move() {
-    this.x += this.speed;
-    if (this.x < -20) {
-      this.x = width;
-    } else if (this.x > width) {
-      this.x = -20;
-    }
-  }
-
-  // public abstract moveWithConstantSpeed(speed: number, canvasWidth: number): void;
-
   public update() {
-    // this.move();
+    
   }
 
   public draw() {

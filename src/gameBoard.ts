@@ -36,6 +36,10 @@ class GameBoard {
         if ('moveWithConstantSpeed' in car) {
         (car as Car).moveWithConstantSpeed(this.carSpeed);
       }
+       for (let car of level.gameEntityLeft) {
+        if ('moveWithConstantSpeed' in car) {
+        (car as Car).moveWithConstantSpeed(-this.carSpeed);
+      }
 
      // car.moveWithConstantSpeed(this.carSpeed); // Låt bilen röra sig med konstant hastighet
         
