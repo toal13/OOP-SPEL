@@ -31,8 +31,10 @@ abstract class GameEntity {
     }
   }
 
+  // public abstract moveWithConstantSpeed(speed: number, canvasWidth: number): void;
+
   public update() {
-    this.move();
+    // this.move();
   }
 
   public draw() {
