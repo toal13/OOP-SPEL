@@ -43,7 +43,9 @@ let waterImg: {
 let logImg: {
   log: p5.Image;
 };
-
+let instructionImg: {
+  instruction: p5.Image;
+};
 
 /**
  * Built in preload function in P5
@@ -52,7 +54,6 @@ let logImg: {
  */
 
 function preload() {
-
   music = {
     mystery: loadSound("/assets/music/mystery.mp3"),
   };
@@ -94,6 +95,9 @@ function preload() {
   };
   logImg = {
     log: loadImage("./assets/images/log.png"),
+  };
+  instructionImg = {
+    instruction: loadImage("./assets/images/Instructions.png"),
   };
 }
 

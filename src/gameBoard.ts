@@ -1,4 +1,4 @@
-class GameBoard {
+class GameBoard implements IMenu {
   private player: Player;
   private levels: Level[];
 

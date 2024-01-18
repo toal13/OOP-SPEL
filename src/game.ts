@@ -1,35 +1,21 @@
 class Game {
-  private gameBoard: GameBoard;
-  private startMenu: StartMenu;
-  private inStartMenu: boolean;
+  private currentMenu: IMenu;
 
   constructor() {
-    this.gameBoard = new GameBoard();
-    this.inStartMenu = true;
-
-    // Pass a function that changes the game state
-    this.startMenu = new StartMenu(() => this.startGame());
-  }
-
-  private startGame() {
-    this.inStartMenu = false; // Change the state to start the game
+    this.currentMenu = new GameMenu();
   }
 
   public update() {
-    if (this.inStartMenu) {
-      // Handle start menu updates
-    } else {
-      this.gameBoard.update();
+    if (keyIsDown(RIGHT_ARROW)) {
+      this.currentMenu = new GameBoard();
+    } else if (keyIsDown(LEFT_ARROW)) {
+      this.currentMenu = new GameMenu();
+    } else if (keyIsDown(UP_ARROW)) {
+      this.currentMenu = new InstructionsMenu();
     }
   }
 
   public draw() {
-    if (this.inStartMenu) {
-      this.startMenu.draw();
-    } else {
-      this.gameBoard.draw();
-    }
+    this.currentMenu.draw();
   }
-
-  // ... handle click event and other methods ...
 }
