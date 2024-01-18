@@ -4,7 +4,7 @@ class Level {
   private width: number;
   private height: number;
   private img: p5.Image;
-  private gameEntities: GameEntity[];
+  public gameEntities: GameEntity[];
 
   public constructor(
     x: number,
@@ -25,7 +25,12 @@ class Level {
     for (let car of this.gameEntities) {
       car.draw();
     }
+    image(this.img, this.x, this.y);
   }
 
-  public update() {}
+  public update() {
+    for (let car of this.gameEntities) {
+      car.update();
+    }
+  }
 }

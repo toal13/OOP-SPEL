@@ -4,7 +4,7 @@ abstract class GameEntity {
   private speed: number;
   private width: number;
   private height: number;
-  private img: p5.Image;
+  protected img: p5.Image;
 
   public constructor(
     x: number,

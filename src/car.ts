@@ -14,5 +14,7 @@ class Car extends GameEntity {
 
   public update() {}
 
-  public draw() {}
+  public draw() {
+    image(this.img, this.x, this.y);
+  }
 }
