@@ -17,4 +17,13 @@ class Car extends GameEntity {
   public draw() {
     image(this.img, this.x, this.y);
   }
+
+  public moveWithConstantSpeed(speed: number) {
+    this.x += speed;
+    if (this.x < -20) {
+      this.x = width;
+    } else if (this.x > width) {
+      this.x = -20;
+    }
+  }
 }
