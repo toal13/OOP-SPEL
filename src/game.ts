@@ -1,5 +1,6 @@
 class Game {
   private gameBoard: GameBoard;
+
   constructor() {
     this.gameBoard = new GameBoard();
   }
@@ -11,3 +12,4 @@ class Game {
     this.gameBoard.draw();
   }
 }
+
