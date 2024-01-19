@@ -1,6 +1,7 @@
 /// <reference path="./gameEntity.ts" />
 
 class Car extends GameEntity {
+
   constructor(
     x: number,
     y: number,
@@ -12,7 +13,19 @@ class Car extends GameEntity {
     super(x, y, speed, width, height, img);
   }
 
-  public update() {}
+  public update() {
+  }
 
-  public draw() {}
+  public draw() {
+    image(this.img, this.x, this.y);
+  }
+
+  public moveWithConstantSpeed(speed: number) {
+    this.x += speed;
+    if (this.x < -20) {
+      this.x = width;
+    } else if (this.x > width) {
+      this.x = -20;
+    }
+  }
 }
