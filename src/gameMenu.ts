@@ -29,8 +29,8 @@ class GameMenu implements IMenu {
         "Instructions",
         () => {
           game.setCurrentMenu(new InstructionsMenu());
-    },
-  ),
+    }),
+  
 );
     this.buttons.push(
       new Button(
@@ -41,10 +41,11 @@ class GameMenu implements IMenu {
         "Leaderboard",
         () => {
           // Hantera knapptryckning för Leaderboard
-          console.log("Leaderboard clicked");
-        },
-      ),
-    );
+          game.setCurrentMenu(new LeaderBoard());
+    }),
+);
+
+    
     }
 
   public draw() {
@@ -63,3 +64,4 @@ class GameMenu implements IMenu {
     );
   }
 }
+
