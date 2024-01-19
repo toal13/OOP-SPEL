@@ -1,8 +1,7 @@
-class GameBoard {
+class GameBoard implements IMenu {
   private player: Player;
   private levels: Level[];
   private carSpeed: number;
-
 
   constructor() {
     this.player = new Player();
@@ -20,8 +19,11 @@ class GameBoard {
 
   public update() {
     this.player.update();
+
     this.moveCarAutomatically();
+
   }
+
   public draw() {
     background("black");
     for (let level of this.levels) {
