@@ -1,6 +1,7 @@
 class Game {
   private currentMenu: IMenu;
 
+
   constructor() {
     this.currentMenu = new GameMenu();
   }
@@ -17,3 +18,4 @@ class Game {
     this.currentMenu = newMenu;
   }
 }
+
