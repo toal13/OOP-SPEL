@@ -1,7 +1,13 @@
-class Road {
-  constructor() {}
+/// <reference path="./gameEntity.ts" />
 
-  public draw() {}
+class Road extends GameEntity {
+  constructor(x: number, y: number, height: number, img: p5.Image) {
+    super(x, y, 0, windowWidth, windowHeight * 0.175, roadImg.road);
+  }
 
   public update() {}
+
+  public draw() {
+    image(this.img, this.x, this.y);
+  }
 }

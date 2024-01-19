@@ -2,6 +2,7 @@ class GameBoard implements IMenu {
   private player: Player;
   private levels: Level[];
   private carSpeed: number;
+  
 
   constructor() {
     this.player = new Player();
