@@ -1,9 +1,13 @@
-import {Level} from "./level";
+/// <reference path="./gameEntity.ts" />
 
-export class Road extends Level {
-  constructor(x: number, y: number, height: number, img: string) {
-    super(x, y, height, img);
+class Truck extends GameEntity {
+  constructor(x: number, y: number, speed: number) {
+    super(x, y, speed, width, height, orangeTruckImg.orangeTruck);
   }
 
-  public draw() {}
+  public update() {}
+
+  public draw() {
+    image(this.img, this.x, this.y);
+  }
 }
