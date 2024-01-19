@@ -23,12 +23,21 @@ abstract class GameEntity {
   }
 
   public update() {
-    
+    this.x += this.speed * deltaTime;
+    this.resetWhenOffScreen();
   }
 
   public draw() {
     push();
     image(this.img, this.x, this.y, this.width, this.height);
     pop();
+  }
+
+  private resetWhenOffScreen() {
+    if (this.x < -this.width) {
+      this.x = width;
+    } else if (this.x > width) {
+      this.x = -this.width;
+    }
   }
 }

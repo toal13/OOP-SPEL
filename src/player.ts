@@ -11,7 +11,14 @@ class Player extends GameEntity {
   private controls: Controls;
 
   constructor() {
-    super(800, height - 20, 0, 50, 50, frogImg.frog);
+    super(
+      windowWidth * 0.46,
+      height - 85,
+      0,
+      windowWidth * 0.05,
+      windowHeight * 0.1,
+      frogImg.frog,
+    );
     this.controls = {
       up: UP_ARROW,
       down: DOWN_ARROW,
