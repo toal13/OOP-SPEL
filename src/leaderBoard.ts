@@ -11,19 +11,21 @@ class LeaderBoard implements IMenu {
         () => {
           game.setCurrentMenu(new GameMenu());
         }
-     )
+     );
     }
   
     public draw() {
       background("black");
       imageMode(CENTER);
-      this.button.draw();
+
       image(
         LeaderBoardImg.leaderBoard,
         windowWidth * 0.5,
         windowHeight * 0.5,
-        1100,
         500,
+        700,
       );
+
+      this.button.draw();
     }
   }

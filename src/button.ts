@@ -5,6 +5,10 @@ class Button {
   private height: number;
   private text: string;
   private onClick: () => void; // Lägg till en klickhändelse
+  public setPosition(x: number, y: number) {
+    this.x = x;
+    this.y = y;
+  }
 
   constructor(
     x: number,
