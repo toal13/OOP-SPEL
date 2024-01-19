@@ -1,3 +1,4 @@
 interface IMenu {
-  draw(): void; //För att
+  draw(): void;
+  update(): void;
 }

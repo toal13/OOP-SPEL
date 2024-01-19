@@ -35,6 +35,8 @@ class GameMenu implements IMenu {
     );
   }
 
+  public update(): void {}
+
   public draw() {
     background("black");
 
