@@ -1,12 +1,12 @@
 class Game {
   private currentMenu: IMenu;
 
-
   constructor() {
-    this.currentMenu = new GameMenu();
+    this.currentMenu = new GameBoard();
   }
 
   public update() {
+    this.currentMenu.update();
     if (keyIsDown(RIGHT_ARROW)) {
       this.currentMenu = new GameBoard();
     } else if (keyIsDown(LEFT_ARROW)) {
@@ -20,4 +20,3 @@ class Game {
     this.currentMenu.draw();
   }
 }
-
