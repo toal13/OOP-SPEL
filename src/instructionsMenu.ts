@@ -8,7 +8,10 @@ class InstructionsMenu implements IMenu {
       200,
       45,
       "Go Back",
-    );
+      () => {
+        game.setCurrentMenu(new GameMenu());
+      }
+   )
   }
 
   public draw() {
