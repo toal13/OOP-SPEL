@@ -1,13 +1,18 @@
 /// <reference path="./gameEntity.ts" />
 
 class Truck extends GameEntity {
-  constructor(x: number, y: number, speed: number) {
+  constructor(
+    x: number, 
+    y: number, 
+    speed: number, 
+    width: number,
+    height: number) {
     super(x, y, speed, width, height, orangeTruckImg.orangeTruck);
   }
 
-  public update() {}
+  // public update() {}
 
-  public draw() {
-    image(this.img, this.x, this.y);
-  }
+  // public draw() {
+  //   image(this.img, this.x, this.y);
+  // }
 }
