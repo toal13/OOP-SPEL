@@ -1,20 +1,24 @@
 class InstructionsMenu implements IMenu {
-  private button: Button;
+  private goBackButton: Button;
 
   constructor() {
-    this.button = new Button(
+    this.goBackButton = new Button(
       windowWidth * 0.15,
       windowHeight * 0.25,
       200,
       45,
       "Go Back",
-      () => {
-        game.setCurrentMenu(new GameMenu());
-      }
-   )
+    );
+  }
+
+  public update(): void {
+    if (this.goBackButton.isClicked()) {
+      game.setCurrentMenu(new GameMenu());
+    }
   }
 
   public draw() {
+    push()
     background("black");
     imageMode(CENTER);
     image(
@@ -24,6 +28,7 @@ class InstructionsMenu implements IMenu {
       1100,
       500,
     );
-    this.button.draw();
+    this.goBackButton.draw();
+    pop();
   }
 }

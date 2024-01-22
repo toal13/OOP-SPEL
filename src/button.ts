@@ -4,7 +4,6 @@ class Button {
   private width: number;
   private height: number;
   private text: string;
-  private onClick: () => void; // Lägg till en klickhändelse
   public setPosition(x: number, y: number) {
     this.x = x;
     this.y = y;
@@ -16,33 +15,22 @@ class Button {
     width: number,
     height: number,
     text: string,
-    onClick: () => void, // Lägg till en klickhändelse i konstruktorn
   ) {
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
     this.text = text;
-    this.onClick = onClick; // Spara klickhändelsen
-
-    document.addEventListener("click", this.handleMouseClick.bind(this));
   }
 
-  // Metod för att hantera musklick
-  private handleMouseClick(event: MouseEvent) {
-    // Kolla om musklicket är inom knappens gränser
-    if (
-      event.clientX >= this.x &&
-      event.clientX <= this.x + this.width &&
-      event.clientY >= this.y &&
-      event.clientY <= this.y + this.height
-    ) {
-      this.onClick(); // Kalla på klickhändelsen
-    }
+  public isClicked(): boolean {
+    const isMouseOver = mouseX > this.x && mouseX < this.x + this.width &&
+                        mouseY > this.y && mouseY < this.y + this.height;
+
+    return isMouseOver && mouseIsPressed;
   }
 
-
-  draw() {
+  public draw() {
     // Check if the mouse is over the button
     const isMouseOver = mouseX > this.x && mouseX < this.x + this.width &&
                         mouseY > this.y && mouseY < this.y + this.height;

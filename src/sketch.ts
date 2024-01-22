@@ -1,7 +1,6 @@
 //---- GLOBAL VARIABLES ----//
 let game: Game;
 
-
 let music: {
   mystery: p5.SoundFile;
 };
@@ -127,7 +126,7 @@ function preload() {
  * in the draw function belows
  */
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(1000, 600);
   frameRate(60);
   music.mystery.setVolume(0.8);
   game = new Game();
@@ -141,11 +140,4 @@ function setup() {
 function draw() {
   game.update();
   game.draw();
-}
-
-/**
- *  Built in windowResize listener function in P5
- */
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
 }
