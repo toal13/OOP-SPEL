@@ -12,10 +12,15 @@ class Level {
       new FreeZone(0, windowHeight * 0.001),
       // ---------- Landscape ------------
 
-      // -------- Moving things ----------
-      new Car(0, 0, speed, 50, 50),
-      new Car(width, 0, -speed, 50, 50),
-      // -------- Moving things ----------
+      // -------- Moving things Road ----------
+      new Car(300, 560, speed, 70, 60),
+      new Car(width, 425, -speed, 70, 60),
+      new Car(width, 525, speed, 70, 60),
+
+      new Motorcycle(0, 560, speed, 70, 60),
+      new Truck(300, 500, speed, 70, 60),
+      // -------- Moving things Water ----------
+      new Turtle(0, 200, speed, 90, 70)
     ];
   }
 
