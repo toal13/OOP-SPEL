@@ -10,6 +10,7 @@ class InstructionsMenu implements IMenu {
       "Go Back",
     );
   }
+  public update(): void {}
 
   public update(): void {
     if (this.goBackButton.isClicked()) {
