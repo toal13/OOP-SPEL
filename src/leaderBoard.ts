@@ -1,4 +1,4 @@
-class InstructionsMenu implements IMenu {
+class LeaderBoard implements IMenu {
   private goBackButton: Button;
 
   constructor() {
@@ -10,25 +10,26 @@ class InstructionsMenu implements IMenu {
       "Go Back",
     );
   }
-  public update(): void {}
 
-  public update(): void {
+  public update() {
     if (this.goBackButton.isClicked()) {
       game.setCurrentMenu(new GameMenu());
     }
   }
 
   public draw() {
-    push()
+    push();
     background("black");
     imageMode(CENTER);
+
     image(
-      instructionImg.instruction,
+      LeaderBoardImg.leaderBoard,
       windowWidth * 0.5,
       windowHeight * 0.5,
-      1100,
       500,
+      700,
     );
+
     this.goBackButton.draw();
     pop();
   }

@@ -4,6 +4,10 @@ class Button {
   private width: number;
   private height: number;
   private text: string;
+  public setPosition(x: number, y: number) {
+    this.x = x;
+    this.y = y;
+  }
 
   constructor(
     x: number,
@@ -19,11 +23,25 @@ class Button {
     this.text = text;
   }
 
-  draw() {
-    fill("#111111");
-    rect(this.x, this.y, this.width, this.height);
+  public isClicked(): boolean {
+    const isMouseOver = mouseX > this.x && mouseX < this.x + this.width &&
+                        mouseY > this.y && mouseY < this.y + this.height;
 
-    fill("white");
+    return isMouseOver && mouseIsPressed;
+  }
+
+  public draw() {
+    // Check if the mouse is over the button
+    const isMouseOver = mouseX > this.x && mouseX < this.x + this.width &&
+                        mouseY > this.y && mouseY < this.y + this.height;
+  
+    // Change the background color based on the hover effect
+    fill(isMouseOver ? "#333333" : "#111111");
+    rect(this.x, this.y, this.width, this.height);
+  
+    // Change the text color based on the hover effect
+    fill(isMouseOver ? "black" : "white");
+    
     textSize(22);
     textAlign(CENTER, CENTER);
     text(this.text, this.x + this.width / 2, this.y + this.height / 2);
