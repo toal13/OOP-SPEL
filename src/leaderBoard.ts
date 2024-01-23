@@ -1,12 +1,15 @@
 class LeaderBoard implements IMenu {
   private goBackButton: Button;
+  private leaderBoardImage: p5.Image;
 
   constructor() {
+    this.leaderBoardImage = loadImage("./assets/images/leaderBoard.png")
+    
     this.goBackButton = new Button(
-      windowWidth * 0.15,
-      windowHeight * 0.25,
-      200,
-      45,
+      windowWidth * 0.03,
+      windowHeight * 0.05,
+      130,
+      35,
       "Go Back",
     );
   }
@@ -19,15 +22,13 @@ class LeaderBoard implements IMenu {
 
   public draw() {
     push();
-    background("black");
-    imageMode(CENTER);
+    background("lightblue");
+    
 
     image(
-      LeaderBoardImg.leaderBoard,
-      windowWidth * 0.5,
-      windowHeight * 0.5,
-      500,
-      700,
+      this.leaderBoardImage,
+      width / 2 - this.leaderBoardImage.width / 2.1,
+      height / 4 - this.leaderBoardImage.height / 4.5,
     );
 
     this.goBackButton.draw();

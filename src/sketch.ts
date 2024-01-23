@@ -46,7 +46,7 @@ let logImg: {
 let instructionImg: {
   instruction: p5.Image;
 };
-let LeaderBoardImg: {
+let leaderBoardImg: {
   leaderBoard: p5.Image;
 };
 let soundOffImg: {
@@ -55,6 +55,7 @@ let soundOffImg: {
 let soundOnImg: {
   soundOn: p5.Image;
 };
+
 
 /**
  * Built in preload function in P5
@@ -108,7 +109,7 @@ function preload() {
   instructionImg = {
     instruction: loadImage("./assets/images/Instructions.png"),
   };
-  LeaderBoardImg = {
+  leaderBoardImg = {
     leaderBoard: loadImage("./assets/images/leaderBoard.png"),
   };
   soundOffImg = {
