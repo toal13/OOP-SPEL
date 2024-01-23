@@ -35,7 +35,7 @@ class GameOverMenu implements IMenu {
       game.setCurrentMenu(new GameBoard());
     }
     if (this.buttonMenu.isClicked()) {
-      game.setCurrentMenu(new InstructionsMenu());
+      game.setCurrentMenu(new GameMenu());
     }
   }
 
