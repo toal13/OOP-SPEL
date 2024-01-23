@@ -56,7 +56,21 @@ class Player extends GameEntity {
       this.isMoving = true;
     }
 
-    // Reset the flag if the key is released
+    // Kollisionskontroller för att förhindra att spelaren går utanför skärmen
+    if (this.x < minX) {
+      this.x = minX;
+    }
+    if (this.x + this.width > maxX) {
+      this.x = maxX - this.width;
+    }
+    if (this.y < minY) {
+      this.y = minY;
+    }
+    if (this.y + this.height > maxY) {
+      this.y = maxY - this.height;
+    }
+
+    // Återställ flaggan om tangenten släpps
     if (
       !keyIsDown(this.controls.up) &&
       !keyIsDown(this.controls.down) &&
