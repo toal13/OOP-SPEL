@@ -4,10 +4,12 @@ class GameBoard implements IMenu {
   private levels: Level[];
 
   constructor() {
-    this.worldSpeed = 0.1;
+    this.worldSpeed = 0.05;
     this.player = new Player();
     this.levels = [new Level(this.worldSpeed)];
   }
+
+  checkCollision() {}
 
   public update() {
     for (let level of this.levels) {
