@@ -8,6 +8,6 @@ class FreeZone extends GameEntity {
   public update() {}
 
   public draw() {
-    image(this.img, this.x, this.y, windowWidth, windowHeight * 0.1);
+    image(this.img, this.x, this.y, windowWidth, 50);
   }
 }

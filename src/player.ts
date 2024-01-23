@@ -12,11 +12,11 @@ class Player extends GameEntity {
 
   constructor() {
     super(
-      windowWidth * 0.46,
-      height - 85,
+      1000 * 0.5,
+      550,
       0,
-      windowWidth * 0.05,
-      windowHeight * 0.1,
+      40,
+      40,
       frogImg.frog,
     );
     this.controls = {
