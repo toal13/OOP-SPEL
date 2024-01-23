@@ -25,6 +25,7 @@ abstract class GameEntity {
   public update() {
     this.x += this.speed * deltaTime;
     this.resetWhenOffScreen();
+    
   }
 
   public draw() {

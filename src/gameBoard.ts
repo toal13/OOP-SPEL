@@ -22,5 +22,10 @@ class GameBoard implements IMenu {
       level.draw();
     }
     this.player.draw();
+
+    fill(255);
+    textSize(20);
+    textAlign(RIGHT, TOP);
+    text(`Score: ${this.player.getScore()}`, width, 0);
   }
 }

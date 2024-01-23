@@ -19,6 +19,9 @@ class Level {
       new Truck(300, 508, speed, 95, 50),
       // -------- Moving things Water ----------
       new Turtle(0, 190, -speed, 90, 70),
+
+      // ------------- Coins -------------
+      
     ];
   }
 
