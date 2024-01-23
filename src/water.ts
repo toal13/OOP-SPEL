@@ -8,6 +8,6 @@ class Water extends GameEntity {
   public update() {}
 
   public draw() {
-    image(this.img, this.x, this.y, windowWidth, windowHeight * 0.35);
+    image(this.img, this.x, this.y, windowWidth, 250);
   }
 }
