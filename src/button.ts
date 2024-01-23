@@ -34,14 +34,14 @@ class Button {
     // Check if the mouse is over the button
     const isMouseOver = mouseX > this.x && mouseX < this.x + this.width &&
                         mouseY > this.y && mouseY < this.y + this.height;
+
   
-    // Change the background color based on the hover effect
-    fill(isMouseOver ? "#333333" : "#111111");
-    rect(this.x, this.y, this.width, this.height);
-  
-    // Change the text color based on the hover effect
-    fill(isMouseOver ? "black" : "white");
-    
+    const backgroundColor = color(255, 255, 255, isMouseOver ? 100 : 70);
+
+    fill(backgroundColor);
+    rect(this.x, this.y, this.width, this.height, 15);
+
+    fill(isMouseOver ? "white" : "black");
     textSize(22);
     textAlign(CENTER, CENTER);
     text(this.text, this.x + this.width / 2, this.y + this.height / 2);

@@ -3,39 +3,40 @@ class GameMenu implements IMenu {
   private buttonInstructions: Button;
   private buttonLeaderboard: Button;
   private frogImage: p5.Image;
-  private volumeSlider: p5.Element;
+  /* private volumeSlider: p5.Element; */
+  
 
   constructor() {
-    this.frogImage = loadImage("./assets/images/FroggerLogo.png");
+    this.frogImage = loadImage("./assets/images/menuBackground.png");
+    
 
     /* Create volume-slider */
-    this.volumeSlider = createSlider(0, 100, 50);
-    this.volumeSlider.position(windowWidth * 0.9, windowHeight * 0.95);
-    this.volumeSlider.style("width", "80px");
-    this.volumeSlider.style("background-color", "red");
+    /* this.volumeSlider = createSlider(0, 100, 50);
+    this.volumeSlider.position(width * 1, height * 0.30);
+    this.volumeSlider.style("width", "80px"); */
 
     // Define button properties
-    let buttonWidth = 200;
-    let buttonHeight = 45;
+    let buttonWidth = 240;
+    let buttonHeight = 40;
     let buttonX = (width - buttonWidth) / 2;
 
     this.buttonNewGame = new Button(
       buttonX,
-      height / 1.8,
+      height / 1.73,
       buttonWidth,
       buttonHeight,
       "New Game",
     );
     this.buttonInstructions = new Button(
       buttonX,
-      height / 1.8 + 55,
+      height / 1.71 + 53,
       buttonWidth,
       buttonHeight,
       "Instructions",
     );
     this.buttonLeaderboard = new Button(
       buttonX,
-      height / 1.8 + 110,
+      height / 1.71 + 106,
       buttonWidth,
       buttonHeight,
       "Leaderboard",
@@ -54,16 +55,13 @@ class GameMenu implements IMenu {
       game.setCurrentMenu(new LeaderBoard());
     }
   }
+  
 
   public draw() {
-    background("red");
 
-    // Draw the frog image centered
-    image(
-      this.frogImage,
-      width / 2 - this.frogImage.width / 2,
-      height / 4 - this.frogImage.height / 2,
-    );
+    imageMode(CORNER);
+    image(this.frogImage, 0, 0, width, height);
+    
     
     // Draw all buttons
     this.buttonNewGame.draw();

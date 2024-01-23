@@ -1,16 +1,18 @@
 class InstructionsMenu implements IMenu {
   private goBackButton: Button;
+  private InstructionsImage: p5.Image;
 
   constructor() {
+    this.InstructionsImage = loadImage ("./assets/images/Instructions.png")
+
     this.goBackButton = new Button(
-      windowWidth * 0.15,
-      windowHeight * 0.25,
-      200,
-      45,
+      windowWidth * 0.03,
+      windowHeight * 0.05,
+      130,
+      35,
       "Go Back",
     );
   }
-  public update(): void {}
 
   public update(): void {
     if (this.goBackButton.isClicked()) {
@@ -20,14 +22,11 @@ class InstructionsMenu implements IMenu {
 
   public draw() {
     push()
-    background("black");
-    imageMode(CENTER);
+    background("lightblue");
     image(
-      instructionImg.instruction,
-      windowWidth * 0.5,
-      windowHeight * 0.5,
-      1100,
-      500,
+      this.InstructionsImage,
+      width / 2 - this.InstructionsImage.width / 2.1,
+      height / 4 - this.InstructionsImage.height / 4.3,
     );
     this.goBackButton.draw();
     pop();
