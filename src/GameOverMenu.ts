@@ -1,12 +1,12 @@
 class GameOverMenu implements IMenu {
   private buttonPlayAgain: Button;
   private buttonMenu: Button;
-  private frogImage: p5.Image;
+  private gameOverImage: p5.Image;
 
   /* private volumeSlider: p5.Element; */
 
   constructor() {
-    this.frogImage = loadImage("./assets/images/GameOverPopup.png");
+    this.gameOverImage = loadImage("./assets/images/GameOverPopup.png");
 
     // Define button properties
     let buttonWidth = 240;
@@ -18,14 +18,14 @@ class GameOverMenu implements IMenu {
       height / 1.73,
       buttonWidth,
       buttonHeight,
-      "New Game",
+      "Play Again",
     );
     this.buttonMenu = new Button(
       buttonX,
       height / 1.71 + 53,
       buttonWidth,
       buttonHeight,
-      "Instructions",
+      "Menu",
     );
   }
 
@@ -40,11 +40,13 @@ class GameOverMenu implements IMenu {
   }
 
   public draw() {
-    imageMode(CORNER);
-    image(this.frogImage, 0, 0, width, height);
+    push();
+    imageMode(CENTER);
+    image(this.gameOverImage, 0, 0, width, height);
 
     // Draw all buttons
     this.buttonPlayAgain.draw();
     this.buttonMenu.draw();
+    pop();
   }
 }
