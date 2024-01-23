@@ -22,6 +22,7 @@ class Level {
     ];
   }
 
+
   public update() {
     for (let gameEntity of this.gameEntities) {
       gameEntity.update();
