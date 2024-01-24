@@ -2,7 +2,7 @@ class Game {
   private currentMenu: IMenu;
 
   constructor() {
-    this.currentMenu = new GameBoard();
+    this.currentMenu = new GameMenu();
   }
 
   public update() {

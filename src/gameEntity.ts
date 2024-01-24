@@ -1,9 +1,7 @@
 abstract class GameEntity {
   protected x: number;
   protected y: number;
-
   private speed: number;
-
   private width: number;
   private height: number;
 
@@ -30,8 +28,13 @@ abstract class GameEntity {
     this.img = img;
   }
 
-   getEntities() {
-    return this.x, this.y, this.width, this.height;
+  public getBoundingBox(): {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  } {
+    return {x: this.x, y: this.y, width: this.width, height: this.height};
   }
 
   public update() {
