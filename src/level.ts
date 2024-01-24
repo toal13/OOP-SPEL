@@ -11,18 +11,25 @@ class Level {
       // ---------- Landscape ------------
 
       // -------- Moving things Road ----------
-      new Car(300, 305, speed, 70, 50),
-      new Car(width, 358, -speed, 70, 50),
-      new Car(width, 410, speed, 70, 50),
+      new Car(300, 305, speed, 100, 50),
+      new Car(width, 358, -speed, 100, 50),
+      new Car(width, 410, speed, 100, 50),
 
-      new Motorcycle(0, 458, speed, 70, 50),
-      new Truck(300, 508, speed, 95, 50),
+      new Motorcycle(0, 458, speed, 95, 50),
+      new Truck(300, 508, speed, 118, 50),
       // -------- Moving things Water ----------
-      new Turtle(0, 190, -speed, 90, 70),
-
+      new Turtle(150, 200, -speed, 50, 50),
+      new Turtle(100, 200, -speed, 50, 50),
+      new Turtle(50, 200, -speed, 50, 50),
       // ------------- Coins -------------
       new Coin(150, 305, 40, 40),
     ];
+  }
+
+  public filterGameEntities(
+    filter: (entity: GameEntity) => boolean,
+  ): GameEntity[] {
+    return this.gameEntities.filter(filter);
   }
 
   public update() {

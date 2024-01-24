@@ -4,11 +4,9 @@ class GameMenu implements IMenu {
   private buttonLeaderboard: Button;
   private frogImage: p5.Image;
   /* private volumeSlider: p5.Element; */
-  
 
   constructor() {
     this.frogImage = loadImage("./assets/images/menuBackground.png");
-    
 
     /* Create volume-slider */
     /* this.volumeSlider = createSlider(0, 100, 50);
@@ -22,21 +20,21 @@ class GameMenu implements IMenu {
 
     this.buttonNewGame = new Button(
       buttonX,
-      height / 1.73,
+      height / 1.76,
       buttonWidth,
       buttonHeight,
       "New Game",
     );
     this.buttonInstructions = new Button(
       buttonX,
-      height / 1.71 + 53,
+      height / 1.76 + 53,
       buttonWidth,
       buttonHeight,
       "Instructions",
     );
     this.buttonLeaderboard = new Button(
       buttonX,
-      height / 1.71 + 106,
+      height / 1.76 + 106,
       buttonWidth,
       buttonHeight,
       "Leaderboard",
@@ -44,7 +42,6 @@ class GameMenu implements IMenu {
   }
 
   public update() {
-    // Hantera knapptryckning för New Game
     if (this.buttonNewGame.isClicked()) {
       game.setCurrentMenu(new GameBoard());
     }
@@ -55,18 +52,14 @@ class GameMenu implements IMenu {
       game.setCurrentMenu(new LeaderBoard());
     }
   }
-  
 
   public draw() {
-
     imageMode(CORNER);
     image(this.frogImage, 0, 0, width, height);
-    
-    
+
     // Draw all buttons
     this.buttonNewGame.draw();
     this.buttonInstructions.draw();
     this.buttonLeaderboard.draw();
-
   }
 }

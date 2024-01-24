@@ -36,12 +36,12 @@ class Button {
                         mouseY > this.y && mouseY < this.y + this.height;
 
   
-    const backgroundColor = color(255, 255, 255, isMouseOver ? 100 : 70);
+    const backgroundColor = color(255, 255, 255, isMouseOver ? 100 : 0);
 
     fill(backgroundColor);
     rect(this.x, this.y, this.width, this.height, 15);
 
-    fill(isMouseOver ? "white" : "black");
+    fill(isMouseOver ? "black" : "black");
     textSize(22);
     textAlign(CENTER, CENTER);
     text(this.text, this.x + this.width / 2, this.y + this.height / 2);
