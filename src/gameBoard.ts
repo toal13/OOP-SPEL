@@ -13,28 +13,57 @@ class GameBoard implements IMenu {
     const playerBoundingBox = this.player.getBoundingBox();
 
     for (let level of this.levels) {
-      const roadEntitys = level.filterGameEntities(
+      const deathEntitys = level.filterGameEntities(
         (entity: GameEntity) =>
           entity instanceof Truck ||
           entity instanceof Car ||
-          entity instanceof Motorcycle,
+          entity instanceof Motorcycle ||
+          entity instanceof Water ||
+          entity instanceof Snake,
       );
 
-      for (let roadEntity of roadEntitys) {
-        const roadEntityBoundingBox = roadEntity.getBoundingBox();
+      for (let dethEntity of deathEntitys) {
+        const deathEntityBoundingBox = dethEntity.getBoundingBox();
 
         if (
           playerBoundingBox.x <
-            roadEntityBoundingBox.x + roadEntityBoundingBox.width &&
+            deathEntityBoundingBox.x + deathEntityBoundingBox.width &&
           playerBoundingBox.x + playerBoundingBox.width >
-            roadEntityBoundingBox.x &&
+            deathEntityBoundingBox.x &&
           playerBoundingBox.y <
-            roadEntityBoundingBox.y + roadEntityBoundingBox.height &&
+            deathEntityBoundingBox.y + deathEntityBoundingBox.height &&
           playerBoundingBox.y + playerBoundingBox.height >
-            roadEntityBoundingBox.y
+            deathEntityBoundingBox.y
         ) {
           // Collision detected, handle it here
-          console.log("Road collision detected!");
+          console.log("Death collision detected!");
+        }
+      }
+    }
+  }
+
+  matchSpeedCollision() {
+    const playerBoundingBox = this.player.getBoundingBox();
+    for (let level of this.levels) {
+      const speedEntitys = level.filterGameEntities(
+        (entity: GameEntity) =>
+          entity instanceof Turtle || entity instanceof Log,
+      );
+      for (let speedEntity of speedEntitys) {
+        const speedEntityBoundingBox = speedEntity.getBoundingBox();
+
+        if (
+          playerBoundingBox.x <
+            speedEntityBoundingBox.x + speedEntityBoundingBox.width &&
+          playerBoundingBox.x + playerBoundingBox.width >
+            speedEntityBoundingBox.x &&
+          playerBoundingBox.y <
+            speedEntityBoundingBox.y + speedEntityBoundingBox.height &&
+          playerBoundingBox.y + playerBoundingBox.height >
+            speedEntityBoundingBox.y
+        ) {
+          const entitySpeed = speedEntity.getSpeed();
+          this.player.setSpeed(entitySpeed.x);
         }
       }
     }
@@ -42,6 +71,7 @@ class GameBoard implements IMenu {
 
   public update() {
     this.checkCollision();
+    this.matchSpeedCollision();
     for (let level of this.levels) {
       level.update();
     }

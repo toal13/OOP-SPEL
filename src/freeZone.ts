@@ -2,7 +2,7 @@
 
 class FreeZone extends GameEntity {
   constructor(x: number, y: number) {
-    super(x, y, 0, windowWidth, 0, freeZoneImg.freeZone);
+    super(x, y, 0, windowWidth, 50, freeZoneImg.freeZone);
   }
 
   public update() {}
