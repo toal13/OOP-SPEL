@@ -19,7 +19,7 @@ class Player extends GameEntity {
   private isMoving: boolean;
 
   constructor() {
-    super(1000 * 0.5, 560, 0, 40, 40, frogImg.frog);
+    super(1000 * 0.5, 560, 0, 46, 40, frogImg.frog);
 
     this.controls = {
       up: UP_ARROW,

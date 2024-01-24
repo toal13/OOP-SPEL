@@ -35,8 +35,7 @@ class GameBoard implements IMenu {
           playerBoundingBox.y + playerBoundingBox.height >
             deathEntityBoundingBox.y
         ) {
-          // Collision detected, handle it here
-          console.log("Death collision detected!");
+          console.log("Death Collision");
         }
       }
     }

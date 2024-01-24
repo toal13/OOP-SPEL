@@ -4,12 +4,6 @@ abstract class GameEntity {
   private speed: number;
   private width: number;
   private height: number;
-
-  /* private left: number;
-  private right: number;
-  private top: number;
-  private bottom: number; */
-
   protected img: p5.Image;
 
   public constructor(
