@@ -18,6 +18,10 @@ class Player extends GameEntity {
   private jumpSpeed: number;
   private isMoving: boolean;
 
+  private score: number;
+  private prevX: number;
+  private prevY: number;
+
   constructor() {
     super(1000 * 0.5, 560, 0, 46, 40, frogImg.frog);
 
@@ -31,32 +35,60 @@ class Player extends GameEntity {
     this.jumpDistance = 50;
     this.jumpSpeed = 5;
     this.isMoving = false;
+
+    this.score = 0;
+    this.prevX = this.x;
+
+    // Hämta sparad poäng från localStorage vid skapandet av spelaren
+    const savedScore = localStorage.getItem("playerScore");
+    this.score = savedScore ? parseInt(savedScore, 10) : 0;
+
+    this.prevY = this.y; // Fix: Initialize prevY with the current y-coordinate
   }
 
   public update() {
+    super.update();
     this.move();
-    // Additional updates or logic here
+    console.log(`Player Position - X: ${this.x}, Y: ${this.y}`);
   }
 
   protected move() {
     if (keyIsDown(this.controls.up) && this.y > minY && !this.isMoving) {
       this.y -= this.jumpDistance;
       this.isMoving = true;
+      this.incrementScore();
     }
     if (keyIsDown(this.controls.down) && this.y < maxY && !this.isMoving) {
       this.y += this.jumpDistance;
       this.isMoving = true;
+      this.incrementScore();
     }
     if (keyIsDown(this.controls.left) && this.x > minX && !this.isMoving) {
       this.x -= this.jumpDistance;
       this.isMoving = true;
+      this.incrementScore();
     }
     if (keyIsDown(this.controls.right) && this.x < maxX && !this.isMoving) {
       this.x += this.jumpDistance;
       this.isMoving = true;
+      this.incrementScore();
     }
 
-    // Reset the flag if the key is released
+    // Kollisionskontroller för att förhindra att spelaren går utanför skärmen
+    if (this.x < minX) {
+      this.x = minX;
+    }
+    if (this.x + this.width > maxX) {
+      this.x = maxX - this.width;
+    }
+    if (this.y < minY) {
+      this.y = minY;
+    }
+    if (this.y + this.height > maxY) {
+      this.y = maxY - this.height;
+    }
+
+    // Återställ flaggan om tangenten släpps
     if (
       !keyIsDown(this.controls.up) &&
       !keyIsDown(this.controls.down) &&
@@ -65,5 +97,33 @@ class Player extends GameEntity {
     ) {
       this.isMoving = false;
     }
+  } // Add the missing closing curly brace for the move method
+
+  private saveScore() {
+    // Spara poängen i localStorage
+    localStorage.setItem("playerScore", this.score.toString());
+  }
+
+  private incrementScore() {
+    // Öka poängen endast om spelaren hoppar framåt
+    if (this.y < this.prevY) {
+      this.score += 1;
+
+      // Spara poängen i localStorage när den ökar
+      this.saveScore();
+    }
+    // Uppdatera föregående y-koordinat
+    this.prevY = this.y;
+  }
+
+  public drawScore() {
+    fill(255); // Vit färg för texten
+    textSize(20); // Justera textstorleken efter behov
+    textAlign(RIGHT, TOP); // Justera textjusteringen efter behov
+    text(`Score: ${this.score}`, width, 0);
+  }
+
+  public getScore() {
+    return this.score;
   }
 }

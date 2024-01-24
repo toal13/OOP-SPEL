@@ -21,13 +21,9 @@ class Level {
       new Turtle(150, 200, -speed, 50, 50),
       new Turtle(100, 200, -speed, 50, 50),
       new Turtle(50, 200, -speed, 50, 50),
+      // ------------- Coins -------------
+      new Coin(150, 305, 40, 40),
     ];
-  }
-
-  public filterGameEntities(
-    filter: (entity: GameEntity) => boolean,
-  ): GameEntity[] {
-    return this.gameEntities.filter(filter);
   }
 
   public update() {
