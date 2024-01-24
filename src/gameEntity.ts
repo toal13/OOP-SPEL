@@ -22,6 +22,26 @@ abstract class GameEntity {
     this.img = img;
   }
 
+  public getBoundingBox(): {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  } {
+    return {x: this.x, y: this.y, width: this.width, height: this.height};
+  }
+
+  public getSpeed(): {
+    x: number;
+    speed: number;
+  } {
+    return {x: this.x, speed: this.speed};
+  }
+
+  public setSpeed(x: number) {
+    this.x = x;
+  }
+
   public update() {
     this.x += this.speed * deltaTime;
     this.resetWhenOffScreen();
