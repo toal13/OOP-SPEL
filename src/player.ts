@@ -33,8 +33,8 @@ class Player extends GameEntity {
     this.jumpDistance = 50;
     this.jumpSpeed = 5;
     this.isMoving = false;
-    // this.score = 0;
-    // this.prevX = this.x;
+    this.score = 0;
+    this.prevX = this.x;
 
     // Hämta sparad poäng från localStorage vid skapandet av spelaren
     const savedScore = localStorage.getItem("playerScore");
