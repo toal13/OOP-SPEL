@@ -27,5 +27,6 @@ class GameBoard implements IMenu {
     textSize(20);
     textAlign(RIGHT, TOP);
     text(`Score: ${this.player.getScore()}`, width, 0);
+
   }
 }

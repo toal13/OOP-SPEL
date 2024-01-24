@@ -21,7 +21,7 @@ class Level {
       new Turtle(0, 190, -speed, 90, 70),
 
       // ------------- Coins -------------
-      
+      new Coin(150, 305, (speed = 0), 40, 40),
     ];
   }
 

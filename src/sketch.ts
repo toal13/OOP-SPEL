@@ -55,7 +55,9 @@ let soundOffImg: {
 let soundOnImg: {
   soundOn: p5.Image;
 };
-
+let coin: {
+  coin: p5.Image;
+};
 
 /**
  * Built in preload function in P5
@@ -117,6 +119,9 @@ function preload() {
   };
   soundOnImg = {
     soundOn: loadImage("./assets/images/soundOn.png"),
+  };
+  coin = {
+    coin: loadImage("./assets/images/coin.png"),
   };
 }
 
