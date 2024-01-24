@@ -1,9 +1,9 @@
 abstract class GameEntity {
-  protected x: number;
-  protected y: number;
-  private speed: number;
-  private width: number;
-  private height: number;
+  public x: number;
+  public y: number;
+  protected speed: number;
+  public width: number;
+  public height: number;
   protected img: p5.Image;
 
   public constructor(

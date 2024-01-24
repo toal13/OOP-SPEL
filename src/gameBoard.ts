@@ -2,51 +2,50 @@ class GameBoard implements IMenu {
   private worldSpeed: number;
   private player: Player;
   private levels: Level[];
+  private isGameOver: boolean;
 
   constructor() {
     this.worldSpeed = 0.05;
     this.player = new Player();
     this.levels = [new Level(this.worldSpeed)];
+    this.isGameOver = false;
   }
 
   checkCollision() {
     const playerBoundingBox = this.player.getBoundingBox();
 
     for (let level of this.levels) {
-      const deathEntitys = level.filterGameEntities(
-        (entity: GameEntity) =>
-          entity instanceof Truck ||
-          entity instanceof Car ||
-          entity instanceof Motorcycle ||
-          entity instanceof Water ||
-          entity instanceof Snake,
-      );
-
-      for (let dethEntity of deathEntitys) {
-        const deathEntityBoundingBox = dethEntity.getBoundingBox();
-
+      for (let entity of level.gameEntities) {
         if (
-          playerBoundingBox.x <
-            deathEntityBoundingBox.x + deathEntityBoundingBox.width &&
-          playerBoundingBox.x + playerBoundingBox.width >
-            deathEntityBoundingBox.x &&
-          playerBoundingBox.y <
-            deathEntityBoundingBox.y + deathEntityBoundingBox.height &&
-          playerBoundingBox.y + playerBoundingBox.height >
-            deathEntityBoundingBox.y
+          playerBoundingBox.x < entity.x + entity.width &&
+          playerBoundingBox.x + playerBoundingBox.width > entity.x &&
+          playerBoundingBox.y < entity.y + entity.height &&
+          playerBoundingBox.y + playerBoundingBox.height > entity.y
         ) {
-          console.log("Death Collision");
+          if (
+            entity instanceof Truck ||
+            entity instanceof Car ||
+            entity instanceof Motorcycle ||
+            entity instanceof Water ||
+            entity instanceof Snake
+          ) {
+            //DÖ
+            this.isGameOver = true;
+            /*             game.pushNewMenu(new GameOverMenu)
+             */
+          }
         }
       }
     }
   }
 
-  matchSpeedCollision() {
+  /*  matchSpeedCollision() {
     const playerBoundingBox = this.player.getBoundingBox();
     for (let level of this.levels) {
       const speedEntitys = level.filterGameEntities(
         (entity: GameEntity) =>
-          entity instanceof Turtle || entity instanceof Log,
+          entity instanceof Turtle ||
+          (entity instanceof Log && entity instanceof Water),
       );
       for (let speedEntity of speedEntitys) {
         const speedEntityBoundingBox = speedEntity.getBoundingBox();
@@ -66,15 +65,16 @@ class GameBoard implements IMenu {
         }
       }
     }
-  }
+  } */
 
   public update() {
-    this.checkCollision();
-    this.matchSpeedCollision();
     for (let level of this.levels) {
       level.update();
     }
-    this.player.update();
+    if (!this.isGameOver) {
+      this.player.update();
+      this.checkCollision();
+    }
   }
 
   public draw() {
@@ -88,6 +88,5 @@ class GameBoard implements IMenu {
     textSize(20);
     textAlign(RIGHT, TOP);
     text(`Score: ${this.player.getScore()}`, width, 0);
-
   }
 }

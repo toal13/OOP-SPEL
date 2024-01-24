@@ -26,12 +26,6 @@ class Level {
     ];
   }
 
-  public filterGameEntities(
-    filter: (entity: GameEntity) => boolean,
-  ): GameEntity[] {
-    return this.gameEntities.filter(filter);
-  }
-
   public update() {
     for (let gameEntity of this.gameEntities) {
       gameEntity.update();

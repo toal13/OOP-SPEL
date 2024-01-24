@@ -20,6 +20,7 @@ class Player extends GameEntity {
 
   private score: number;
   private prevX: number;
+  private prevY: number;
 
   constructor() {
     super(1000 * 0.5, 560, 0, 46, 40, frogImg.frog);
@@ -46,8 +47,8 @@ class Player extends GameEntity {
   }
 
   public update() {
+    super.update();
     this.move();
-
     console.log(`Player Position - X: ${this.x}, Y: ${this.y}`);
   }
 
@@ -85,7 +86,7 @@ class Player extends GameEntity {
     }
     if (this.y + this.height > maxY) {
       this.y = maxY - this.height;
-
+    }
 
     // Återställ flaggan om tangenten släpps
     if (
@@ -96,7 +97,7 @@ class Player extends GameEntity {
     ) {
       this.isMoving = false;
     }
-  }
+  } // Add the missing closing curly brace for the move method
 
   private saveScore() {
     // Spara poängen i localStorage
