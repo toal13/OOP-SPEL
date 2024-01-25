@@ -1,4 +1,4 @@
-/// <reference path="./gameEntity.ts" />
+/// <reference path="./entities/gameEntity.ts" />
 
 type Controls = {
   up: number;

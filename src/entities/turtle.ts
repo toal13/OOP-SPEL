@@ -1,5 +1,3 @@
-/// <reference path="./gameEntity.ts" />
-
 class Turtle extends GameEntity {
   constructor(
     x: number,
