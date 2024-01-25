@@ -24,4 +24,3 @@ class Game {
     this.currentMenu.push(newMenu);
   }
 }
- 
