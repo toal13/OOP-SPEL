@@ -58,6 +58,9 @@ let soundOnImg: {
 let coin: {
   coin: p5.Image;
 };
+let gameOverImg: {
+  gameOverMenu: p5.Image;
+};
 
 /**
  * Built in preload function in P5
@@ -122,6 +125,9 @@ function preload() {
   };
   coin = {
     coin: loadImage("./assets/images/coin.png"),
+  };
+  gameOverImg = {
+  gameOverMenu: loadImage("./assets/images/gameOver.png"),
   };
 }
 
