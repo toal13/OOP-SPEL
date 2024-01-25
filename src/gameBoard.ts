@@ -3,25 +3,34 @@ class GameBoard implements IMenu {
   private player: Player;
   private levels: Level[];
   private isGameOver: boolean;
+  private isMoving: boolean;
 
   constructor() {
     this.worldSpeed = 0.05;
     this.player = new Player();
     this.levels = [new Level(this.worldSpeed)];
     this.isGameOver = false;
+    this.isMoving = false;
   }
 
   private moveViewPort() {
     const playerSize = 45;
     const movementIncrement = 0.1;
-    const jumpIncrement = 6;
+    const jumpIncrement = 0.01;
 
     for (let level of this.levels) {
       for (let entity of level.gameEntities) {
-        if (keyIsDown(UP_ARROW)) {
-          const scaledJumpIncrement = jumpIncrement * (playerSize / 600);
-          entity.y += 6;
-          this.player.y += scaledJumpIncrement;
+        if (keyIsDown(UP_ARROW) && !this.isMoving) {
+          const moveCamera = setInterval(() => {
+            this.isMoving = true;
+            const scaledJumpIncrement = jumpIncrement * (playerSize / 600);
+            entity.y += 0.01;
+            this.player.y += scaledJumpIncrement;
+          });
+          setTimeout(() => {
+            clearInterval(moveCamera);
+            this.isMoving = false;
+          }, 1000);
         } else {
           const scaledIncrement = movementIncrement * (playerSize / 600);
           entity.y += 0.1;
