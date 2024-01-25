@@ -8,7 +8,6 @@ type Controls = {
 };
 
 const minY = 0;
-const maxY = 600; // Adjust this value based on your game world height
 const minX = 0;
 const maxX = 1000; // Adjust this value based on your game world width
 
@@ -23,7 +22,7 @@ class Player extends GameEntity {
   private prevY: number;
 
   constructor() {
-    super(1000 * 0.5, 560, 0, 46, 40, frogImg.frog);
+    super(1000 * 0.5, 560, 0, 45, 40, frogImg.frog);
 
     this.controls = {
       up: UP_ARROW,
@@ -33,7 +32,7 @@ class Player extends GameEntity {
     };
 
     this.jumpDistance = 50;
-    this.jumpSpeed = 5;
+    this.jumpSpeed = 0;
     this.isMoving = false;
 
     this.score = 0;
@@ -47,7 +46,6 @@ class Player extends GameEntity {
   }
 
   public update() {
-    super.update();
     this.move();
     console.log(`Player Position - X: ${this.x}, Y: ${this.y}`);
   }
@@ -58,7 +56,7 @@ class Player extends GameEntity {
       this.isMoving = true;
       this.incrementScore();
     }
-    if (keyIsDown(this.controls.down) && this.y < maxY && !this.isMoving) {
+    if (keyIsDown(this.controls.down) && this.y && !this.isMoving) {
       this.y += this.jumpDistance;
       this.isMoving = true;
       this.incrementScore();
@@ -83,9 +81,6 @@ class Player extends GameEntity {
     }
     if (this.y < minY) {
       this.y = minY;
-    }
-    if (this.y + this.height > maxY) {
-      this.y = maxY - this.height;
     }
 
     // Återställ flaggan om tangenten släpps
