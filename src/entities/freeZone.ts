@@ -2,12 +2,12 @@
 
 class FreeZone extends GameEntity {
   constructor(x: number, y: number) {
-    super(x, y, 0, windowWidth, windowHeight * 0.1, freeZoneImg.freeZone);
+    super(x, y, 0, windowWidth, 50, freeZoneImg.freeZone);
   }
 
   public update() {}
 
   public draw() {
-    image(this.img, this.x, this.y, windowWidth, windowHeight * 0.1);
+    image(this.img, this.x, this.y, windowWidth, 50);
   }
 }

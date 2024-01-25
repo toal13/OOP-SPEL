@@ -4,23 +4,25 @@ class Level {
   public constructor(speed: number) {
     this.gameEntities = [
       // ---------- Landscape ------------
-      new FreeZone(0, windowHeight * 0.9),
-      new Road(0, windowHeight * 0.725),
-      new Road(0, windowHeight * 0.55),
-      new FreeZone(0, windowHeight * 0.45),
-      new Water(0, windowHeight * 0.11),
-      new FreeZone(0, windowHeight * 0.001),
+      new FreeZone(0, 550),
+      new Road(0, 300),
+      new FreeZone(0, 250),
+      new Water(0, 0),
       // ---------- Landscape ------------
 
       // -------- Moving things Road ----------
-      new Car(300, 560, speed, 70, 60),
-      new Car(width, 425, -speed, 70, 60),
-      new Car(width, 525, speed, 70, 60),
+      new Car(300, 305, speed, 100, 50),
+      new Car(width, 358, -speed, 100, 50),
+      new Car(width, 410, speed, 100, 50),
 
-      new Motorcycle(0, 560, speed, 70, 60),
-      new Truck(300, 500, speed, 70, 60),
+      new Motorcycle(0, 458, speed, 95, 50),
+      new Truck(300, 508, speed, 118, 50),
       // -------- Moving things Water ----------
-      new Turtle(0, 200, speed, 90, 70)
+      new Turtle(150, 200, -speed, 50, 50),
+      new Turtle(100, 200, -speed, 50, 50),
+      new Turtle(50, 200, -speed, 50, 50),
+      // ------------- Coins -------------
+      new Coin(150, 305, 40, 40),
     ];
   }
 
