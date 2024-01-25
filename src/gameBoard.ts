@@ -34,38 +34,17 @@ class GameBoard implements IMenu {
             /*             game.pushNewMenu(new GameOverMenu)
              */
           }
+          if (
+            entity instanceof Turtle ||
+            (entity instanceof Log && entity instanceof Water)
+          ) {
+            this.player.x = entity.x;
+            this.isGameOver = false;
+          }
         }
       }
     }
   }
-
-  /*  matchSpeedCollision() {
-    const playerBoundingBox = this.player.getBoundingBox();
-    for (let level of this.levels) {
-      const speedEntitys = level.filterGameEntities(
-        (entity: GameEntity) =>
-          entity instanceof Turtle ||
-          (entity instanceof Log && entity instanceof Water),
-      );
-      for (let speedEntity of speedEntitys) {
-        const speedEntityBoundingBox = speedEntity.getBoundingBox();
-
-        if (
-          playerBoundingBox.x <
-            speedEntityBoundingBox.x + speedEntityBoundingBox.width &&
-          playerBoundingBox.x + playerBoundingBox.width >
-            speedEntityBoundingBox.x &&
-          playerBoundingBox.y <
-            speedEntityBoundingBox.y + speedEntityBoundingBox.height &&
-          playerBoundingBox.y + playerBoundingBox.height >
-            speedEntityBoundingBox.y
-        ) {
-          const entitySpeed = speedEntity.getSpeed();
-          this.player.setSpeed(entitySpeed.x);
-        }
-      }
-    }
-  } */
 
   public update() {
     for (let level of this.levels) {
