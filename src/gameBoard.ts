@@ -11,7 +11,27 @@ class GameBoard implements IMenu {
     this.isGameOver = false;
   }
 
-  checkCollision() {
+  private moveViewPort() {
+    const playerSize = 45;
+    const movementIncrement = 0.1;
+    const jumpIncrement = 6;
+
+    for (let level of this.levels) {
+      for (let entity of level.gameEntities) {
+        if (keyIsDown(UP_ARROW)) {
+          const scaledJumpIncrement = jumpIncrement * (playerSize / 600);
+          entity.y += 6;
+          this.player.y += scaledJumpIncrement;
+        } else {
+          const scaledIncrement = movementIncrement * (playerSize / 600);
+          entity.y += 0.1;
+          this.player.y += scaledIncrement;
+        }
+      }
+    }
+  }
+
+  private checkCollision() {
     const playerBoundingBox = this.player.getBoundingBox();
 
     for (let level of this.levels) {
@@ -53,6 +73,7 @@ class GameBoard implements IMenu {
     if (!this.isGameOver) {
       this.player.update();
       this.checkCollision();
+      this.moveViewPort();
     }
   }
 
