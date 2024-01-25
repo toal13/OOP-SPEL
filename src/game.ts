@@ -2,7 +2,7 @@ class Game {
   private currentMenu: IMenu[];
 
   constructor() {
-    this.currentMenu = [new GameMenu()];
+    this.currentMenu = [new GameMenu() new GameOverMenu()];
   }
 
   public update() {
