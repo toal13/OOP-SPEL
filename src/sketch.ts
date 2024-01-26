@@ -1,6 +1,13 @@
 //---- GLOBAL VARIABLES ----//
 let game: Game;
 
+let assets: {
+  music: {};
+  sounds: {};
+  images: {};
+  fonts: {};
+}
+
 let music: {
   mystery: p5.SoundFile;
 };
@@ -67,8 +74,20 @@ let frogBack2Image: {
 let frogBack3Img: {
   frogBack3: p5.Image;
 };
-let frogBack4Image: {
+let frogBack4Img: {
   frogBack4: p5.Image;
+};
+let frogRight2Img: {
+  frogRight2: p5.Image;
+};
+let frogRight3Img: {
+  frogRight3: p5.Image;
+};
+let frogRight4Img: {
+  frogRight4: p5.Image;
+};
+let frogRight5Img: {
+  frogRight5: p5.Image;
 };
 
 /**
@@ -144,8 +163,20 @@ function preload() {
   frogBack3Img = {
     frogBack3: loadImage("./assets/images/frogBack3.png"),
   };
-  frogBack4Image = {
+  frogBack4Img = {
     frogBack4: loadImage("./assets/images/frogBack4.png"),
+  };
+  frogRight2Img = {
+    frogRight2: loadImage("./assets/images/frogRight2.png"),
+  };
+  frogRight3Img = {
+    frogRight3: loadImage("./assets/images/frogRight3.png"),
+  };
+  frogRight4Img = {
+    frogRight4: loadImage("./assets/images/frogRight4.png"),
+  };
+  frogRight5Img = {
+    frogRight5: loadImage("./assets/images/frogRight5.png"),
   };
 }
 

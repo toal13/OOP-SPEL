@@ -9,23 +9,29 @@ type Controls = {
 
 const minY = 0;
 const minX = 0;
-const maxX = 1000; // Adjust this value based on your game world width
+const maxX = 1000;
 
 class Player extends GameEntity {
   private controls: Controls;
   private jumpDistance: number;
-  private jumpSpeed: number;
+  private readonly jumpSpeed: number;
   private isJumping: boolean;
-  private jumpFrames: number;
   private currentJumpFrame: number;
   private jumpTimer: number;
 
   private score: number;
   private prevX: number;
   private prevY: number;
+  private images: p5.Image[];
 
   constructor() {
     super(1000 * 0.5, 560, 0, 45, 40, frogBasicImg.frogBasic);
+    this.images = [
+      frogBasicImg.frogBasic,
+      frogBack2Image.frogBack2,
+      frogBack3Img.frogBack3,
+      frogBack4Img.frogBack4,
+    ];
 
     this.controls = {
       up: UP_ARROW,
@@ -35,9 +41,8 @@ class Player extends GameEntity {
     };
 
     this.jumpDistance = 50;
-    this.jumpSpeed = 0;
+    this.jumpSpeed = 200;
     this.isJumping = false;
-    this.jumpFrames = 4; // Number of frames for the jump animation
     this.currentJumpFrame = 0; // Current frame of the jump animation
     this.jumpTimer = 0;
 
@@ -47,32 +52,22 @@ class Player extends GameEntity {
     const savedScore = localStorage.getItem("playerScore");
     this.score = savedScore ? parseInt(savedScore, 10) : 0;
 
-    this.prevY = this.y; // Fix: Initialize prevY with the current y-coordinate
+    this.prevY = this.y;
   }
 
   public update() {
     this.move();
-    this.updateJump(); // Ny metod för hoppanimation
+    this.updateJump();
     console.log(`Player Position - X: ${this.x}, Y: ${this.y}`);
   }
 
   private updateJump() {
-    if (this.isJumping) {
-      // Öka hopp-timern
-      this.jumpTimer++;
-
-      // Beräkna tiden för varje hoppbild
-      const jumpFrameTime = 500 / this.jumpFrames;
+    if (this.jumpTimer > 0) {
+      this.jumpTimer -= deltaTime;
 
       // Beräkna aktuell hoppbild baserad på tid
-      this.currentJumpFrame = Math.floor(this.jumpTimer / jumpFrameTime);
-
-      // Kontrollera om hoppanimationen är klar
-      if (this.currentJumpFrame >= this.jumpFrames) {
-        this.isJumping = false;
-        this.currentJumpFrame = 0;
-        this.jumpTimer = 0;
-      }
+      const timeForOneFrame = 200 / this.images.length;
+      this.currentJumpFrame = Math.floor(this.jumpTimer / timeForOneFrame); // dom blir baklänges
     }
   }
 
@@ -80,25 +75,29 @@ class Player extends GameEntity {
     if (keyIsDown(this.controls.up) && this.y > minY && !this.isJumping) {
       this.y -= this.jumpDistance;
       this.isJumping = true;
+      this.jumpTimer = 200;
       this.incrementScore();
     }
     if (keyIsDown(this.controls.down) && this.y && !this.isJumping) {
       this.y += this.jumpDistance;
       this.isJumping = true;
+      this.jumpTimer = 200;
       this.incrementScore();
     }
     if (keyIsDown(this.controls.left) && this.x > minX && !this.isJumping) {
       this.x -= this.jumpDistance;
       this.isJumping = true;
+      this.jumpTimer = 200;
       this.incrementScore();
     }
     if (keyIsDown(this.controls.right) && this.x < maxX && !this.isJumping) {
       this.x += this.jumpDistance;
       this.isJumping = true;
+      this.jumpTimer = 200;
       this.incrementScore();
     }
 
-    // Kollisionskontroller för att förhindra att spelaren går utanför skärmen
+    // Förhindrar att spelaren går utanför skärmen
     if (this.x < minX) {
       this.x = minX;
     }
@@ -121,19 +120,14 @@ class Player extends GameEntity {
   }
 
   private saveScore() {
-    // Spara poängen i localStorage
     localStorage.setItem("playerScore", this.score.toString());
   }
 
   private incrementScore() {
-    // Öka poängen endast om spelaren hoppar framåt
     if (this.y < this.prevY) {
       this.score += 1;
-
-      // Spara poängen i localStorage när den ökar
       this.saveScore();
     }
-    // Uppdatera föregående y-koordinat
     this.prevY = this.y;
   }
 
@@ -145,48 +139,9 @@ class Player extends GameEntity {
 
     // Rita spelaren baserat på hoppanimationen
     if (this.isJumping) {
-      switch (this.currentJumpFrame) {
-        case 0:
-          image(
-            frogBasicImg.frogBasic,
-            this.x,
-            this.y,
-            this.width,
-            this.height,
-          );
-          break;
-        case 1:
-          image(
-            frogBack2Image.frogBack2,
-            this.x,
-            this.y,
-            this.width,
-            this.height,
-          );
-          break;
-        case 2:
-          image(
-            frogBack3Img.frogBack3,
-            this.x,
-            this.y,
-            this.width,
-            this.height,
-          );
-          break;
-        case 3:
-          image(
-            frogBack4Image.frogBack4,
-            this.x,
-            this.y,
-            this.width,
-            this.height,
-          );
-          break;
-        default:
-          break;
-      }
+      const jumpFrameImage = this.images[this.currentJumpFrame];
+      image(jumpFrameImage, this.x, this.y, this.width, this.height);
     } else {
-      // Annars visas den vanliga bilden av grodan
       image(frogBasicImg.frogBasic, this.x, this.y, this.width, this.height);
     }
   }
