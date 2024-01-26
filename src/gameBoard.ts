@@ -60,8 +60,8 @@ class GameBoard implements IMenu {
           ) {
             //DÖ
             this.isGameOver = true;
-            /*             game.pushNewMenu(new GameOverMenu)
-             */
+                        game.pushNewMenu(new GameOverMenu)
+            
           }
           if (
             entity instanceof Turtle ||
