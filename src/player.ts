@@ -15,14 +15,17 @@ class Player extends GameEntity {
   private controls: Controls;
   private jumpDistance: number;
   private jumpSpeed: number;
-  private isMoving: boolean;
+  private isJumping: boolean;
+  private jumpFrames: number;
+  private currentJumpFrame: number;
+  private jumpTimer: number;
 
   private score: number;
   private prevX: number;
   private prevY: number;
 
   constructor() {
-    super(1000 * 0.5, 560, 0, 45, 40, frogImg.frog);
+    super(1000 * 0.5, 560, 0, 45, 40, frogBasicImg.frogBasic);
 
     this.controls = {
       up: UP_ARROW,
@@ -33,12 +36,14 @@ class Player extends GameEntity {
 
     this.jumpDistance = 50;
     this.jumpSpeed = 0;
-    this.isMoving = false;
+    this.isJumping = false;
+    this.jumpFrames = 4; // Number of frames for the jump animation
+    this.currentJumpFrame = 0; // Current frame of the jump animation
+    this.jumpTimer = 0;
 
     this.score = 0;
     this.prevX = this.x;
 
-    // Hämta sparad poäng från localStorage vid skapandet av spelaren
     const savedScore = localStorage.getItem("playerScore");
     this.score = savedScore ? parseInt(savedScore, 10) : 0;
 
@@ -47,28 +52,49 @@ class Player extends GameEntity {
 
   public update() {
     this.move();
+    this.updateJump(); // Ny metod för hoppanimation
     console.log(`Player Position - X: ${this.x}, Y: ${this.y}`);
   }
 
+  private updateJump() {
+    if (this.isJumping) {
+      // Öka hopp-timern
+      this.jumpTimer++;
+
+      // Beräkna tiden för varje hoppbild
+      const jumpFrameTime = 500 / this.jumpFrames;
+
+      // Beräkna aktuell hoppbild baserad på tid
+      this.currentJumpFrame = Math.floor(this.jumpTimer / jumpFrameTime);
+
+      // Kontrollera om hoppanimationen är klar
+      if (this.currentJumpFrame >= this.jumpFrames) {
+        this.isJumping = false;
+        this.currentJumpFrame = 0;
+        this.jumpTimer = 0;
+      }
+    }
+  }
+
   protected move() {
-    if (keyIsDown(this.controls.up) && this.y > minY && !this.isMoving) {
+    if (keyIsDown(this.controls.up) && this.y > minY && !this.isJumping) {
       this.y -= this.jumpDistance;
-      this.isMoving = true;
+      this.isJumping = true;
       this.incrementScore();
     }
-    if (keyIsDown(this.controls.down) && this.y && !this.isMoving) {
+    if (keyIsDown(this.controls.down) && this.y && !this.isJumping) {
       this.y += this.jumpDistance;
-      this.isMoving = true;
+      this.isJumping = true;
       this.incrementScore();
     }
-    if (keyIsDown(this.controls.left) && this.x > minX && !this.isMoving) {
+    if (keyIsDown(this.controls.left) && this.x > minX && !this.isJumping) {
       this.x -= this.jumpDistance;
-      this.isMoving = true;
+      this.isJumping = true;
       this.incrementScore();
     }
-    if (keyIsDown(this.controls.right) && this.x < maxX && !this.isMoving) {
+    if (keyIsDown(this.controls.right) && this.x < maxX && !this.isJumping) {
       this.x += this.jumpDistance;
-      this.isMoving = true;
+      this.isJumping = true;
       this.incrementScore();
     }
 
@@ -90,9 +116,9 @@ class Player extends GameEntity {
       !keyIsDown(this.controls.left) &&
       !keyIsDown(this.controls.right)
     ) {
-      this.isMoving = false;
+      this.isJumping = false;
     }
-  } // Add the missing closing curly brace for the move method
+  }
 
   private saveScore() {
     // Spara poängen i localStorage
@@ -111,11 +137,58 @@ class Player extends GameEntity {
     this.prevY = this.y;
   }
 
-  public drawScore() {
-    fill(255); // Vit färg för texten
-    textSize(20); // Justera textstorleken efter behov
-    textAlign(RIGHT, TOP); // Justera textjusteringen efter behov
+  public draw() {
+    fill(255);
+    textSize(20);
+    textAlign(RIGHT, TOP);
     text(`Score: ${this.score}`, width, 0);
+
+    // Rita spelaren baserat på hoppanimationen
+    if (this.isJumping) {
+      switch (this.currentJumpFrame) {
+        case 0:
+          image(
+            frogBasicImg.frogBasic,
+            this.x,
+            this.y,
+            this.width,
+            this.height,
+          );
+          break;
+        case 1:
+          image(
+            frogBack2Image.frogBack2,
+            this.x,
+            this.y,
+            this.width,
+            this.height,
+          );
+          break;
+        case 2:
+          image(
+            frogBack3Img.frogBack3,
+            this.x,
+            this.y,
+            this.width,
+            this.height,
+          );
+          break;
+        case 3:
+          image(
+            frogBack4Image.frogBack4,
+            this.x,
+            this.y,
+            this.width,
+            this.height,
+          );
+          break;
+        default:
+          break;
+      }
+    } else {
+      // Annars visas den vanliga bilden av grodan
+      image(frogBasicImg.frogBasic, this.x, this.y, this.width, this.height);
+    }
   }
 
   public getScore() {

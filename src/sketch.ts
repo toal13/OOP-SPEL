@@ -58,6 +58,18 @@ let soundOnImg: {
 let coin: {
   coin: p5.Image;
 };
+let frogBasicImg: {
+  frogBasic: p5.Image;
+};
+let frogBack2Image: {
+  frogBack2: p5.Image;
+};
+let frogBack3Img: {
+  frogBack3: p5.Image;
+};
+let frogBack4Image: {
+  frogBack4: p5.Image;
+};
 
 /**
  * Built in preload function in P5
@@ -122,6 +134,18 @@ function preload() {
   };
   coin = {
     coin: loadImage("./assets/images/coin.png"),
+  };
+  frogBasicImg = {
+    frogBasic: loadImage("./assets/images/frogBasic.png"),
+  };
+  frogBack2Image = {
+    frogBack2: loadImage("./assets/images/frogBack2.png"),
+  };
+  frogBack3Img = {
+    frogBack3: loadImage("./assets/images/frogBack3.png"),
+  };
+  frogBack4Image = {
+    frogBack4: loadImage("./assets/images/frogBack4.png"),
   };
 }
 
