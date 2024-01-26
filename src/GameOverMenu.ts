@@ -2,16 +2,16 @@ class GameOverMenu implements IMenu {
   private buttonPlayAgain: Button;
   private buttonMenu: Button;
   private gameActive: boolean;
-  private yourScore: string;
-  private highScore: string;
   private gameOverImage: p5.Image;
+  private player: Player;
+  private playerScore: number;
 
-  constructor() {
+  constructor(player: Player, score: number) {
     this.gameOverImage = loadImage("./assets/images/gameOver.png");
     this.gameOverImage.resize(200, 0);
     this.gameActive = true;
-    this.yourScore = "1000";
-    this.highScore = "2000";
+    this.player = player;
+    this.playerScore = score;
 
     let buttonWidth = 140;
     let buttonHeight = 40;
@@ -54,8 +54,23 @@ class GameOverMenu implements IMenu {
     fill(255);
     textSize(30);
     textAlign(CENTER, CENTER);
-    text("Your Score: " + this.yourScore, width / 2, height / 2 + 70);
-    text("High Score: " + this.highScore, width / 2, height / 2 + 100);
+
+    // Display the player's score
+    const playerScore = this.player.getScore();
+    text("Your Score: " + playerScore, width / 2, height / 2 + 70);
+
+    // Retrieve the high score from localStorage
+    const highScore = localStorage.getItem("highScore") || "0";
+
+    // Compare player's score with the high score
+    if (playerScore > parseInt(highScore, 10)) {
+      // If the player's score is higher, update the high score in localStorage
+      localStorage.setItem("highScore", playerScore.toString());
+      text("New High Score: " + playerScore, width / 2, height / 2 + 100);
+    } else {
+      // If not, display the existing high score
+      text("High Score: " + highScore, width / 2, height / 2 + 100);
+    }
 
     this.buttonMenu.draw();
     this.buttonPlayAgain.draw();
