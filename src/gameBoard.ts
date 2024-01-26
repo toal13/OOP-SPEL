@@ -3,41 +3,41 @@ class GameBoard implements IMenu {
   private player: Player;
   private levels: Level[];
   private isGameOver: boolean;
-  private isMoving: boolean;
+  private timer: number;
+  private levelCount: number;
 
   constructor() {
     this.worldSpeed = 0.05;
     this.player = new Player();
-    this.levels = [new Level(this.worldSpeed)];
+    this.levels = [new Level(0), new Level(1), new Level(2)];
+    this.levelCount = this.levels.length;
     this.isGameOver = false;
-    this.isMoving = false;
+    this.timer = 0;
   }
 
   private moveViewPort() {
-    const playerSize = 45;
-    const movementIncrement = 0.1;
-    const jumpIncrement = 0.01;
+    this.timer += deltaTime;
 
+    if (this.timer > 1000) {
+      this.worldSpeed += 0.05;
+      this.timer = 0;
+    }
+
+    this.player.y += this.worldSpeed;
     for (let level of this.levels) {
       for (let entity of level.gameEntities) {
-        if (keyIsDown(UP_ARROW) && !this.isMoving) {
-          const moveCamera = setInterval(() => {
-            this.isMoving = true;
-            const scaledJumpIncrement = jumpIncrement * (playerSize / 600);
-            entity.y += 0.01;
-            this.player.y += scaledJumpIncrement;
-          });
-          setTimeout(() => {
-            clearInterval(moveCamera);
-            this.isMoving = false;
-          }, 1000);
-        } else {
-          const scaledIncrement = movementIncrement * (playerSize / 600);
-          entity.y += 0.1;
-          this.player.y += scaledIncrement;
-        }
+        entity.y += this.worldSpeed;
       }
     }
+  }
+
+  private addLevel() {
+    this.levels.push(new Level(this.levelCount));
+    this.levelCount++;
+  }
+
+  private removeLevel() {
+    this.levels.shift();
   }
 
   private checkCollision() {
@@ -60,6 +60,7 @@ class GameBoard implements IMenu {
           ) {
             //DÖ
             this.isGameOver = true;
+
             /*             game.pushNewMenu(new GameOverMenu)
              */
           }
@@ -81,7 +82,7 @@ class GameBoard implements IMenu {
     }
     if (!this.isGameOver) {
       this.player.update();
-      this.checkCollision();
+      /*   this.checkCollision(); */
       this.moveViewPort();
     }
   }

@@ -22,7 +22,7 @@ class Player extends GameEntity {
   private prevY: number;
 
   constructor() {
-    super(1000 * 0.5, 560, 0, 45, 40, frogImg.frog);
+    super(1000 * 0.5, 555, 0, 45, 40, frogImg.frog);
 
     this.controls = {
       up: UP_ARROW,
@@ -47,7 +47,6 @@ class Player extends GameEntity {
 
   public update() {
     this.move();
-    console.log(`Player Position - X: ${this.x}, Y: ${this.y}`);
   }
 
   protected move() {
