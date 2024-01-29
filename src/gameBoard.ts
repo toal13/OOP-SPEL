@@ -161,8 +161,22 @@ class GameBoard implements IMenu {
     textSize(20);
     textAlign(RIGHT, TOP);
     text(`Score: ${this.player.getScore()}`, width, 0);
-
     this.drawCoins();
+    if (this.countDown > 0) {
+      fill(0, 99);
+      noStroke();
+      ellipse(width / 2, height / 2, 200, 200);
+
+      fill(255);
+      textSize(128);
+      textAlign(CENTER, CENTER);
+      text(this.countDown, width / 2, height / 2);
+    } else {
+      fill(255);
+      textSize(20);
+      textAlign(RIGHT, TOP);
+      text(`Score: ${this.player.getScore()}`, width, 0);
+    }
   }
 
   private drawCoins() {
