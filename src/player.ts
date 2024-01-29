@@ -16,13 +16,12 @@ class Player extends GameEntity {
   private jumpDistance: number;
   private jumpSpeed: number;
   private isMoving: boolean;
-
   private score: number;
   private prevX: number;
   private prevY: number;
 
-  constructor() {
-    super(1000 * 0.5, 555, 0, 45, 40, frogImg.frog);
+  constructor(speed: number) {
+    super(1000 * 0.5, 555, speed, 45, 40, frogImg.frog);
 
     this.controls = {
       up: UP_ARROW,
@@ -47,6 +46,7 @@ class Player extends GameEntity {
 
   public update() {
     this.move();
+    this.x += this.speed * deltaTime;
   }
 
   protected move() {

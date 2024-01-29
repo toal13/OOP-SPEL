@@ -9,7 +9,7 @@ class GameBoard implements IMenu {
 
   constructor() {
     this.worldSpeed = 0.5;
-    this.player = new Player();
+    this.player = new Player(0);
     this.levels = [new Level(0, 0), new Level(1, 0), new Level(2, 0)];
     this.levelCount = this.levels.length;
     this.isGameOver = false;
@@ -72,14 +72,14 @@ class GameBoard implements IMenu {
             //DÖ
             this.isGameOver = true;
 
-            /*             game.pushNewMenu(new GameOverMenu)
-             */
+            /*   game.pushNewMenu([new GameBoard()]); */
           }
           if (
             entity instanceof Turtle ||
+            entity instanceof Log ||
             (entity instanceof Log && entity instanceof Water)
           ) {
-            this.player.x = entity.x;
+            this.player.speed = entity.speed;
             this.isGameOver = false;
           }
         }
@@ -93,7 +93,7 @@ class GameBoard implements IMenu {
     }
     if (!this.isGameOver) {
       this.player.update();
-      /*   this.checkCollision(); */
+      this.checkCollision();
       this.addLevel();
       this.moveViewPort();
     }

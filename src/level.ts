@@ -32,14 +32,20 @@ class Level {
       new Turtle(150, 200 + yOffset, -speed, 50, 50),
       new Turtle(100, 200 + yOffset, -speed, 50, 50),
       new Turtle(50, 200 + yOffset, -speed, 50, 50),
+      new Log(100, 150 + yOffset, -lane2Speed, 150, 50),
+      new Turtle(50, 100 + yOffset, lane1Speed, 50, 50),
+      new Turtle(100, 100 + yOffset, lane1Speed, 50, 50),
+      new Turtle(150, 100 + yOffset, lane1Speed, 50, 50),
+      new Log(300, 50 + yOffset, -lane1Speed, 150, 50),
+      new Log(600, 0 + yOffset, lane1Speed, 150, 50),
       // ------------- Coins -------------
       new Coin(150, 305 + yOffset, 40, 40),
     ];
 
-    const extraEntities = floor(id / 8);
+    const extraEntities = floor(id / 1);
 
     for (let i = 0; i < extraEntities; i++) {
-      const xOffset = (i + 1) * 300; // random avstånd per lane om ni vill..
+      const xOffset = (i + 1) * random(600, 900); // random avstånd per lane om ni vill..
       this.gameEntities.push(
         ...[
           new Car(300 - xOffset, 305 + yOffset, lane1Speed, 100, 50),
