@@ -3,27 +3,30 @@ class GameBoard implements IMenu {
   private player: Player;
   private levels: Level[];
   private isGameOver: boolean;
-  private timer: number;
+  private viewportTimer: number;
   private levelCount: number;
+  private worldMoved: number;
 
   constructor() {
-    this.worldSpeed = 0.05;
+    this.worldSpeed = 0.5;
     this.player = new Player();
-    this.levels = [new Level(0), new Level(1), new Level(2)];
+    this.levels = [new Level(0, 0), new Level(1, 0), new Level(2, 0)];
     this.levelCount = this.levels.length;
     this.isGameOver = false;
-    this.timer = 0;
+    this.viewportTimer = 0;
+    this.worldMoved = 0;
   }
 
   private moveViewPort() {
-    this.timer += deltaTime;
+    this.viewportTimer += deltaTime;
 
-    if (this.timer > 1000) {
+    if (this.viewportTimer > 10000) {
       this.worldSpeed += 0.05;
-      this.timer = 0;
+      this.viewportTimer = 0;
     }
 
     this.player.y += this.worldSpeed;
+    this.worldMoved += this.worldSpeed;
     for (let level of this.levels) {
       for (let entity of level.gameEntities) {
         entity.y += this.worldSpeed;
@@ -32,8 +35,16 @@ class GameBoard implements IMenu {
   }
 
   private addLevel() {
-    this.levels.push(new Level(this.levelCount));
-    this.levelCount++;
+    let wHeight = 600;
+
+    if (this.levels[0].gameEntities[0].y > wHeight) {
+      this.levels.push(new Level(this.levelCount, this.worldMoved));
+      this.levelCount++;
+      wHeight += -600;
+      this.removeLevel();
+      console.log(wHeight);
+      console.log(this.levels);
+    }
   }
 
   private removeLevel() {
@@ -83,6 +94,7 @@ class GameBoard implements IMenu {
     if (!this.isGameOver) {
       this.player.update();
       /*   this.checkCollision(); */
+      this.addLevel();
       this.moveViewPort();
     }
   }

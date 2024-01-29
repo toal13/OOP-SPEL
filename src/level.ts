@@ -1,7 +1,7 @@
 class Level {
   public gameEntities: GameEntity[];
 
-  public constructor(id: number) {
+  public constructor(id: number, worldMoved: number) {
     const speed = 0.05;
     const lane1Speed = random(speed * 0.5, speed);
     const lane2Speed = random(speed, speed * 2);
@@ -10,8 +10,8 @@ class Level {
     // const lane5Speed = random(speed, speed * 2);
 
     // Flytta entiteterna baserat på level id
-    const levelHeight = -600;
-    const yOffset = levelHeight * id;
+    let levelHeight = -600;
+    const yOffset = levelHeight * id + worldMoved;
 
     this.gameEntities = [
       // ---------- Landscape ------------
@@ -36,10 +36,10 @@ class Level {
       new Coin(150, 305 + yOffset, 40, 40),
     ];
 
-    const extraEntities = floor(id / 1);
+    const extraEntities = floor(id / 8);
 
     for (let i = 0; i < extraEntities; i++) {
-      const xOffset = (i + 1) * 100; // random avstånd per lane om ni vill..
+      const xOffset = (i + 1) * 300; // random avstånd per lane om ni vill..
       this.gameEntities.push(
         ...[
           new Car(300 - xOffset, 305 + yOffset, lane1Speed, 100, 50),
