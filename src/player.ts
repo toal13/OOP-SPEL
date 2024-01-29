@@ -94,10 +94,10 @@ class Player extends GameEntity {
     }
   } // Add the missing closing curly brace for the move method
 
-  private saveScore() {
-    // Spara poängen i localStorage
-    localStorage.setItem("playerScore", this.score.toString());
-  }
+  // private saveScore() {
+  //   // Spara poängen i localStorage
+  //   localStorage.setItem("playerScore", this.score.toString());
+  // }
 
   private incrementScore() {
     // Öka poängen endast om spelaren hoppar framåt
@@ -120,5 +120,20 @@ class Player extends GameEntity {
 
   public getScore() {
     return this.score;
+  }
+
+  private saveScore() {
+    // Save the current score
+    localStorage.setItem("currentPlayerScore", this.score.toString());
+
+    // Retrieve past scores from localStorage
+    const pastScores =
+      JSON.parse(localStorage.getItem("pastPlayerScores") as string) || [];
+
+    // Add the current score to the past scores
+    pastScores.push(this.score);
+
+    // Save the updated past scores
+    localStorage.setItem("pastPlayerScores", JSON.stringify(pastScores));
   }
 }

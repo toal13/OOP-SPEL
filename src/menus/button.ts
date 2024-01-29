@@ -4,6 +4,7 @@ class Button {
   private width: number;
   private height: number;
   private text: string;
+  private prevMouseIsPressed: boolean;
   public setPosition(x: number, y: number) {
     this.x = x;
     this.y = y;
@@ -21,13 +22,16 @@ class Button {
     this.width = width;
     this.height = height;
     this.text = text;
+    this.prevMouseIsPressed = mouseIsPressed;
   }
-
+  
   public isClicked(): boolean {
     const isMouseOver = mouseX > this.x && mouseX < this.x + this.width &&
-                        mouseY > this.y && mouseY < this.y + this.height;
-
-    return isMouseOver && mouseIsPressed;
+    mouseY > this.y && mouseY < this.y + this.height;
+    
+   const isClicked = isMouseOver && mouseIsPressed && !this.prevMouseIsPressed;
+    this.prevMouseIsPressed = mouseIsPressed;
+    return isClicked;
   }
 
   public draw() {
