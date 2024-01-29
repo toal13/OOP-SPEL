@@ -75,7 +75,7 @@ class GameOverMenu implements IMenu {
     this.buttonMenu.draw();
     this.buttonPlayAgain.draw();
   }
-
+  
   public isGameActive(): boolean {
     return this.gameActive;
   }

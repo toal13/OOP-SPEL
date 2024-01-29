@@ -40,7 +40,7 @@ class Button {
                         mouseY > this.y && mouseY < this.y + this.height;
 
   
-    const backgroundColor = color(255, 255, 255, isMouseOver ? 100 : 0);
+    const backgroundColor = color(255, 255, 255, isMouseOver ? 100 : 20);
 
     fill(backgroundColor);
     rect(this.x, this.y, this.width, this.height, 15);
