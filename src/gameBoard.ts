@@ -4,6 +4,8 @@ class GameBoard implements IMenu {
   private levels: Level[];
   private isGameOver: boolean;
   private isMoving: boolean;
+  private coins: Coin[]; //number???
+  private y: number;
 
   constructor() {
     this.worldSpeed = 0.05;
@@ -11,6 +13,8 @@ class GameBoard implements IMenu {
     this.levels = [new Level(this.worldSpeed)];
     this.isGameOver = false;
     this.isMoving = false;
+    this.coins = [];
+    this.y = 0;
   }
 
   private moveViewPort() {
@@ -26,6 +30,7 @@ class GameBoard implements IMenu {
             const scaledJumpIncrement = jumpIncrement * (playerSize / 600);
             entity.y += 0.01;
             this.player.y += scaledJumpIncrement;
+            this.y += scaledJumpIncrement;
           });
           setTimeout(() => {
             clearInterval(moveCamera);
@@ -60,8 +65,8 @@ class GameBoard implements IMenu {
           ) {
             //DÖ
             this.isGameOver = true;
-                        game.pushNewMenu(new GameOverMenu)
-            
+            game.pushNewMenu(new GameOverMenu());
+            //game.pushNewMenu(new GameOverMenu(this.player));
           }
           if (
             entity instanceof Turtle ||
@@ -69,6 +74,28 @@ class GameBoard implements IMenu {
           ) {
             this.player.x = entity.x;
             this.isGameOver = false;
+          }
+        }
+      }
+    }
+  }
+
+  private incrementCoins() {
+    const playerBoundingBox = this.player.getBoundingBox();
+
+    for (let level of this.levels) {
+      for (let entity of level.gameEntities) {
+        if (
+          playerBoundingBox.x < entity.x + entity.width &&
+          playerBoundingBox.x + playerBoundingBox.width > entity.x &&
+          playerBoundingBox.y < entity.y + entity.height &&
+          playerBoundingBox.y + playerBoundingBox.height > entity.y
+        ) {
+          // What happens when a player touches a coin
+          if (entity instanceof Coin) {
+            console.log("Coin touched!");
+            this.player.incrementCoins(); // Increase score
+            level.gameEntities.splice(level.gameEntities.indexOf(entity), 1); // Remove coins
           }
         }
       }
@@ -83,6 +110,7 @@ class GameBoard implements IMenu {
       this.player.update();
       this.checkCollision();
       this.moveViewPort();
+      this.incrementCoins(); // Coin collision detection
     }
   }
 
@@ -97,5 +125,13 @@ class GameBoard implements IMenu {
     textSize(20);
     textAlign(RIGHT, TOP);
     text(`Score: ${this.player.getScore()}`, width, 0);
+
+    this.drawCoins();
+  }
+
+  private drawCoins() {
+    for (let coin of this.coins) {
+      coin.draw();
+    }
   }
 }

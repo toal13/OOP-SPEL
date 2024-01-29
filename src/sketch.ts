@@ -55,7 +55,7 @@ let soundOffImg: {
 let soundOnImg: {
   soundOn: p5.Image;
 };
-let coin: {
+let entity: {
   coin: p5.Image;
 };
 let gameOverImg: {
@@ -123,11 +123,11 @@ function preload() {
   soundOnImg = {
     soundOn: loadImage("./assets/images/soundOn.png"),
   };
-  coin = {
+  entity = {
     coin: loadImage("./assets/images/coin.png"),
   };
   gameOverImg = {
-  gameOverMenu: loadImage("./assets/images/gameOver.png"),
+    gameOverMenu: loadImage("./assets/images/gameOver.png"),
   };
 }
 
