@@ -26,8 +26,8 @@ class LeaderBoard implements IMenu {
 
     image(
       this.leaderBoardImage,
-      width / 2 - this.leaderBoardImage.width / 2.1,
-      height / 4 - this.leaderBoardImage.height / 4.5,
+      width / 2 - this.leaderBoardImage.width / 2,
+      height / 4 - this.leaderBoardImage.height / 4,
     );
 
     this.goBackButton.draw();

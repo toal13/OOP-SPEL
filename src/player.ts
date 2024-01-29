@@ -16,13 +16,14 @@ class Player extends GameEntity {
   private jumpDistance: number;
   private jumpSpeed: number;
   private isMoving: boolean;
-
   private score: number;
   private prevX: number;
   private prevY: number;
 
-  constructor() {
-    super(1000 * 0.5, 560, 0, 45, 40, frogImg.frog);
+  constructor(speed: number) {
+    super(1000 * 0.5, 555, speed, 45, 40, frogImg.frog);
+    
+  
 
     this.controls = {
       up: UP_ARROW,
@@ -46,9 +47,12 @@ class Player extends GameEntity {
   }
 
   public update() {
+
     this.move();
-    // console.log(`Player Position - X: ${this.x}, Y: ${this.y}`);
+  
   }
+
+
 
   protected move() {
     if (keyIsDown(this.controls.up) && this.y > minY && !this.isMoving) {
@@ -92,12 +96,8 @@ class Player extends GameEntity {
     ) {
       this.isMoving = false;
     }
-  } // Add the missing closing curly brace for the move method
+  } 
 
-  // private saveScore() {
-  //   // Spara poängen i localStorage
-  //   localStorage.setItem("playerScore", this.score.toString());
-  // }
 
   public incrementScore() {
     // Öka poängen endast om spelaren hoppar framåt
