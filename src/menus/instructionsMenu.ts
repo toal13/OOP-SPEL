@@ -25,8 +25,8 @@ class InstructionsMenu implements IMenu {
     background("lightblue");
     image(
       this.InstructionsImage,
-      width / 2 - this.InstructionsImage.width / 2.1,
-      height / 4 - this.InstructionsImage.height / 4.3,
+      width / 2 - this.InstructionsImage.width / 2,
+      height / 4 - this.InstructionsImage.height / 4,
     );
     this.goBackButton.draw();
     pop();

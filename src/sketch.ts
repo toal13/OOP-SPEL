@@ -62,8 +62,11 @@ let soundOffImg: {
 let soundOnImg: {
   soundOn: p5.Image;
 };
-let coin: {
+let entity: {
   coin: p5.Image;
+};
+let gameOverImg: {
+  gameOverMenu: p5.Image;
 };
 let frogBasicImg: {
   frogBasic: p5.Image;
@@ -107,7 +110,6 @@ let frogLeftImg: {
  * This is a good place to load assets such as
  * sound files, images etc...
  */
-
 function preload() {
   music = {
     mystery: loadSound("/assets/music/mystery.mp3"),
@@ -163,8 +165,11 @@ function preload() {
   soundOnImg = {
     soundOn: loadImage("./assets/images/soundOn.png"),
   };
-  coin = {
+  entity = {
     coin: loadImage("./assets/images/coin.png"),
+  };
+  gameOverImg = {
+    gameOverMenu: loadImage("./assets/images/gameOver.png"),
   };
   frogBasicImg = {
     frogBasic: loadImage("./assets/images/frogBasic.png"),

@@ -24,8 +24,8 @@ class Player extends GameEntity {
   private prevY: number;
   private images: p5.Image[];
 
-  constructor() {
-    super(1000 * 0.5, 560, 0, 45, 40, frogForwardImg.frogForward);
+  constructor(speed: number) {
+    super(1000 * 0.5, 555, speed, 45, 40, frogForwardImg.frogForward);
     this.images = [];
 
     this.controls = {
@@ -58,7 +58,7 @@ class Player extends GameEntity {
     if (this.jumpTimer < jumpSpeed) {
       this.jumpTimer += deltaTime;
 
-      const timeForOneFrame = 400 / this.images.length;
+      const timeForOneFrame = jumpSpeed / this.images.length;
       this.currentJumpFrame = Math.floor(this.jumpTimer / timeForOneFrame);
       console.log(this.currentJumpFrame);
     }
@@ -116,16 +116,17 @@ class Player extends GameEntity {
     }
   }
 
-  private saveScore() {
-    localStorage.setItem("playerScore", this.score.toString());
-  }
-
   private incrementScore() {
     if (this.y < this.prevY) {
       this.score += 1;
       this.saveScore();
     }
     this.prevY = this.y;
+  }
+
+  public incrementCoins() {
+    this.score += 20; // get 20p extra
+    this.saveScore();
   }
 
   public draw() {
@@ -152,4 +153,23 @@ class Player extends GameEntity {
   public getScore() {
     return this.score;
   }
+
+  private saveScore() {
+    // Save the current score
+    localStorage.setItem("currentPlayerScore", this.score.toString());
+    localStorage.setItem("playerScore", this.score.toString());
+    // Retrieve past scores from localStorage
+    const pastScores =
+      JSON.parse(localStorage.getItem("pastPlayerScores") as string) || [];
+
+    // Add the current score to the past scores
+    pastScores.push(this.score);
+
+    // Save the updated past scores
+    localStorage.setItem("pastPlayerScores", JSON.stringify(pastScores));
+  }
+
+  // private saveScore() {
+  //   localStorage.setItem("playerScore", this.score.toString());
+  // }
 }
