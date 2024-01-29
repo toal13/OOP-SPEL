@@ -22,8 +22,6 @@ class Player extends GameEntity {
 
   constructor(speed: number) {
     super(1000 * 0.5, 555, speed, 45, 40, frogImg.frog);
-    
-  
 
     this.controls = {
       up: UP_ARROW,
@@ -47,12 +45,9 @@ class Player extends GameEntity {
   }
 
   public update() {
-
     this.move();
-  
+    this.x += this.speed * deltaTime;
   }
-
-
 
   protected move() {
     if (keyIsDown(this.controls.up) && this.y > minY && !this.isMoving) {
@@ -96,8 +91,7 @@ class Player extends GameEntity {
     ) {
       this.isMoving = false;
     }
-  } 
-
+  }
 
   public incrementScore() {
     // Öka poängen endast om spelaren hoppar framåt

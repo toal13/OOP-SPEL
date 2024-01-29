@@ -3,23 +3,23 @@ class GameBoard implements IMenu {
   private player: Player;
   private levels: Level[];
   private isGameOver: boolean;
-  private isMoving: boolean;
-
+  private viewportTimer: number;
+  private levelCount: number;
+  private worldMoved: number;
   private coins: Coin[]; //number???
-
   private countDown: number;
   private countDownActive: boolean = true;
 
-
   constructor() {
-    this.worldSpeed = 0.05;
-    this.player = new Player();
-    this.levels = [new Level(this.worldSpeed)];
+    this.worldSpeed = 0.5;
+    this.player = new Player(0);
+    this.levels = [new Level(0, 0), new Level(1, 0), new Level(2, 0)];
+    this.levelCount = this.levels.length;
     this.isGameOver = false;
-    this.isMoving = false;
+    this.viewportTimer = 0;
+    this.worldMoved = 0;
 
     this.coins = [];
-    this.y = 0;
 
     this.countDown = 3;
     this.startCountdown();
@@ -36,17 +36,16 @@ class GameBoard implements IMenu {
         this.countDownActive = false;
       }
     }, 850);
-
   }
 
-   private moveViewPort() {
+  private moveViewPort() {
     this.viewportTimer += deltaTime;
- 
+
     if (this.viewportTimer > 10000) {
       this.worldSpeed += 0.05;
       this.viewportTimer = 0;
     }
- 
+
     this.player.y += this.worldSpeed;
     this.worldMoved += this.worldSpeed;
     for (let level of this.levels) {
@@ -55,10 +54,10 @@ class GameBoard implements IMenu {
       }
     }
   }
-  
+
   private addLevel() {
     let wHeight = 600;
- 
+
     if (this.levels[0].gameEntities[0].y > wHeight) {
       this.levels.push(new Level(this.levelCount, this.worldMoved));
       this.levelCount++;
@@ -68,18 +67,17 @@ class GameBoard implements IMenu {
       console.log(this.levels);
     }
   }
- 
+
   private removeLevel() {
     if (this.levels.length > 8) {
       this.levels.shift();
     }
   }
- 
-  
-  
+
   private checkCollision() {
     const playerBoundingBox = this.player.getBoundingBox();
- 
+    let gameOver = false; // Skapa en variabel för att hålla reda på om spelet ska avslutas
+
     for (let level of this.levels) {
       for (let entity of level.gameEntities) {
         if (
@@ -98,23 +96,23 @@ class GameBoard implements IMenu {
               !(entity instanceof Log))
           ) {
             //DÖ
-            this.isGameOver = true;
-            game.pushNewMenu(new GameOverMenu());
-          } else if (
-            entity instanceof Turtle ||
-            entity instanceof Log ||
-            (entity instanceof Log && entity instanceof Water)
-          ) {
-            this.player.speed = entity.speed;
-            this.isGameOver = false;
+            gameOver = true; // Sätt gameOver till true om spelaren kolliderar med farliga objekt
           }
+          if (entity instanceof Turtle || entity instanceof Log) {
+            this.player.speed = entity.speed;
+            gameOver = false; // Om spelaren kolliderar med Turtle eller Log, avsluta inte spelet
+          }
+          // Här kan du lägga till fler villkor för olika typer av kollisioner om det behövs
         }
       }
     }
+
+    if (gameOver) {
+      this.isGameOver = true;
+      game.pushNewMenu(new GameOverMenu(this.player, 500));
+    }
   }
-  
-  
-  
+
   private incrementCoins() {
     const playerBoundingBox = this.player.getBoundingBox();
 
@@ -139,7 +137,7 @@ class GameBoard implements IMenu {
 
   public update() {
     if (this.countDownActive) return;
-    
+
     for (let level of this.levels) {
       level.update();
     }
@@ -147,6 +145,7 @@ class GameBoard implements IMenu {
     if (!this.isGameOver) {
       this.player.update();
       this.checkCollision();
+      this.addLevel();
       this.moveViewPort();
       this.incrementCoins(); // Coin collision detection
     }
@@ -158,19 +157,11 @@ class GameBoard implements IMenu {
       level.draw();
     }
     this.player.draw();
-
     fill(255);
     textSize(20);
     textAlign(RIGHT, TOP);
     text(`Score: ${this.player.getScore()}`, width, 0);
-
     this.drawCoins();
-  }
-
-  private drawCoins() {
-    for (let coin of this.coins) {
-      coin.draw();
-
     if (this.countDown > 0) {
       fill(0, 99);
       noStroke();
@@ -185,7 +176,17 @@ class GameBoard implements IMenu {
       textSize(20);
       textAlign(RIGHT, TOP);
       text(`Score: ${this.player.getScore()}`, width, 0);
+    }
+  }
 
+  private drawCoins() {
+    for (let coin of this.coins) {
+      coin.draw();
+
+      fill(255);
+      textSize(20);
+      textAlign(RIGHT, TOP);
+      text(`Score: ${this.player.getScore()}`, width, 0);
     }
   }
 }
