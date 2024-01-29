@@ -10,11 +10,11 @@ type Controls = {
 const minY = 0;
 const minX = 0;
 const maxX = 1000;
+const jumpSpeed = 400;
 
 class Player extends GameEntity {
   private controls: Controls;
   private jumpDistance: number;
-  private readonly jumpSpeed: number;
   private isJumping: boolean;
   private currentJumpFrame: number;
   private jumpTimer: number;
@@ -41,10 +41,9 @@ class Player extends GameEntity {
     };
 
     this.jumpDistance = 50;
-    this.jumpSpeed = 200;
     this.isJumping = false;
     this.currentJumpFrame = 0; // Current frame of the jump animation
-    this.jumpTimer = 0;
+    this.jumpTimer = jumpSpeed;
 
     this.score = 0;
     this.prevX = this.x;
@@ -58,16 +57,16 @@ class Player extends GameEntity {
   public update() {
     this.move();
     this.updateJump();
-    console.log(`Player Position - X: ${this.x}, Y: ${this.y}`);
   }
 
   private updateJump() {
-    if (this.jumpTimer > 0) {
-      this.jumpTimer -= deltaTime;
+    if (this.jumpTimer < jumpSpeed) {
+      this.jumpTimer += deltaTime;
 
       // Beräkna aktuell hoppbild baserad på tid
-      const timeForOneFrame = 200 / this.images.length;
+      const timeForOneFrame = 400 / this.images.length;
       this.currentJumpFrame = Math.floor(this.jumpTimer / timeForOneFrame); // dom blir baklänges
+      console.log(this.currentJumpFrame);
     }
   }
 
@@ -75,25 +74,25 @@ class Player extends GameEntity {
     if (keyIsDown(this.controls.up) && this.y > minY && !this.isJumping) {
       this.y -= this.jumpDistance;
       this.isJumping = true;
-      this.jumpTimer = 200;
+      this.jumpTimer = 0;
       this.incrementScore();
     }
     if (keyIsDown(this.controls.down) && this.y && !this.isJumping) {
       this.y += this.jumpDistance;
       this.isJumping = true;
-      this.jumpTimer = 200;
+      this.jumpTimer = 0;
       this.incrementScore();
     }
     if (keyIsDown(this.controls.left) && this.x > minX && !this.isJumping) {
       this.x -= this.jumpDistance;
       this.isJumping = true;
-      this.jumpTimer = 200;
+      this.jumpTimer = 0;
       this.incrementScore();
     }
     if (keyIsDown(this.controls.right) && this.x < maxX && !this.isJumping) {
       this.x += this.jumpDistance;
       this.isJumping = true;
-      this.jumpTimer = 200;
+      this.jumpTimer = 0;
       this.incrementScore();
     }
 
@@ -138,7 +137,7 @@ class Player extends GameEntity {
     text(`Score: ${this.score}`, width, 0);
 
     // Rita spelaren baserat på hoppanimationen
-    if (this.isJumping) {
+    if (this.jumpTimer < jumpSpeed) {
       const jumpFrameImage = this.images[this.currentJumpFrame];
       image(jumpFrameImage, this.x, this.y, this.width, this.height);
     } else {
