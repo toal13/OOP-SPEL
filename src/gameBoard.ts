@@ -7,7 +7,7 @@ class GameBoard implements IMenu {
   private levelCount: number;
   private worldMoved: number;
   private countDown: number;
-  private countDownActive: boolean = true;
+  private countDownActive: boolean;
 
   constructor() {
     this.worldSpeed = 0.5;
@@ -66,7 +66,9 @@ class GameBoard implements IMenu {
   }
 
   private removeLevel() {
-    this.levels.shift();
+    if (this.levels.length > 8) {
+      this.levels.shift();
+    }
   }
 
   private checkCollision() {
@@ -84,14 +86,15 @@ class GameBoard implements IMenu {
             entity instanceof Truck ||
             entity instanceof Car ||
             entity instanceof Motorcycle ||
-            entity instanceof Water ||
-            entity instanceof Snake
+            entity instanceof Snake ||
+            (entity instanceof Water &&
+              !(entity instanceof Turtle) &&
+              !(entity instanceof Log))
           ) {
             //DÖ
             this.isGameOver = true;
             game.pushNewMenu(new GameOverMenu());
-          }
-          if (
+          } else if (
             entity instanceof Turtle ||
             entity instanceof Log ||
             (entity instanceof Log && entity instanceof Water)
