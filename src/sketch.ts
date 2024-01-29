@@ -6,7 +6,7 @@ let assets: {
   sounds: {};
   images: {};
   fonts: {};
-}
+};
 
 let music: {
   mystery: p5.SoundFile;
@@ -88,6 +88,18 @@ let frogRight4Img: {
 };
 let frogRight5Img: {
   frogRight5: p5.Image;
+};
+let frogBackwardImg: {
+  frogBackward: p5.Image;
+};
+let frogForwardImg: {
+  frogForward: p5.Image;
+};
+let frogRightImg: {
+  frogRight: p5.Image;
+};
+let frogLeftImg: {
+  frogLeft: p5.Image;
 };
 
 /**
@@ -177,6 +189,18 @@ function preload() {
   };
   frogRight5Img = {
     frogRight5: loadImage("./assets/images/frogRight5.png"),
+  };
+  frogForwardImg = {
+    frogForward: loadImage("./assets/images/frogForward.png"),
+  };
+  frogBackwardImg = {
+    frogBackward: loadImage("./assets/images/frogBackward.png"),
+  };
+  frogLeftImg = {
+    frogLeft: loadImage("./assets/images/frogLeft.png"),
+  };
+  frogRightImg = {
+    frogRight: loadImage("./assets/images/frogRight.png"),
   };
 }
 

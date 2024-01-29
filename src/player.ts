@@ -25,13 +25,8 @@ class Player extends GameEntity {
   private images: p5.Image[];
 
   constructor() {
-    super(1000 * 0.5, 560, 0, 45, 40, frogBasicImg.frogBasic);
-    this.images = [
-      frogBasicImg.frogBasic,
-      frogBack2Image.frogBack2,
-      frogBack3Img.frogBack3,
-      frogBack4Img.frogBack4,
-    ];
+    super(1000 * 0.5, 560, 0, 45, 40, frogForwardImg.frogForward);
+    this.images = [];
 
     this.controls = {
       up: UP_ARROW,
@@ -42,7 +37,7 @@ class Player extends GameEntity {
 
     this.jumpDistance = 50;
     this.isJumping = false;
-    this.currentJumpFrame = 0; // Current frame of the jump animation
+    this.currentJumpFrame = 0;
     this.jumpTimer = jumpSpeed;
 
     this.score = 0;
@@ -63,9 +58,8 @@ class Player extends GameEntity {
     if (this.jumpTimer < jumpSpeed) {
       this.jumpTimer += deltaTime;
 
-      // Beräkna aktuell hoppbild baserad på tid
       const timeForOneFrame = 400 / this.images.length;
-      this.currentJumpFrame = Math.floor(this.jumpTimer / timeForOneFrame); // dom blir baklänges
+      this.currentJumpFrame = Math.floor(this.jumpTimer / timeForOneFrame);
       console.log(this.currentJumpFrame);
     }
   }
@@ -73,24 +67,28 @@ class Player extends GameEntity {
   protected move() {
     if (keyIsDown(this.controls.up) && this.y > minY && !this.isJumping) {
       this.y -= this.jumpDistance;
+      this.images = [frogForwardImg.frogForward];
       this.isJumping = true;
       this.jumpTimer = 0;
       this.incrementScore();
     }
     if (keyIsDown(this.controls.down) && this.y && !this.isJumping) {
       this.y += this.jumpDistance;
+      this.images = [frogBackwardImg.frogBackward];
       this.isJumping = true;
       this.jumpTimer = 0;
       this.incrementScore();
     }
     if (keyIsDown(this.controls.left) && this.x > minX && !this.isJumping) {
       this.x -= this.jumpDistance;
+      this.images = [frogLeftImg.frogLeft];
       this.isJumping = true;
       this.jumpTimer = 0;
       this.incrementScore();
     }
     if (keyIsDown(this.controls.right) && this.x < maxX && !this.isJumping) {
       this.x += this.jumpDistance;
+      this.images = [frogRightImg.frogRight];
       this.isJumping = true;
       this.jumpTimer = 0;
       this.incrementScore();
@@ -141,7 +139,13 @@ class Player extends GameEntity {
       const jumpFrameImage = this.images[this.currentJumpFrame];
       image(jumpFrameImage, this.x, this.y, this.width, this.height);
     } else {
-      image(frogBasicImg.frogBasic, this.x, this.y, this.width, this.height);
+      image(
+        frogForwardImg.frogForward,
+        this.x,
+        this.y,
+        this.width,
+        this.height,
+      );
     }
   }
 
