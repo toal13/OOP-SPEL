@@ -6,9 +6,7 @@ class GameBoard implements IMenu {
   private viewportTimer: number;
   private levelCount: number;
   private worldMoved: number;
-
   private coins: Coin[]; //number???
-
   private countDown: number;
   private countDownActive: boolean;
 
@@ -98,6 +96,7 @@ class GameBoard implements IMenu {
           ) {
             //DÖ
             this.isGameOver = true;
+            game.setCurrentMenu(new GameOverMenu(this.player, 500));
           }
           if (
             entity instanceof Turtle ||
@@ -105,7 +104,6 @@ class GameBoard implements IMenu {
             entity instanceof Log ||
             (entity instanceof Log && entity instanceof Water)
           ) {
-            this.player.speed = entity.speed;
             this.player.speed = entity.speed;
             this.isGameOver = false;
           }

@@ -46,7 +46,7 @@ class Player extends GameEntity {
 
   public update() {
     this.move();
-    console.log(`Player Position - X: ${this.x}, Y: ${this.y}`);
+    this.x += this.speed * deltaTime;
   }
 
   protected move() {
