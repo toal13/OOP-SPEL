@@ -3,8 +3,8 @@ class LeaderBoard implements IMenu {
   private leaderBoardImage: p5.Image;
 
   constructor() {
-    this.leaderBoardImage = loadImage("./assets/images/leaderBoard.png")
-    
+    this.leaderBoardImage = loadImage("./assets/images/leaderBoard.png");
+
     this.goBackButton = new Button(
       windowWidth * 0.03,
       windowHeight * 0.05,
@@ -23,7 +23,6 @@ class LeaderBoard implements IMenu {
   public draw() {
     push();
     background("lightblue");
-    
 
     image(
       this.leaderBoardImage,
