@@ -16,7 +16,6 @@ class Player extends GameEntity {
   private jumpDistance: number;
   private jumpSpeed: number;
   private isMoving: boolean;
-
   private score: number;
   private prevX: number;
   private prevY: number;
@@ -46,9 +45,10 @@ class Player extends GameEntity {
   }
 
   public update() {
-    this.move();
-    console.log(`Player Position - X: ${this.x}, Y: ${this.y}`);
-  }
+      this.move();
+      console.log(`Player Position - X: ${this.x}, Y: ${this.y}`);
+    }
+  
 
   protected move() {
     if (keyIsDown(this.controls.up) && this.y > minY && !this.isMoving) {

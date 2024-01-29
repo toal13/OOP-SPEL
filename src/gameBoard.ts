@@ -4,6 +4,8 @@ class GameBoard implements IMenu {
   private levels: Level[];
   private isGameOver: boolean;
   private isMoving: boolean;
+  private countDown: number;
+  private countDownActive: boolean = true;
 
   constructor() {
     this.worldSpeed = 0.05;
@@ -11,30 +13,47 @@ class GameBoard implements IMenu {
     this.levels = [new Level(this.worldSpeed)];
     this.isGameOver = false;
     this.isMoving = false;
+    this.countDown = 3;
+    this.startCountdown();
+    this.countDownActive = true;
+  }
+
+  private startCountdown() {
+    const countdownInterval = setInterval(() => {
+      if (this.countDown > 1) {
+        this.countDown--;
+      } else {
+        clearInterval(countdownInterval);
+        this.countDown = 0;
+        this.countDownActive = false;
+      }
+    }, 850);
   }
 
   private moveViewPort() {
-    const playerSize = 45;
-    const movementIncrement = 0.1;
-    const jumpIncrement = 0.01;
+     {
+      const playerSize = 45;
+      const movementIncrement = 0.1;
+      const jumpIncrement = 0.01;
 
-    for (let level of this.levels) {
-      for (let entity of level.gameEntities) {
-        if (keyIsDown(UP_ARROW) && !this.isMoving) {
-          const moveCamera = setInterval(() => {
+      for (let level of this.levels) {
+        for (let entity of level.gameEntities) {
+          if (keyIsDown(UP_ARROW) && !this.isMoving) {
             this.isMoving = true;
-            const scaledJumpIncrement = jumpIncrement * (playerSize / 600);
-            entity.y += 0.01;
-            this.player.y += scaledJumpIncrement;
-          });
-          setTimeout(() => {
-            clearInterval(moveCamera);
-            this.isMoving = false;
-          }, 1000);
-        } else {
-          const scaledIncrement = movementIncrement * (playerSize / 600);
-          entity.y += 0.1;
-          this.player.y += scaledIncrement;
+            const moveCamera = setInterval(() => {
+              const scaledJumpIncrement = jumpIncrement * (playerSize / 600);
+              entity.y += 0.01;
+              this.player.y += scaledJumpIncrement;
+            });
+            setTimeout(() => {
+              clearInterval(moveCamera);
+              this.isMoving = false;
+            }, 1000);
+          } else {
+            const scaledIncrement = movementIncrement * (playerSize / 600);
+            entity.y += 0.1;
+            this.player.y += scaledIncrement;
+          }
         }
       }
     }
@@ -60,8 +79,7 @@ class GameBoard implements IMenu {
           ) {
             //DÖ
             this.isGameOver = true;
-                        game.pushNewMenu(new GameOverMenu)
-            
+            game.pushNewMenu(new GameOverMenu());
           }
           if (
             entity instanceof Turtle ||
@@ -76,9 +94,12 @@ class GameBoard implements IMenu {
   }
 
   public update() {
+    if (this.countDownActive) return;
+    
     for (let level of this.levels) {
       level.update();
     }
+
     if (!this.isGameOver) {
       this.player.update();
       this.checkCollision();
@@ -93,9 +114,20 @@ class GameBoard implements IMenu {
     }
     this.player.draw();
 
-    fill(255);
-    textSize(20);
-    textAlign(RIGHT, TOP);
-    text(`Score: ${this.player.getScore()}`, width, 0);
+    if (this.countDown > 0) {
+      fill(0, 99);
+      noStroke();
+      ellipse(width / 2, height / 2, 200, 200);
+
+      fill(255);
+      textSize(128);
+      textAlign(CENTER, CENTER);
+      text(this.countDown, width / 2, height / 2);
+    } else {
+      fill(255);
+      textSize(20);
+      textAlign(RIGHT, TOP);
+      text(`Score: ${this.player.getScore()}`, width, 0);
+    }
   }
 }
