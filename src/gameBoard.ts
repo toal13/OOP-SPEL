@@ -6,6 +6,8 @@ class GameBoard implements IMenu {
   private viewportTimer: number;
   private levelCount: number;
   private worldMoved: number;
+  private countDown: number;
+  private countDownActive: boolean = true;
 
   constructor() {
     this.worldSpeed = 0.5;
@@ -15,6 +17,22 @@ class GameBoard implements IMenu {
     this.isGameOver = false;
     this.viewportTimer = 0;
     this.worldMoved = 0;
+
+    this.countDown = 3;
+    this.startCountdown();
+    this.countDownActive = true;
+  }
+
+  private startCountdown() {
+    const countdownInterval = setInterval(() => {
+      if (this.countDown > 1) {
+        this.countDown--;
+      } else {
+        clearInterval(countdownInterval);
+        this.countDown = 0;
+        this.countDownActive = false;
+      }
+    }, 850);
   }
 
   private moveViewPort() {
