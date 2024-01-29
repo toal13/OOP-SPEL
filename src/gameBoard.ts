@@ -8,7 +8,7 @@ class GameBoard implements IMenu {
   private worldMoved: number;
   private coins: Coin[]; //number???
   private countDown: number;
-  private countDownActive: boolean;
+  private countDownActive: boolean = true;
 
   constructor() {
     this.worldSpeed = 0.5;
@@ -76,6 +76,7 @@ class GameBoard implements IMenu {
 
   private checkCollision() {
     const playerBoundingBox = this.player.getBoundingBox();
+    let gameOver = false; // Skapa en variabel för att hålla reda på om spelet ska avslutas
 
     for (let level of this.levels) {
       for (let entity of level.gameEntities) {
@@ -95,20 +96,20 @@ class GameBoard implements IMenu {
               !(entity instanceof Log))
           ) {
             //DÖ
-            this.isGameOver = true;
-            game.pushNewMenu(new GameOverMenu(this.player, 500));
+            gameOver = true; // Sätt gameOver till true om spelaren kolliderar med farliga objekt
           }
-          if (
-            entity instanceof Turtle ||
-            entity instanceof Log ||
-            entity instanceof Log ||
-            (entity instanceof Log && entity instanceof Water)
-          ) {
+          if (entity instanceof Turtle || entity instanceof Log) {
             this.player.speed = entity.speed;
-            this.isGameOver = false;
+            gameOver = false; // Om spelaren kolliderar med Turtle eller Log, avsluta inte spelet
           }
+          // Här kan du lägga till fler villkor för olika typer av kollisioner om det behövs
         }
       }
+    }
+
+    if (gameOver) {
+      this.isGameOver = true;
+      game.pushNewMenu(new GameOverMenu(this.player, 500));
     }
   }
 
@@ -135,9 +136,12 @@ class GameBoard implements IMenu {
   }
 
   public update() {
+    if (this.countDownActive) return;
+
     for (let level of this.levels) {
       level.update();
     }
+
     if (!this.isGameOver) {
       this.player.update();
       this.checkCollision();
