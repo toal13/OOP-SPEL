@@ -46,7 +46,7 @@ class Player extends GameEntity {
 
   public update() {
     this.move();
-    this.x += this.speed * deltaTime;
+    console.log(`Player Position - X: ${this.x}, Y: ${this.y}`);
   }
 
   protected move() {
@@ -91,14 +91,9 @@ class Player extends GameEntity {
     ) {
       this.isMoving = false;
     }
-  } // Add the missing closing curly brace for the move method
-
-  private saveScore() {
-    // Spara poängen i localStorage
-    localStorage.setItem("playerScore", this.score.toString());
   }
 
-  private incrementScore() {
+  public incrementScore() {
     // Öka poängen endast om spelaren hoppar framåt
     if (this.y < this.prevY) {
       this.score += 1;
@@ -110,6 +105,11 @@ class Player extends GameEntity {
     this.prevY = this.y;
   }
 
+  public incrementCoins() {
+    this.score += 20; // get 20p extra
+    this.saveScore();
+  }
+
   public drawScore() {
     fill(255); // Vit färg för texten
     textSize(20); // Justera textstorleken efter behov
@@ -119,5 +119,20 @@ class Player extends GameEntity {
 
   public getScore() {
     return this.score;
+  }
+
+  private saveScore() {
+    // Save the current score
+    localStorage.setItem("currentPlayerScore", this.score.toString());
+
+    // Retrieve past scores from localStorage
+    const pastScores =
+      JSON.parse(localStorage.getItem("pastPlayerScores") as string) || [];
+
+    // Add the current score to the past scores
+    pastScores.push(this.score);
+
+    // Save the updated past scores
+    localStorage.setItem("pastPlayerScores", JSON.stringify(pastScores));
   }
 }

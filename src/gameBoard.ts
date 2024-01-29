@@ -6,6 +6,9 @@ class GameBoard implements IMenu {
   private viewportTimer: number;
   private levelCount: number;
   private worldMoved: number;
+
+  private coins: Coin[]; //number???
+
   private countDown: number;
   private countDownActive: boolean;
 
@@ -17,6 +20,8 @@ class GameBoard implements IMenu {
     this.isGameOver = false;
     this.viewportTimer = 0;
     this.worldMoved = 0;
+
+    this.coins = [];
 
     this.countDown = 3;
     this.startCountdown();
@@ -93,14 +98,38 @@ class GameBoard implements IMenu {
           ) {
             //DÖ
             this.isGameOver = true;
-            game.pushNewMenu(new GameOverMenu());
-          } else if (
+          }
+          if (
             entity instanceof Turtle ||
+            entity instanceof Log ||
             entity instanceof Log ||
             (entity instanceof Log && entity instanceof Water)
           ) {
             this.player.speed = entity.speed;
+            this.player.speed = entity.speed;
             this.isGameOver = false;
+          }
+        }
+      }
+    }
+  }
+
+  private incrementCoins() {
+    const playerBoundingBox = this.player.getBoundingBox();
+
+    for (let level of this.levels) {
+      for (let entity of level.gameEntities) {
+        if (
+          playerBoundingBox.x < entity.x + entity.width &&
+          playerBoundingBox.x + playerBoundingBox.width > entity.x &&
+          playerBoundingBox.y < entity.y + entity.height &&
+          playerBoundingBox.y + playerBoundingBox.height > entity.y
+        ) {
+          // What happens when a player touches a coin
+          if (entity instanceof Coin) {
+            console.log("Coin touched!");
+            this.player.incrementCoins(); // Increase score
+            level.gameEntities.splice(level.gameEntities.indexOf(entity), 1); // Remove coins
           }
         }
       }
@@ -116,6 +145,7 @@ class GameBoard implements IMenu {
       this.checkCollision();
       this.addLevel();
       this.moveViewPort();
+      this.incrementCoins(); // Coin collision detection
     }
   }
 
@@ -125,10 +155,22 @@ class GameBoard implements IMenu {
       level.draw();
     }
     this.player.draw();
-
     fill(255);
     textSize(20);
     textAlign(RIGHT, TOP);
     text(`Score: ${this.player.getScore()}`, width, 0);
+
+    this.drawCoins();
+  }
+
+  private drawCoins() {
+    for (let coin of this.coins) {
+      coin.draw();
+
+      fill(255);
+      textSize(20);
+      textAlign(RIGHT, TOP);
+      text(`Score: ${this.player.getScore()}`, width, 0);
+    }
   }
 }
