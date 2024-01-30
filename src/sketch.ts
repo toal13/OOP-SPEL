@@ -61,13 +61,24 @@ let entity: {
 let gameOverImg: {
   gameOverMenu: p5.Image;
 };
+let frogForwardImg: {
+  frogForward: p5.Image;
+};
+let frogRightImg: {
+  frogRight: p5.Image;
+};
+let frogLeftImg: {
+  frogLeft: p5.Image;
+};
+let frogBackwardImg: {
+  frogBackward: p5.Image;
+};
 
 /**
  * Built in preload function in P5
  * This is a good place to load assets such as
  * sound files, images etc...
  */
-
 function preload() {
   music = {
     mystery: loadSound("/assets/music/mystery.mp3"),
@@ -95,9 +106,6 @@ function preload() {
   };
   snakeImg = {
     snake: loadImage("./assets/images/snake.png"),
-  };
-  frogImg = {
-    frog: loadImage("./assets/images/frog.png"),
   };
   freeZoneImg = {
     freeZone: loadImage("./assets/images/freeZone.png"),
@@ -128,6 +136,18 @@ function preload() {
   };
   gameOverImg = {
     gameOverMenu: loadImage("./assets/images/gameOver.png"),
+  };
+  frogBackwardImg = {
+    frogBackward: loadImage("./assets/images/frogBackward.png"),
+  };
+  frogForwardImg = {
+    frogForward: loadImage("./assets/images/frogForward.png"),
+  };
+  frogRightImg = {
+    frogRight: loadImage("./assets/images/frogRight.png"),
+  };
+  frogLeftImg = {
+    frogLeft: loadImage("./assets/images/frogLeft.png"),
   };
 }
 
