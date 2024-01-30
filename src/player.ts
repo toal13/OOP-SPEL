@@ -94,14 +94,16 @@ class Player extends GameEntity {
   }
 
   public incrementScore() {
-    // Öka poängen endast om spelaren hoppar framåt
-    if (this.y < this.prevY) {
+    // Ger minuspoäng om spelaren går tillbaka/ner
+    if (this.y > this.prevY && keyIsDown(this.controls.down)) {
+      this.score -= 1;
+      this.saveScore();
+    } else if (this.y < this.prevY) {
+      // Endast öka poäng om spelaren har gått uppåt
       this.score += 1;
-
-      // Spara poängen i localStorage när den ökar
       this.saveScore();
     }
-    // Uppdatera föregående y-koordinat
+  
     this.prevY = this.y;
   }
 
