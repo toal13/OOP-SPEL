@@ -63,8 +63,7 @@ class GameBoard implements IMenu {
       this.levelCount++;
       wHeight += -600;
       this.removeLevel();
-      console.log(wHeight);
-      console.log(this.levels);
+      console.log(this.levels[1]);
     }
   }
 
