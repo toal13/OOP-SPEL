@@ -1,13 +1,6 @@
 //---- GLOBAL VARIABLES ----//
 let game: Game;
 
-let assets: {
-  music: {};
-  sounds: {};
-  images: {};
-  fonts: {};
-};
-
 let music: {
   mystery: p5.SoundFile;
 };
@@ -68,24 +61,13 @@ let entity: {
 let gameOverImg: {
   gameOverMenu: p5.Image;
 };
-let frogBackwardImg: {
-  frogBackward: p5.Image;
-};
-let frogForwardImg: {
-  frogForward: p5.Image;
-};
-let frogRightImg: {
-  frogRight: p5.Image;
-};
-let frogLeftImg: {
-  frogLeft: p5.Image;
-};
 
 /**
  * Built in preload function in P5
  * This is a good place to load assets such as
  * sound files, images etc...
  */
+
 function preload() {
   music = {
     mystery: loadSound("/assets/music/mystery.mp3"),
@@ -146,18 +128,6 @@ function preload() {
   };
   gameOverImg = {
     gameOverMenu: loadImage("./assets/images/gameOver.png"),
-  };
-  frogForwardImg = {
-    frogForward: loadImage("./assets/images/frogForward.png"),
-  };
-  frogBackwardImg = {
-    frogBackward: loadImage("./assets/images/frogBackward.png"),
-  };
-  frogLeftImg = {
-    frogLeft: loadImage("./assets/images/frogLeft.png"),
-  };
-  frogRightImg = {
-    frogRight: loadImage("./assets/images/frogRight.png"),
   };
 }
 
