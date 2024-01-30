@@ -68,30 +68,6 @@ let entity: {
 let gameOverImg: {
   gameOverMenu: p5.Image;
 };
-let frogBasicImg: {
-  frogBasic: p5.Image;
-};
-let frogBack2Image: {
-  frogBack2: p5.Image;
-};
-let frogBack3Img: {
-  frogBack3: p5.Image;
-};
-let frogBack4Img: {
-  frogBack4: p5.Image;
-};
-let frogRight2Img: {
-  frogRight2: p5.Image;
-};
-let frogRight3Img: {
-  frogRight3: p5.Image;
-};
-let frogRight4Img: {
-  frogRight4: p5.Image;
-};
-let frogRight5Img: {
-  frogRight5: p5.Image;
-};
 let frogBackwardImg: {
   frogBackward: p5.Image;
 };
@@ -170,30 +146,6 @@ function preload() {
   };
   gameOverImg = {
     gameOverMenu: loadImage("./assets/images/gameOver.png"),
-  };
-  frogBasicImg = {
-    frogBasic: loadImage("./assets/images/frogBasic.png"),
-  };
-  frogBack2Image = {
-    frogBack2: loadImage("./assets/images/frogBack2.png"),
-  };
-  frogBack3Img = {
-    frogBack3: loadImage("./assets/images/frogBack3.png"),
-  };
-  frogBack4Img = {
-    frogBack4: loadImage("./assets/images/frogBack4.png"),
-  };
-  frogRight2Img = {
-    frogRight2: loadImage("./assets/images/frogRight2.png"),
-  };
-  frogRight3Img = {
-    frogRight3: loadImage("./assets/images/frogRight3.png"),
-  };
-  frogRight4Img = {
-    frogRight4: loadImage("./assets/images/frogRight4.png"),
-  };
-  frogRight5Img = {
-    frogRight5: loadImage("./assets/images/frogRight5.png"),
   };
   frogForwardImg = {
     frogForward: loadImage("./assets/images/frogForward.png"),

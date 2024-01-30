@@ -13,7 +13,7 @@ class GameBoard implements IMenu {
 
   constructor() {
     this.worldSpeed = 0.05;
-    this.player = new Player();
+    this.player = new Player(0);
     this.levels = [new Level(this.worldSpeed)];
     this.isGameOver = false;
     this.isMoving = false;
