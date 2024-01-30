@@ -53,6 +53,7 @@ class GameBoard implements IMenu {
         entity.y += this.worldSpeed;
       }
     }
+    music.gameboardmusic.loop();
   }
 
   private addLevel() {

@@ -3,15 +3,16 @@ class GameMenu implements IMenu {
   private buttonInstructions: Button;
   private buttonLeaderboard: Button;
   private frogImage: p5.Image;
-  /* private volumeSlider: p5.Element; */
+  private isGamemenuMusicPlaying: boolean = false;
 
   constructor() {
     this.frogImage = loadImage("./assets/images/menuBackground.png");
 
-    /* Create volume-slider */
-    /* this.volumeSlider = createSlider(0, 100, 50);
-    this.volumeSlider.position(width * 1, height * 0.30);
-    this.volumeSlider.style("width", "80px"); */
+    // Ladda in gamemenumusic om det inte redan spelas
+    if (!this.isGamemenuMusicPlaying) {
+      music.gamemenumusic.loop();
+      this.isGamemenuMusicPlaying = true;
+    }
 
     // Define button properties
     let buttonWidth = 240;
