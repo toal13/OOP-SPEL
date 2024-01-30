@@ -40,17 +40,22 @@ class LeaderBoard implements IMenu {
     // Hämta de sparade poängen från localStorage
     const pastScores = JSON.parse(localStorage.getItem("pastPlayerScores") || "[]");
 
-    // Sortera poängen i fallande ordning om det behövs
+    // Sortera poängen i fallande ordning
     pastScores.sort((a, b) => b - a);
 
-    // Ange textegenskaper (färg, storlek, placering, etc.)
+    // Ange textegenskaper
     fill(255); // Vit färg för texten
-    textSize(20); // Justera textstorleken
-    textAlign(CENTER, TOP); // Centrerad text
+    textSize(50); // Textstorleken för "Top 3 Scores"
+    textAlign(CENTER, TOP);
 
-    // Loopa igenom och visa upp till tre poäng
+    // Visa titeln "Top 3 Scores" högst upp på skärmen
+    text("Top 3 Scores", width / 2, 180); // Använd en fast Y-position som är relativt högst upp på skärmen
+
+    // Loopa genom de tre bästa poängen och visa dem
     pastScores.slice(0, 3).forEach((score, index) => {
-      text(`Score ${index + 1}: ${score}`, width / 2, (index * 30) + 150); // Justera Y-positionen som önskat
+        // Justera Y-positionen så att poängen visas direkt under titeln
+        textSize(30);
+        text(`Score ${index + 1}: ${score}`, width / 2, 260 + (index * 50));
     });
-  }
+}
 }
