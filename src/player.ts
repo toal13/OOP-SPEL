@@ -122,17 +122,23 @@ class Player extends GameEntity {
   }
 
   private saveScore() {
-    // Save the current score
+    // Spara den aktuella poängen
     localStorage.setItem("currentPlayerScore", this.score.toString());
 
-    // Retrieve past scores from localStorage
-    const pastScores =
-      JSON.parse(localStorage.getItem("pastPlayerScores") as string) || [];
+    // Hämta tidigare poäng från localStorage
+    let pastScores = JSON.parse(
+      localStorage.getItem("pastPlayerScores") || "[]",
+    );
 
-    // Add the current score to the past scores
+    // Se till att bara de tre senaste poängen sparas
+    if (pastScores.length >= 3) {
+      pastScores.shift(); // Ta bort den äldsta poängen
+    }
+
+    // Lägg till den aktuella poängen i listan
     pastScores.push(this.score);
 
-    // Save the updated past scores
+    // Spara den uppdaterade listan med poäng
     localStorage.setItem("pastPlayerScores", JSON.stringify(pastScores));
   }
 }
