@@ -10,18 +10,23 @@ type Controls = {
 const minY = 0;
 const minX = 0;
 const maxX = 1000; // Adjust this value based on your game world width
+const jumpSpeed = 400;
 
 class Player extends GameEntity {
   private controls: Controls;
   private jumpDistance: number;
-  private jumpSpeed: number;
-  private isMoving: boolean;
+  private isJumping: boolean;
+  private currentJumpFrame: number;
+  private jumpTimer: number;
+
   private score: number;
   private prevX: number;
   private prevY: number;
+  private images: p5.Image[];
 
   constructor(speed: number) {
-    super(1000 * 0.5, 555, speed, 45, 40, frogImg.frog);
+    super(1000 * 0.5, 555, speed, 45, 40, frogForwardImg.frogForward);
+    this.images = [];
 
     this.controls = {
       up: UP_ARROW,
@@ -31,8 +36,9 @@ class Player extends GameEntity {
     };
 
     this.jumpDistance = 50;
-    this.jumpSpeed = 0;
-    this.isMoving = false;
+    this.isJumping = false;
+    this.currentJumpFrame = 0;
+    this.jumpTimer = jumpSpeed;
 
     this.score = 0;
     this.prevX = this.x;
@@ -41,33 +47,51 @@ class Player extends GameEntity {
     const savedScore = localStorage.getItem("playerScore");
     this.score = savedScore ? parseInt(savedScore, 10) : 0;
 
-    this.prevY = this.y; // Fix: Initialize prevY with the current y-coordinate
+    this.prevY = this.y;
   }
 
   public update() {
     this.move();
-    this.x += this.speed * deltaTime;
+    this.updateJump();
+  }
+
+  private updateJump() {
+    if (this.jumpTimer < jumpSpeed) {
+      this.jumpTimer += deltaTime;
+
+      const timeForOneFrame = jumpSpeed / this.images.length;
+      this.currentJumpFrame = Math.floor(this.jumpTimer / timeForOneFrame);
+      console.log(this.currentJumpFrame);
+    }
   }
 
   protected move() {
-    if (keyIsDown(this.controls.up) && this.y > minY && !this.isMoving) {
+    if (keyIsDown(this.controls.up) && this.y > minY && !this.isJumping) {
       this.y -= this.jumpDistance;
-      this.isMoving = true;
+      this.images = [frogForwardImg.frogForward];
+      this.isJumping = true;
+      this.jumpTimer = 0;
       this.incrementScore();
     }
-    if (keyIsDown(this.controls.down) && this.y && !this.isMoving) {
+    if (keyIsDown(this.controls.down) && this.y && !this.isJumping) {
       this.y += this.jumpDistance;
-      this.isMoving = true;
+      this.images = [frogBackwardImg.frogBackward];
+      this.isJumping = true;
+      this.jumpTimer = 0;
       this.incrementScore();
     }
-    if (keyIsDown(this.controls.left) && this.x > minX && !this.isMoving) {
+    if (keyIsDown(this.controls.left) && this.x > minX && !this.isJumping) {
       this.x -= this.jumpDistance;
-      this.isMoving = true;
+      this.images = [frogLeftImg.frogLeft];
+      this.isJumping = true;
+      this.jumpTimer = 0;
       this.incrementScore();
     }
-    if (keyIsDown(this.controls.right) && this.x < maxX && !this.isMoving) {
+    if (keyIsDown(this.controls.right) && this.x < maxX && !this.isJumping) {
       this.x += this.jumpDistance;
-      this.isMoving = true;
+      this.images = [frogRightImg.frogRight];
+      this.isJumping = true;
+      this.jumpTimer = 0;
       this.incrementScore();
     }
 
@@ -89,19 +113,16 @@ class Player extends GameEntity {
       !keyIsDown(this.controls.left) &&
       !keyIsDown(this.controls.right)
     ) {
-      this.isMoving = false;
+      this.isJumping = false;
     }
   }
 
   public incrementScore() {
-    // Öka poängen endast om spelaren hoppar framåt
     if (this.y < this.prevY) {
       this.score += 1;
-
-      // Spara poängen i localStorage när den ökar
       this.saveScore();
     }
-    // Uppdatera föregående y-koordinat
+
     this.prevY = this.y;
   }
 
@@ -110,11 +131,25 @@ class Player extends GameEntity {
     this.saveScore();
   }
 
-  public drawScore() {
-    fill(255); // Vit färg för texten
-    textSize(20); // Justera textstorleken efter behov
-    textAlign(RIGHT, TOP); // Justera textjusteringen efter behov
+  public draw() {
+    fill(255);
+    textSize(20);
+    textAlign(RIGHT, TOP);
     text(`Score: ${this.score}`, width, 0);
+
+    // Rita spelaren baserat på hoppanimationen
+    if (this.jumpTimer < jumpSpeed) {
+      const jumpFrameImage = this.images[this.currentJumpFrame];
+      image(jumpFrameImage, this.x, this.y, this.width, this.height);
+    } else {
+      image(
+        frogForwardImg.frogForward,
+        this.x,
+        this.y,
+        this.width,
+        this.height,
+      );
+    }
   }
 
   public getScore() {
