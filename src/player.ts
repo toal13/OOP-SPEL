@@ -25,8 +25,10 @@ class Player extends GameEntity {
   private images: p5.Image[];
 
   constructor(speed: number) {
+
     super(1000 * 0.5, 555, speed, 45, 40, frogForwardImg.frogForward);
     this.images = [];
+
 
     this.controls = {
       up: UP_ARROW,
@@ -63,6 +65,11 @@ class Player extends GameEntity {
       console.log(this.currentJumpFrame);
     }
   }
+
+
+    this.x += this.speed * deltaTime;
+  }
+
 
   protected move() {
     if (keyIsDown(this.controls.up) && this.y > minY && !this.isJumping) {
