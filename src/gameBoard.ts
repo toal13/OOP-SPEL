@@ -96,13 +96,16 @@ class GameBoard implements IMenu {
               !(entity instanceof Log))
           ) {
             //DÖ
+
             gameOver = true; // Sätt gameOver till true om spelaren kolliderar med farliga objekt
           }
           if (entity instanceof Turtle || entity instanceof Log) {
             this.player.speed = entity.speed;
             gameOver = false; // Om spelaren kolliderar med Turtle eller Log, avsluta inte spelet
           }
-          // Här kan du lägga till fler villkor för olika typer av kollisioner om det behövs
+          if (entity instanceof FreeZone) {
+            this.player.speed = 0;
+          }
         }
       }
     }
