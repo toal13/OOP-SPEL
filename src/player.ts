@@ -9,26 +9,19 @@ type Controls = {
 
 const minY = 0;
 const minX = 0;
-const maxX = 1000;
-const jumpSpeed = 400;
+const maxX = 1000; // Adjust this value based on your game world width
 
 class Player extends GameEntity {
   private controls: Controls;
   private jumpDistance: number;
-  private isJumping: boolean;
-  private currentJumpFrame: number;
-  private jumpTimer: number;
-
+  private jumpSpeed: number;
+  private isMoving: boolean;
   private score: number;
   private prevX: number;
   private prevY: number;
-  private images: p5.Image[];
 
   constructor(speed: number) {
-
-    super(1000 * 0.5, 555, speed, 45, 40, frogForwardImg.frogForward);
-    this.images = [];
-
+    super(1000 * 0.5, 555, speed, 45, 40, frogImg.frog);
 
     this.controls = {
       up: UP_ARROW,
@@ -38,70 +31,47 @@ class Player extends GameEntity {
     };
 
     this.jumpDistance = 50;
-    this.isJumping = false;
-    this.currentJumpFrame = 0;
-    this.jumpTimer = jumpSpeed;
+    this.jumpSpeed = 0;
+    this.isMoving = false;
 
     this.score = 0;
     this.prevX = this.x;
 
+    // Hämta sparad poäng från localStorage vid skapandet av spelaren
     const savedScore = localStorage.getItem("playerScore");
     this.score = savedScore ? parseInt(savedScore, 10) : 0;
 
-    this.prevY = this.y;
+    this.prevY = this.y; // Fix: Initialize prevY with the current y-coordinate
   }
 
   public update() {
     this.move();
-    this.updateJump();
-  }
-
-  private updateJump() {
-    if (this.jumpTimer < jumpSpeed) {
-      this.jumpTimer += deltaTime;
-
-      const timeForOneFrame = jumpSpeed / this.images.length;
-      this.currentJumpFrame = Math.floor(this.jumpTimer / timeForOneFrame);
-      console.log(this.currentJumpFrame);
-    }
-  }
-
-
     this.x += this.speed * deltaTime;
   }
 
-
   protected move() {
-    if (keyIsDown(this.controls.up) && this.y > minY && !this.isJumping) {
+    if (keyIsDown(this.controls.up) && this.y > minY && !this.isMoving) {
       this.y -= this.jumpDistance;
-      this.images = [frogForwardImg.frogForward];
-      this.isJumping = true;
-      this.jumpTimer = 0;
+      this.isMoving = true;
       this.incrementScore();
     }
-    if (keyIsDown(this.controls.down) && this.y && !this.isJumping) {
+    if (keyIsDown(this.controls.down) && this.y && !this.isMoving) {
       this.y += this.jumpDistance;
-      this.images = [frogBackwardImg.frogBackward];
-      this.isJumping = true;
-      this.jumpTimer = 0;
+      this.isMoving = true;
       this.incrementScore();
     }
-    if (keyIsDown(this.controls.left) && this.x > minX && !this.isJumping) {
+    if (keyIsDown(this.controls.left) && this.x > minX && !this.isMoving) {
       this.x -= this.jumpDistance;
-      this.images = [frogLeftImg.frogLeft];
-      this.isJumping = true;
-      this.jumpTimer = 0;
+      this.isMoving = true;
       this.incrementScore();
     }
-    if (keyIsDown(this.controls.right) && this.x < maxX && !this.isJumping) {
+    if (keyIsDown(this.controls.right) && this.x < maxX && !this.isMoving) {
       this.x += this.jumpDistance;
-      this.images = [frogRightImg.frogRight];
-      this.isJumping = true;
-      this.jumpTimer = 0;
+      this.isMoving = true;
       this.incrementScore();
     }
 
-    // Förhindrar att spelaren går utanför skärmen
+    // Kollisionskontroller för att förhindra att spelaren går utanför skärmen
     if (this.x < minX) {
       this.x = minX;
     }
@@ -119,15 +89,19 @@ class Player extends GameEntity {
       !keyIsDown(this.controls.left) &&
       !keyIsDown(this.controls.right)
     ) {
-      this.isJumping = false;
+      this.isMoving = false;
     }
   }
 
-  private incrementScore() {
+  public incrementScore() {
+    // Öka poängen endast om spelaren hoppar framåt
     if (this.y < this.prevY) {
       this.score += 1;
+
+      // Spara poängen i localStorage när den ökar
       this.saveScore();
     }
+    // Uppdatera föregående y-koordinat
     this.prevY = this.y;
   }
 
@@ -136,25 +110,11 @@ class Player extends GameEntity {
     this.saveScore();
   }
 
-  public draw() {
-    fill(255);
-    textSize(20);
-    textAlign(RIGHT, TOP);
+  public drawScore() {
+    fill(255); // Vit färg för texten
+    textSize(20); // Justera textstorleken efter behov
+    textAlign(RIGHT, TOP); // Justera textjusteringen efter behov
     text(`Score: ${this.score}`, width, 0);
-
-    // Rita spelaren baserat på hoppanimationen
-    if (this.jumpTimer < jumpSpeed) {
-      const jumpFrameImage = this.images[this.currentJumpFrame];
-      image(jumpFrameImage, this.x, this.y, this.width, this.height);
-    } else {
-      image(
-        frogForwardImg.frogForward,
-        this.x,
-        this.y,
-        this.width,
-        this.height,
-      );
-    }
   }
 
   public getScore() {
@@ -164,7 +124,7 @@ class Player extends GameEntity {
   private saveScore() {
     // Save the current score
     localStorage.setItem("currentPlayerScore", this.score.toString());
-    localStorage.setItem("playerScore", this.score.toString());
+
     // Retrieve past scores from localStorage
     const pastScores =
       JSON.parse(localStorage.getItem("pastPlayerScores") as string) || [];
@@ -175,8 +135,4 @@ class Player extends GameEntity {
     // Save the updated past scores
     localStorage.setItem("pastPlayerScores", JSON.stringify(pastScores));
   }
-
-  // private saveScore() {
-  //   localStorage.setItem("playerScore", this.score.toString());
-  // }
 }

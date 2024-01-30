@@ -11,7 +11,6 @@ class GameBoard implements IMenu {
   private countDownActive: boolean = true;
 
   constructor() {
-
     this.worldSpeed = 0.5;
     this.player = new Player(0);
     this.levels = [new Level(0, 0), new Level(1, 0), new Level(2, 0)];
