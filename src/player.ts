@@ -61,7 +61,6 @@ class Player extends GameEntity {
 
       const timeForOneFrame = jumpSpeed / this.images.length;
       this.currentJumpFrame = Math.floor(this.jumpTimer / timeForOneFrame);
-      console.log(this.currentJumpFrame);
     }
   }
 

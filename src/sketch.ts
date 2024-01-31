@@ -73,6 +73,15 @@ let frogLeftImg: {
 let frogBackwardImg: {
   frogBackward: p5.Image;
 };
+let turtle2Img: {
+  turtle2: p5.Image;
+};
+let turtle3Img: {
+  turtle3: p5.Image;
+};
+let turtle4Img: {
+  turtle4: p5.Image;
+};
 
 /**
  * Built in preload function in P5
@@ -148,6 +157,15 @@ function preload() {
   };
   frogLeftImg = {
     frogLeft: loadImage("./assets/images/frogLeft.png"),
+  };
+  turtle2Img = {
+    turtle2: loadImage("./assets/images/turtle2.png"),
+  };
+  turtle3Img = {
+    turtle3: loadImage("./assets/images/turtle3.png"),
+  };
+  turtle4Img = {
+    turtle4: loadImage("./assets/images/turtle4.png"),
   };
 }
 
