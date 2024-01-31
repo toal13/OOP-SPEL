@@ -17,7 +17,7 @@ class Level {
     water2Speed =
       random() > 0.5
         ? random(-speed * 1.4, speed * 1.9)
-        : random(-speed * 1, speed * 1.4);
+        : random(-speed * 1.2, speed * 1.4);
 
     // If both speeds have the same sign, adjust one of them
     if (
