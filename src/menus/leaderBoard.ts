@@ -30,7 +30,28 @@ class LeaderBoard implements IMenu {
       height / 4 - this.leaderBoardImage.height / 4,
     );
 
+    this.drawScores();
+
     this.goBackButton.draw();
     pop();
+  }
+
+  private drawScores() {
+    const pastScores = JSON.parse(
+      localStorage.getItem("pastPlayerScores") || "[]",
+    );
+
+    pastScores.sort((a: number, b: number) => b - a);
+
+    fill(255); // Vit färg för texten
+    textSize(50); // Textstorleken för "Top 3 Scores"
+    textAlign(CENTER, TOP);
+
+    text("Top 3 Scores", width / 2, 180);
+
+    pastScores.slice(0, 3).forEach((score: number, index: number) => {
+      textSize(30);
+      text(`Score ${index + 1}: ${score}`, width / 2, 260 + index * 50);
+    });
   }
 }
