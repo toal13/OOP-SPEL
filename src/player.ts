@@ -71,6 +71,7 @@ class Player extends GameEntity {
       this.isJumping = true;
       this.jumpTimer = 0;
       this.incrementScore();
+      soundeffect.frogJump.play();
     }
     if (keyIsDown(this.controls.down) && this.y && !this.isJumping) {
       this.y += this.jumpDistance;
@@ -78,6 +79,7 @@ class Player extends GameEntity {
       this.isJumping = true;
       this.jumpTimer = 0;
       this.incrementScore();
+      soundeffect.frogJump.play();
     }
     if (keyIsDown(this.controls.left) && this.x > minX && !this.isJumping) {
       this.x -= this.jumpDistance;
@@ -85,6 +87,7 @@ class Player extends GameEntity {
       this.isJumping = true;
       this.jumpTimer = 0;
       this.incrementScore();
+      soundeffect.frogJump.play();
     }
     if (keyIsDown(this.controls.right) && this.x < maxX && !this.isJumping) {
       this.x += this.jumpDistance;
@@ -92,6 +95,7 @@ class Player extends GameEntity {
       this.isJumping = true;
       this.jumpTimer = 0;
       this.incrementScore();
+      soundeffect.frogJump.play();
     }
 
     // Kollisionskontroller för att förhindra att spelaren går utanför skärmen
@@ -117,10 +121,16 @@ class Player extends GameEntity {
   }
 
   public incrementScore() {
-    if (this.y < this.prevY) {
+    // Ger minuspoäng om spelaren går tillbaka/ner
+    if (this.y > this.prevY && keyIsDown(this.controls.down)) {
+      this.score -= 1;
+      this.saveScore();
+    } else if (this.y < this.prevY) {
+      // Endast öka poäng om spelaren har gått uppåt
       this.score += 1;
        this.saveScore();
     }
+
     this.prevY = this.y;
   }
 

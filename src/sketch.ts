@@ -3,6 +3,13 @@ let game: Game;
 
 let music: {
   mystery: p5.SoundFile;
+  gameboardmusic: p5.SoundFile;
+  gamemenumusic: p5.SoundFile;
+};
+let soundeffect: {
+  frogJump: p5.SoundFile;
+  gameOver: p5.SoundFile;
+  button: p5.SoundFile;
 };
 let redCarImg: {
   redCar: p5.Image;
@@ -82,6 +89,13 @@ let frogBackwardImg: {
 function preload() {
   music = {
     mystery: loadSound("/assets/music/mystery.mp3"),
+    gameboardmusic: loadSound("/assets/music/gameboardmusic.mp3"),
+    gamemenumusic: loadSound("/assets/music/gamemenumusic.mp3"),
+  };
+  soundeffect = {
+    frogJump: loadSound("/assets/soundeffects/frog.mp3"),
+    gameOver: loadSound("/assets/soundeffects/gameOver.mp3"),
+    button: loadSound("/assets/soundeffects/button.mp3"),
   };
   redCarImg = {
     redCar: loadImage("./assets/images/redCar.png"),
@@ -160,7 +174,8 @@ function preload() {
 function setup() {
   createCanvas(1000, 600);
   frameRate(60);
-  music.mystery.setVolume(0.8);
+  music.gamemenumusic.setVolume(0.6);
+  soundeffect.frogJump.setVolume(0.1);
   game = new Game();
 }
 
