@@ -9,6 +9,7 @@ let music: {
 let soundeffect: {
   frogJump: p5.SoundFile;
   gameOver: p5.SoundFile;
+  button: p5.SoundFile;
 };
 let redCarImg: {
   redCar: p5.Image;
@@ -94,6 +95,7 @@ function preload() {
   soundeffect = {
     frogJump: loadSound("/assets/soundeffects/frog.mp3"),
     gameOver: loadSound("/assets/soundeffects/gameOver.mp3"),
+    button: loadSound("/assets/soundeffects/button.mp3"),
   };
   redCarImg = {
     redCar: loadImage("./assets/images/redCar.png"),

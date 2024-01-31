@@ -1,10 +1,10 @@
 class InstructionsMenu implements IMenu {
   private goBackButton: Button;
   private InstructionsImage: p5.Image;
-
+  private button: p5.SoundFile;
   constructor() {
-    this.InstructionsImage = loadImage ("./assets/images/Instructions.png")
-
+    this.InstructionsImage = loadImage("./assets/images/Instructions.png");
+    this.button = soundeffect.button;
     this.goBackButton = new Button(
       windowWidth * 0.03,
       windowHeight * 0.05,
@@ -17,11 +17,12 @@ class InstructionsMenu implements IMenu {
   public update(): void {
     if (this.goBackButton.isClicked()) {
       game.setCurrentMenu(new GameMenu());
+      this.button.play();
     }
   }
 
   public draw() {
-    push()
+    push();
     background("lightblue");
     image(
       this.InstructionsImage,
