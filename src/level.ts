@@ -6,29 +6,8 @@ class Level {
     const lane1Speed = random(speed * 2, speed * 2.2);
     const lane2Speed = random(speed * 1.8, speed * 1.6);
 
-    let waterSpeed = speed;
-    let water2Speed = speed;
-
-    // Randomize waterSpeed and water2Speed independently
-    waterSpeed =
-      random() > 0.5
-        ? random(-speed * 1.5, -speed * 2)
-        : random(speed * 1, speed * 1.8);
-    water2Speed =
-      random() > 0.5
-        ? random(-speed * 1.4, speed * 1.9)
-        : random(-speed * 1.2, speed * 1.4);
-
-    // If both speeds have the same sign, adjust one of them
-    if (
-      (waterSpeed > 0 && water2Speed > 0) ||
-      (waterSpeed < 0 && water2Speed < 0)
-    ) {
-      waterSpeed = -waterSpeed * 1.2;
-    }
-
-    console.log(water2Speed);
-    console.log(waterSpeed);
+    const waterSpeed = speed * 2;
+    const water2Speed = -speed * 2;
 
     // const lane3Speed = random(speed, speed * 2);
     // const lane4Speed = random(speed, speed * 2);
@@ -85,6 +64,7 @@ class Level {
       const xOffset = i + xOverlap; // random avstånd per lane om ni vill..
       xOverlap += -random(250, 300);
       speed += 0.05;
+
       console.log(deltaTime);
 
       this.gameEntities.push(
