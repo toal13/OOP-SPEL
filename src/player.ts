@@ -122,10 +122,16 @@ class Player extends GameEntity {
   }
 
   public incrementScore() {
-    if (this.y < this.prevY) {
+    // Ger minuspoäng om spelaren går tillbaka/ner
+    if (this.y > this.prevY && keyIsDown(this.controls.down)) {
+      this.score -= 1;
+      this.saveScore();
+    } else if (this.y < this.prevY) {
+      // Endast öka poäng om spelaren har gått uppåt
       this.score += 1;
       this.saveScore();
     }
+  
 
     this.prevY = this.y;
   }

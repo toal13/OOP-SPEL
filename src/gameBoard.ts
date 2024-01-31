@@ -66,8 +66,7 @@ class GameBoard implements IMenu {
       this.levelCount++;
       wHeight += -600;
       this.removeLevel();
-      console.log(wHeight);
-      console.log(this.levels);
+      console.log(this.levels[1]);
     }
   }
 
@@ -106,7 +105,9 @@ class GameBoard implements IMenu {
             this.player.speed = entity.speed;
             gameOver = false; // Om spelaren kolliderar med Turtle eller Log, avsluta inte spelet
           }
-          // Här kan du lägga till fler villkor för olika typer av kollisioner om det behövs
+          if (entity instanceof FreeZone) {
+            this.player.speed = 0;
+          }
         }
       }
     }
@@ -130,7 +131,6 @@ class GameBoard implements IMenu {
         ) {
           // What happens when a player touches a coin
           if (entity instanceof Coin) {
-            console.log("Coin touched!");
             this.player.incrementCoins(); // Increase score
             level.gameEntities.splice(level.gameEntities.indexOf(entity), 1); // Remove coins
           }
