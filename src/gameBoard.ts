@@ -128,7 +128,6 @@ class GameBoard implements IMenu {
         ) {
           // What happens when a player touches a coin
           if (entity instanceof Coin) {
-            console.log("Coin touched!");
             this.player.incrementCoins(); // Increase score
             level.gameEntities.splice(level.gameEntities.indexOf(entity), 1); // Remove coins
           }
