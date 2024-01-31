@@ -6,12 +6,18 @@ class Level {
     const lane1Speed = random(speed * 2, speed * 2.2);
     const lane2Speed = random(speed * 1.8, speed * 1.6);
 
-    const waterSpeed = speed * 2;
-    const water2Speed = -speed * 2;
+    let isPositiveWaterSpeed = Math.random() < 0.5;
+    let isPositiveWater2Speed = Math.random() < 0.5;
 
-    // const lane3Speed = random(speed, speed * 2);
-    // const lane4Speed = random(speed, speed * 2);
-    // const lane5Speed = random(speed, speed * 2);
+    // Check if both directions are the same
+    if (isPositiveWaterSpeed === isPositiveWater2Speed) {
+      // Invert the direction of one of them
+      isPositiveWater2Speed = !isPositiveWater2Speed;
+    }
+
+    // Assign positive or negative values based on the random boolean
+    const waterSpeed = isPositiveWaterSpeed ? speed * 2 : -speed * 2;
+    const water2Speed = isPositiveWater2Speed ? speed * 2 : -speed * 2;
 
     // Flytta entiteterna baserat på level id
     let levelHeight = -600;
