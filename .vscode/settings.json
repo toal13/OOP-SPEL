@@ -4,7 +4,9 @@
     "Joti",
     "Leaderboard",
     "gameboardmusic",
-    "gamemenumusic"
+    "gamemenumusic",
+    "soundeffect",
+    "soundeffects"
   ],
   "cSpell.words": [
     "Entitys"

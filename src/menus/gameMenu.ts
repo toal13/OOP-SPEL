@@ -3,18 +3,12 @@ class GameMenu implements IMenu {
   private buttonInstructions: Button;
   private buttonLeaderboard: Button;
   private frogImage: p5.Image;
-  private isGamemenuMusicPlaying: boolean = false;
+  private menuMusic: p5.SoundFile;
 
   constructor() {
     this.frogImage = loadImage("./assets/images/menuBackground.png");
-
-    // Ladda in gamemenumusic om det inte redan spelas
-    if (!this.isGamemenuMusicPlaying) {
-      music.gamemenumusic.loop();
-      this.isGamemenuMusicPlaying = true;
-    }
-
-    // Define button properties
+    this.menuMusic = music.gamemenumusic;
+    this.menuMusic.loop();
     let buttonWidth = 240;
     let buttonHeight = 40;
     let buttonX = (width - buttonWidth) / 2;
@@ -44,6 +38,7 @@ class GameMenu implements IMenu {
 
   public update() {
     if (this.buttonNewGame.isClicked()) {
+      this.menuMusic.stop(); // Stop the menu music
       game.setCurrentMenu(new GameBoard());
     }
     if (this.buttonInstructions.isClicked()) {

@@ -9,8 +9,11 @@ class GameBoard implements IMenu {
   private coins: Coin[]; //number???
   private countDown: number;
   private countDownActive: boolean = true;
+  public gameBoardMusic: p5.SoundFile;
 
   constructor() {
+    this.gameBoardMusic = music.gameboardmusic;
+    this.gameBoardMusic.loop();
     this.worldSpeed = 0.5;
     this.player = new Player(0);
     this.levels = [new Level(0, 0), new Level(1, 0), new Level(2, 0)];
@@ -53,7 +56,6 @@ class GameBoard implements IMenu {
         entity.y += this.worldSpeed;
       }
     }
-    music.gameboardmusic.loop();
   }
 
   private addLevel() {
@@ -97,6 +99,7 @@ class GameBoard implements IMenu {
               !(entity instanceof Log))
           ) {
             //DÖ
+            soundeffect.gameOver.play();
             gameOver = true; // Sätt gameOver till true om spelaren kolliderar med farliga objekt
           }
           if (entity instanceof Turtle || entity instanceof Log) {
@@ -138,7 +141,6 @@ class GameBoard implements IMenu {
 
   public update() {
     if (this.countDownActive) return;
-
     for (let level of this.levels) {
       level.update();
     }

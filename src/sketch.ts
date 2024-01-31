@@ -6,6 +6,10 @@ let music: {
   gameboardmusic: p5.SoundFile;
   gamemenumusic: p5.SoundFile;
 };
+let soundeffect: {
+  frogJump: p5.SoundFile;
+  gameOver: p5.SoundFile;
+};
 let redCarImg: {
   redCar: p5.Image;
 };
@@ -87,6 +91,10 @@ function preload() {
     gameboardmusic: loadSound("/assets/music/gameboardmusic.mp3"),
     gamemenumusic: loadSound("/assets/music/gamemenumusic.mp3"),
   };
+  soundeffect = {
+    frogJump: loadSound("/assets/soundeffects/frog.mp3"),
+    gameOver: loadSound("/assets/soundeffects/gameOver.mp3"),
+  };
   redCarImg = {
     redCar: loadImage("./assets/images/redCar.png"),
   };
@@ -165,7 +173,6 @@ function setup() {
   createCanvas(1000, 600);
   frameRate(60);
   music.gamemenumusic.setVolume(0.6);
-  music.gameboardmusic.setVolume(0.6);
   game = new Game();
 }
 
