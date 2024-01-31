@@ -173,6 +173,7 @@ function setup() {
   createCanvas(1000, 600);
   frameRate(60);
   music.gamemenumusic.setVolume(0.6);
+  soundeffect.frogJump.setVolume(0.1);
   game = new Game();
 }
 
