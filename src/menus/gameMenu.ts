@@ -3,17 +3,14 @@ class GameMenu implements IMenu {
   private buttonInstructions: Button;
   private buttonLeaderboard: Button;
   private frogImage: p5.Image;
-  /* private volumeSlider: p5.Element; */
+  private menuMusic: p5.SoundFile;
+  private button: p5.SoundFile;
 
   constructor() {
     this.frogImage = loadImage("./assets/images/menuBackground.png");
-
-    /* Create volume-slider */
-    /* this.volumeSlider = createSlider(0, 100, 50);
-    this.volumeSlider.position(width * 1, height * 0.30);
-    this.volumeSlider.style("width", "80px"); */
-
-    // Define button properties
+    this.menuMusic = music.gamemenumusic;
+    this.menuMusic.loop();
+    this.button = soundeffect.button;
     let buttonWidth = 240;
     let buttonHeight = 40;
     let buttonX = (width - buttonWidth) / 2;
@@ -43,13 +40,17 @@ class GameMenu implements IMenu {
 
   public update() {
     if (this.buttonNewGame.isClicked()) {
+      this.menuMusic.stop(); // Stop the menu music
       game.setCurrentMenu(new GameBoard());
+      this.button.play();
     }
     if (this.buttonInstructions.isClicked()) {
       game.setCurrentMenu(new InstructionsMenu());
+      this.button.play();
     }
     if (this.buttonLeaderboard.isClicked()) {
       game.setCurrentMenu(new LeaderBoard());
+      this.button.play();
     }
   }
 

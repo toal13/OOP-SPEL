@@ -62,7 +62,6 @@ class Player extends GameEntity {
 
       const timeForOneFrame = jumpSpeed / this.images.length;
       this.currentJumpFrame = Math.floor(this.jumpTimer / timeForOneFrame);
-      console.log(this.currentJumpFrame);
     }
   }
 
@@ -73,6 +72,7 @@ class Player extends GameEntity {
       this.isJumping = true;
       this.jumpTimer = 0;
       this.incrementScore();
+      soundeffect.frogJump.play();
     }
     if (keyIsDown(this.controls.down) && this.y && !this.isJumping) {
       this.y += this.jumpDistance;
@@ -80,6 +80,7 @@ class Player extends GameEntity {
       this.isJumping = true;
       this.jumpTimer = 0;
       this.incrementScore();
+      soundeffect.frogJump.play();
     }
     if (keyIsDown(this.controls.left) && this.x > minX && !this.isJumping) {
       this.x -= this.jumpDistance;
@@ -87,6 +88,7 @@ class Player extends GameEntity {
       this.isJumping = true;
       this.jumpTimer = 0;
       this.incrementScore();
+      soundeffect.frogJump.play();
     }
     if (keyIsDown(this.controls.right) && this.x < maxX && !this.isJumping) {
       this.x += this.jumpDistance;
@@ -94,6 +96,7 @@ class Player extends GameEntity {
       this.isJumping = true;
       this.jumpTimer = 0;
       this.incrementScore();
+      soundeffect.frogJump.play();
     }
 
     // Kollisionskontroller för att förhindra att spelaren går utanför skärmen
@@ -126,15 +129,15 @@ class Player extends GameEntity {
     } else if (this.y < this.prevY) {
       // Endast öka poäng om spelaren har gått uppåt
       this.score += 1;
-      this.saveScore();
+       this.saveScore();
     }
 
     this.prevY = this.y;
   }
 
   public incrementCoins() {
-    this.score += 20; // get 20p extra
-    this.saveScore();
+    this.score += 20;
+     this.saveScore();
   }
 
   public draw() {
@@ -163,23 +166,7 @@ class Player extends GameEntity {
   }
 
   private saveScore() {
-    // Spara den aktuella poängen
+    // Save the current score
     localStorage.setItem("currentPlayerScore", this.score.toString());
-
-    // Hämta tidigare poäng från localStorage
-    let pastScores = JSON.parse(
-      localStorage.getItem("pastPlayerScores") || "[]",
-    );
-
-    // Se till att bara de tre senaste poängen sparas
-    if (pastScores.length >= 3) {
-      pastScores.shift(); // Ta bort den äldsta poängen
-    }
-
-    // Lägg till den aktuella poängen i listan
-    pastScores.push(this.score);
-
-    // Spara den uppdaterade listan med poäng
-    localStorage.setItem("pastPlayerScores", JSON.stringify(pastScores));
   }
 }

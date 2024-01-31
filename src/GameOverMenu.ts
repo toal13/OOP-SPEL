@@ -6,12 +6,23 @@ class GameOverMenu implements IMenu {
   private player: Player;
   private playerScore: number;
 
+  private highScore: number;
+  private isScoreSaved: boolean;
+  public gameBoardMusic: p5.SoundFile;
+
+
   constructor(player: Player, score: number) {
     this.gameOverImage = loadImage("./assets/images/gameOver.png");
     this.gameOverImage.resize(200, 0);
     this.gameActive = true;
     this.player = player;
     this.playerScore = score;
+
+    this.isScoreSaved = false;
+    this.highScore = Number(localStorage.getItem("highScore") || "0");
+
+    this.gameBoardMusic = music.gameboardmusic;
+
 
     let buttonWidth = 140;
     let buttonHeight = 40;
@@ -37,12 +48,34 @@ class GameOverMenu implements IMenu {
     );
   }
 
+  private saveScore() {
+    //// ls......
+    let previousScores = JSON.parse(
+      localStorage.getItem("previousHighScores") || "[]",
+    );
+    // if (!Array.isArray(previousScores)) {
+    //   previousScores = [];
+    // }
+    previousScores.push(this.player.getScore());
+
+    // Update the previous high score in localStorage
+    localStorage.setItem("previousHighScores", JSON.stringify(previousScores));
+    this.isScoreSaved = true;
+  }
+
   public update() {
+    if (!this.isScoreSaved) {
+      this.saveScore();
+    }
+
     if (this.buttonPlayAgain.isClicked()) {
       game.setCurrentMenu(new GameBoard());
+      this.gameBoardMusic.stop();
+      this.gameBoardMusic.loop();
     }
     if (this.buttonMenu.isClicked()) {
       game.setCurrentMenu(new GameMenu());
+      this.gameBoardMusic.stop();
     }
   }
 
@@ -59,17 +92,14 @@ class GameOverMenu implements IMenu {
     const playerScore = this.player.getScore();
     text("Your Score: " + playerScore, width / 2, height / 2 + 70);
 
-    // Retrieve the high score from localStorage
-    const highScore = localStorage.getItem("highScore") || "0";
-
     // Compare player's score with the high score
-    if (playerScore > parseInt(highScore, 10)) {
+    if (playerScore > this.highScore) {
       // If the player's score is higher, update the high score in localStorage
       localStorage.setItem("highScore", playerScore.toString());
       text("New High Score: " + playerScore, width / 2, height / 2 + 100);
     } else {
       // If not, display the existing high score
-      text("High Score: " + highScore, width / 2, height / 2 + 100);
+      text("High Score: " + this.highScore, width / 2, height / 2 + 100);
     }
 
     this.buttonMenu.draw();
