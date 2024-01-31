@@ -6,6 +6,7 @@ class GameOverMenu implements IMenu {
   private player: Player;
   private playerScore: number;
   public gameBoardMusic: p5.SoundFile;
+  private button: p5.SoundFile;
 
   constructor(player: Player, score: number) {
     this.gameOverImage = loadImage("./assets/images/gameOver.png");
@@ -14,6 +15,7 @@ class GameOverMenu implements IMenu {
     this.player = player;
     this.playerScore = score;
     this.gameBoardMusic = music.gameboardmusic;
+    this.button = soundeffect.button;
 
     let buttonWidth = 140;
     let buttonHeight = 40;
@@ -42,11 +44,13 @@ class GameOverMenu implements IMenu {
   public update() {
     if (this.buttonPlayAgain.isClicked()) {
       game.setCurrentMenu(new GameBoard());
+      this.button.play();
       this.gameBoardMusic.stop();
       this.gameBoardMusic.loop();
     }
     if (this.buttonMenu.isClicked()) {
       game.setCurrentMenu(new GameMenu());
+      this.button.play();
       this.gameBoardMusic.stop();
     }
   }

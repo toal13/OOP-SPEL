@@ -1,10 +1,11 @@
 class LeaderBoard implements IMenu {
   private goBackButton: Button;
   private leaderBoardImage: p5.Image;
+  private button: p5.SoundFile;
 
   constructor() {
     this.leaderBoardImage = loadImage("./assets/images/leaderBoard.png");
-
+    this.button = soundeffect.button;
     this.goBackButton = new Button(
       windowWidth * 0.03,
       windowHeight * 0.05,
@@ -17,6 +18,7 @@ class LeaderBoard implements IMenu {
   public update() {
     if (this.goBackButton.isClicked()) {
       game.setCurrentMenu(new GameMenu());
+      this.button.play();
     }
   }
 
