@@ -1,8 +1,11 @@
+/**
+ * Represents the leaderboard menu.
+ * @implements IMenu
+ */
 class LeaderBoard implements IMenu {
   private goBackButton: Button;
   private leaderBoardImage: p5.Image;
   private button: p5.SoundFile;
-
 
   constructor() {
     this.leaderBoardImage = loadImage("./assets/images/leaderBoard.png");
@@ -16,6 +19,9 @@ class LeaderBoard implements IMenu {
     );
   }
 
+  /**
+   * Update function for the leaderboard menu.
+   */
   public update() {
     if (this.goBackButton.isClicked()) {
       game.setCurrentMenu(new GameMenu());
@@ -23,6 +29,9 @@ class LeaderBoard implements IMenu {
     }
   }
 
+  /**
+   * Draw function for the leaderboard menu.
+   */
   public draw() {
     push();
     background("lightblue");
@@ -39,6 +48,9 @@ class LeaderBoard implements IMenu {
     pop();
   }
 
+  /**
+   * Draws the leaderboard scores.
+   */
   private drawScores() {
     const previousScores = JSON.parse(
       localStorage.getItem("previousHighScores") || "[]",
@@ -53,8 +65,8 @@ class LeaderBoard implements IMenu {
     text("Top 3 Scores", width / 2, 180);
 
     previousScores.slice(0, 3).forEach((score: number, index: number) => {
-     textSize(39);
-     text(`Top ${index + 1}: ${score}`, width / 2, 260 + index * 80);
+      textSize(39);
+      text(`Top ${index + 1}: ${score}`, width / 2, 260 + index * 80);
     });
   }
 }

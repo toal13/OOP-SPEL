@@ -1,8 +1,11 @@
+/**
+ * Represents the instructions menu.
+ * @implements IMenu
+ */
 class InstructionsMenu implements IMenu {
   private goBackButton: Button;
   private InstructionsImage: p5.Image;
   private button: p5.SoundFile;
-
 
   constructor() {
     this.InstructionsImage = loadImage("./assets/images/Instructions.png");
@@ -16,6 +19,9 @@ class InstructionsMenu implements IMenu {
     );
   }
 
+  /**
+   * Update function for the instructions menu.
+   */
   public update(): void {
     if (this.goBackButton.isClicked()) {
       game.setCurrentMenu(new GameMenu());
@@ -23,6 +29,9 @@ class InstructionsMenu implements IMenu {
     }
   }
 
+  /**
+   * Draw function for the instructions menu.
+   */
   public draw() {
     push();
     background("lightblue");

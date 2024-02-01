@@ -1,5 +1,7 @@
-/// <reference path="./gameEntity.ts" />
-
+/**
+ * Represents a car in the game.
+ * @extends GameEntity
+ */
 class Car extends GameEntity {
   constructor(
     x: number,

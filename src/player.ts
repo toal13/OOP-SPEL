@@ -9,9 +9,12 @@ type Controls = {
 
 const minY = 0;
 const minX = 0;
-const maxX = 1000; // Adjust this value based on your game world width
+const maxX = 1000;
 const jumpSpeed = 400;
 
+/**
+ * Represents the player character in the game.
+ */
 class Player extends GameEntity {
   private controls: Controls;
   private jumpDistance: number;
@@ -28,6 +31,10 @@ class Player extends GameEntity {
     super(1000 * 0.5, 555, speed, 45, 40, frogForwardImg.frogForward);
     this.images = [];
 
+    /**
+     * Controls for the player character.
+     * @type {Controls}
+     */
     this.controls = {
       up: UP_ARROW,
       down: DOWN_ARROW,
@@ -43,19 +50,16 @@ class Player extends GameEntity {
     this.score = 0;
     this.prevX = this.x;
 
-    // Hämta sparad poäng från localStorage vid skapandet av spelaren
+    // Load saved score from localStorage or initialize to 0
     const savedScore = localStorage.getItem("playerScore");
     this.score = savedScore ? parseInt(savedScore, 10) : 0;
 
     this.prevY = this.y;
   }
 
-  public update() {
-    this.move();
-    this.updateJump();
-    this.x += this.speed * deltaTime;
-  }
-
+  /**
+   * Updates the jump animation.
+   */
   private updateJump() {
     if (this.jumpTimer < jumpSpeed) {
       this.jumpTimer += deltaTime;
@@ -65,6 +69,9 @@ class Player extends GameEntity {
     }
   }
 
+  /**
+   * Moves the player character based on user input.
+   */
   protected move() {
     if (keyIsDown(this.controls.up) && this.y > minY && !this.isJumping) {
       this.y -= this.jumpDistance;
@@ -99,7 +106,6 @@ class Player extends GameEntity {
       soundeffect.frogJump.play();
     }
 
-    // Kollisionskontroller för att förhindra att spelaren går utanför skärmen
     if (this.x < minX) {
       this.x = minX;
     }
@@ -110,7 +116,6 @@ class Player extends GameEntity {
       this.y = minY;
     }
 
-    // Återställ flaggan om tangenten släpps
     if (
       !keyIsDown(this.controls.up) &&
       !keyIsDown(this.controls.down) &&
@@ -121,32 +126,47 @@ class Player extends GameEntity {
     }
   }
 
+  /**
+   * Increments the player's score based on vertical movement.
+   */
   public incrementScore() {
-    // Ger minuspoäng om spelaren går tillbaka/ner
     if (this.y > this.prevY && keyIsDown(this.controls.down)) {
       this.score -= 1;
       this.saveScore();
     } else if (this.y < this.prevY) {
-      // Endast öka poäng om spelaren har gått uppåt
       this.score += 1;
-       this.saveScore();
+      this.saveScore();
     }
 
     this.prevY = this.y;
   }
 
+  /**
+   * Increments the player's score when collecting coins.
+   */
   public incrementCoins() {
     this.score += 20;
-     this.saveScore();
+    this.saveScore();
   }
 
+  /**
+   * Updates the player character's state.
+   */
+  public update() {
+    this.move();
+    this.updateJump();
+    this.x += this.speed * deltaTime;
+  }
+
+  /**
+   * Draws the player character on the screen.
+   */
   public draw() {
     fill(255);
     textSize(20);
     textAlign(RIGHT, TOP);
     text(`Score: ${this.score}`, width, 0);
 
-    // Rita spelaren baserat på hoppanimationen
     if (this.jumpTimer < jumpSpeed) {
       const jumpFrameImage = this.images[this.currentJumpFrame];
       image(jumpFrameImage, this.x, this.y, this.width, this.height);
@@ -166,7 +186,6 @@ class Player extends GameEntity {
   }
 
   private saveScore() {
-    // Save the current score
     localStorage.setItem("currentPlayerScore", this.score.toString());
   }
 }

@@ -1,3 +1,7 @@
+/**
+ * Represents a log in the game.
+ * @extends GameEntity
+ */
 class Log extends GameEntity {
   constructor(
     x: number,

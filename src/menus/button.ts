@@ -5,6 +5,11 @@ class Button {
   private height: number;
   private text: string;
   private prevMouseIsPressed: boolean;
+  /**
+   * Sets the position of the button.
+   * @param {number} x - The x-coordinate of the button's new position.
+   * @param {number} y - The y-coordinate of the button's new position.
+   */
   public setPosition(x: number, y: number) {
     this.x = x;
     this.y = y;
@@ -25,6 +30,10 @@ class Button {
     this.prevMouseIsPressed = mouseIsPressed;
   }
 
+  /**
+   * Checks if the button is clicked.
+   * @returns {boolean} True if the button is clicked, false otherwise.
+   */
   public isClicked(): boolean {
     const isMouseOver =
       mouseX > this.x &&
@@ -37,8 +46,10 @@ class Button {
     return isClicked;
   }
 
+  /**
+   * Draws the button on the canvas.
+   */
   public draw() {
-    // Check if the mouse is over the button
     const isMouseOver =
       mouseX > this.x &&
       mouseX < this.x + this.width &&
