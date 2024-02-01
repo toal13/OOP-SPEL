@@ -28,7 +28,8 @@ class Turtle extends GameEntity {
     this.tickCount += deltaTime;
 
     const timeForOneFrame = this.animationSpeed / this.turtleFrames.length;
-    this.currentImageIndex = Math.floor(this.tickCount / timeForOneFrame) % this.turtleFrames.length;
+    this.currentImageIndex =
+      Math.floor(this.tickCount / timeForOneFrame) % this.turtleFrames.length;
   }
   public update() {
     super.update();
@@ -37,6 +38,11 @@ class Turtle extends GameEntity {
 
   public draw() {
     const jumpFrameImage = this.turtleFrames[this.currentImageIndex];
-    image(jumpFrameImage, this.x, this.y, this.width, this.height);
+    push();
+    if (this.speed > 0) {
+      scale(-1, 1);
+      image(this.img, -this.x, this.y, -this.width, this.height);
+    } else image(this.img, this.x, this.y, this.width, this.height);
+    pop();
   }
 }

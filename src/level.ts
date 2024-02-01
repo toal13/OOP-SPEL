@@ -46,12 +46,12 @@ class Level {
 
       // -------- Moving things Road ----------
 
-      new Car(300, 300 + yOffset, lane1Speed, 100, 45),
-      new Car(width, 350 + yOffset, lane2Speed, 100, 45),
-      new Car(width, 400 + yOffset, lane1Speed, 100, 45),
+      new Car(300, 297 + yOffset, lane1Speed, 100, 45),
+      new Car(width, 355 + yOffset, lane2Speed, 100, 45),
+      new Car(width, 405 + yOffset, lane1Speed, 100, 45),
 
       new Motorcycle(300, 456 + yOffset, lane2Speed, 95, 42),
-      new Truck(300, 500 + yOffset, lane1Speed, 118, 45),
+      new Truck(295, 500 + yOffset, lane1Speed, 118, 45),
 
       // -------- Moving things Water ----------
       new Turtle(700, 200 + yOffset, water2Speed, 150, 50),
@@ -89,12 +89,12 @@ class Level {
 
       this.gameEntities.push(
         ...[
-          new Car(300 - xOffset, 300 + yOffset, lane1Speed, 100, 45),
-          new Car(width + xOffset, 350 + yOffset, lane2Speed, 100, 45),
-          new Car(width + xOffset, 400 + yOffset, lane1Speed, 100, 45),
+          new Car(300 - xOffset, 297 + yOffset, lane1Speed, 100, 45),
+          new Car(width + xOffset, 355 + yOffset, lane2Speed, 100, 45),
+          new Car(width + xOffset, 405 + yOffset, lane1Speed, 100, 45),
 
           new Motorcycle(300 - xOffset, 458 + yOffset, lane2Speed, 95, 45),
-          new Truck(300 - xOffset, 500 + yOffset, lane1Speed, 118, 45),
+          new Truck(295 - xOffset, 500 + yOffset, lane1Speed, 118, 45),
         ],
       );
     }
