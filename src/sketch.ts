@@ -194,7 +194,10 @@ function setup() {
   frameRate(60);
   outputVolume(0);
   music.gamemenumusic.setVolume(0.6);
-  soundeffect.frogJump.setVolume(0.1);
+  music.gameboardmusic.setVolume(0.6);
+  soundeffect.frogJump.setVolume(0.08);
+  soundeffect.gameOver.setVolume(0.6);
+  soundeffect.button.setVolume(0.2);
   game = new Game();
 }
 
