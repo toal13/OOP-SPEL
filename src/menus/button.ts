@@ -49,8 +49,7 @@ class Button {
 
     fill(backgroundColor);
     rect(this.x, this.y, this.width, this.height, 15);
-
-    fill(isMouseOver ? "black" : "black");
+    fill(isMouseOver ? "white" : "white");
     textSize(22);
     textAlign(CENTER, CENTER);
     text(this.text, this.x + this.width / 2, this.y + this.height / 2);

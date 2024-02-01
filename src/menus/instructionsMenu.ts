@@ -2,6 +2,8 @@ class InstructionsMenu implements IMenu {
   private goBackButton: Button;
   private InstructionsImage: p5.Image;
   private button: p5.SoundFile;
+
+
   constructor() {
     this.InstructionsImage = loadImage("./assets/images/Instructions.png");
     this.button = soundeffect.button;

@@ -9,6 +9,7 @@ class GameOverMenu implements IMenu {
   private highScore: number;
   private isScoreSaved: boolean;
   public gameBoardMusic: p5.SoundFile;
+  private button: p5.SoundFile;
 
 
   constructor(player: Player, score: number) {
@@ -22,6 +23,7 @@ class GameOverMenu implements IMenu {
     this.highScore = Number(localStorage.getItem("highScore") || "0");
 
     this.gameBoardMusic = music.gameboardmusic;
+    this.button = soundeffect.button;
 
 
     let buttonWidth = 140;
@@ -70,11 +72,13 @@ class GameOverMenu implements IMenu {
 
     if (this.buttonPlayAgain.isClicked()) {
       game.setCurrentMenu(new GameBoard());
+      this.button.play();
       this.gameBoardMusic.stop();
       this.gameBoardMusic.loop();
     }
     if (this.buttonMenu.isClicked()) {
       game.setCurrentMenu(new GameMenu());
+      this.button.play();
       this.gameBoardMusic.stop();
     }
   }

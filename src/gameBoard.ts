@@ -98,7 +98,6 @@ class GameBoard implements IMenu {
               !(entity instanceof Log))
           ) {
             //DÖ
-            soundeffect.gameOver.play();
             gameOver = true; // Sätt gameOver till true om spelaren kolliderar med farliga objekt
           }
           if (entity instanceof Turtle || entity instanceof Log) {
@@ -111,8 +110,9 @@ class GameBoard implements IMenu {
         }
       }
     }
-
+    
     if (gameOver) {
+      soundeffect.gameOver.play();
       this.isGameOver = true;
       game.pushNewMenu(new GameOverMenu(this.player, 500));
     }
