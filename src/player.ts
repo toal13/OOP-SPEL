@@ -53,6 +53,7 @@ class Player extends GameEntity {
   public update() {
     this.move();
     this.updateJump();
+    this.x += this.speed * deltaTime;
   }
 
   private updateJump() {
@@ -61,7 +62,6 @@ class Player extends GameEntity {
 
       const timeForOneFrame = jumpSpeed / this.images.length;
       this.currentJumpFrame = Math.floor(this.jumpTimer / timeForOneFrame);
-      console.log(this.currentJumpFrame);
     }
   }
 
@@ -122,17 +122,22 @@ class Player extends GameEntity {
   }
 
   public incrementScore() {
-    if (this.y < this.prevY) {
-      this.score += 1;
+    // Ger minuspoäng om spelaren går tillbaka/ner
+    if (this.y > this.prevY && keyIsDown(this.controls.down)) {
+      this.score -= 1;
       this.saveScore();
+    } else if (this.y < this.prevY) {
+      // Endast öka poäng om spelaren har gått uppåt
+      this.score += 1;
+       this.saveScore();
     }
 
     this.prevY = this.y;
   }
 
   public incrementCoins() {
-    this.score += 20; // get 20p extra
-    this.saveScore();
+    this.score += 20;
+     this.saveScore();
   }
 
   public draw() {
@@ -161,23 +166,7 @@ class Player extends GameEntity {
   }
 
   private saveScore() {
-    // Spara den aktuella poängen
+    // Save the current score
     localStorage.setItem("currentPlayerScore", this.score.toString());
-
-    // Hämta tidigare poäng från localStorage
-    let pastScores = JSON.parse(
-      localStorage.getItem("pastPlayerScores") || "[]",
-    );
-
-    // Se till att bara de tre senaste poängen sparas
-    if (pastScores.length >= 3) {
-      pastScores.shift(); // Ta bort den äldsta poängen
-    }
-
-    // Lägg till den aktuella poängen i listan
-    pastScores.push(this.score);
-
-    // Spara den uppdaterade listan med poäng
-    localStorage.setItem("pastPlayerScores", JSON.stringify(pastScores));
   }
 }

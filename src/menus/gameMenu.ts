@@ -13,6 +13,7 @@ class GameMenu implements IMenu {
     if (!this.menuMusic.isPlaying()) {
       this.menuMusic.loop();
     }
+
     this.button = soundeffect.button;
     let buttonWidth = 240;
     let buttonHeight = 40;
@@ -51,7 +52,9 @@ class GameMenu implements IMenu {
   public update() {
     if (this.buttonNewGame.isClicked()) {
       game.setCurrentMenu(new GameBoard());
+
       this.menuMusic.stop();
+
       this.button.play();
     }
     if (this.buttonInstructions.isClicked()) {
@@ -61,6 +64,7 @@ class GameMenu implements IMenu {
     if (this.buttonLeaderboard.isClicked()) {
       game.setCurrentMenu(new LeaderBoard());
       this.button.play();
+
     }
     if (this.buttonSound.isClicked()) {
       this.button.play();

@@ -3,6 +3,7 @@ class LeaderBoard implements IMenu {
   private leaderBoardImage: p5.Image;
   private button: p5.SoundFile;
 
+
   constructor() {
     this.leaderBoardImage = loadImage("./assets/images/leaderBoard.png");
     this.button = soundeffect.button;
@@ -39,21 +40,21 @@ class LeaderBoard implements IMenu {
   }
 
   private drawScores() {
-    const pastScores = JSON.parse(
-      localStorage.getItem("pastPlayerScores") || "[]",
+    const previousScores = JSON.parse(
+      localStorage.getItem("previousHighScores") || "[]",
     );
 
-    pastScores.sort((a: number, b: number) => b - a);
+    previousScores.sort((a: number, b: number) => b - a);
 
-    fill(255); // Vit färg för texten
-    textSize(50); // Textstorleken för "Top 3 Scores"
+    fill(255);
+    textSize(50);
     textAlign(CENTER, TOP);
 
     text("Top 3 Scores", width / 2, 180);
 
-    pastScores.slice(0, 3).forEach((score: number, index: number) => {
-      textSize(30);
-      text(`Score ${index + 1}: ${score}`, width / 2, 260 + index * 50);
+    previousScores.slice(0, 3).forEach((score: number, index: number) => {
+     textSize(39);
+     text(`Top ${index + 1}: ${score}`, width / 2, 260 + index * 80);
     });
   }
 }
