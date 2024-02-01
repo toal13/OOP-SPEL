@@ -53,6 +53,7 @@ class Player extends GameEntity {
   public update() {
     this.move();
     this.updateJump();
+    this.x += this.speed * deltaTime;
   }
 
   private updateJump() {

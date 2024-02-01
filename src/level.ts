@@ -3,36 +3,35 @@ class Level {
 
   public constructor(id: number, worldMoved: number) {
     let speed = 0.05;
-    const lane1Speed = random(speed * 2, speed * 2.2);
-    const lane2Speed = random(speed * 1.8, speed * 1.6);
+    const isPositiveLane1Speed = Math.random() < 0.5;
+    let isPositiveLane2Speed = Math.random() < 0.5;
 
-    let waterSpeed = speed;
-    let water2Speed = speed;
-
-    // Randomize waterSpeed and water2Speed independently
-    waterSpeed =
-      random() > 0.5
-        ? random(-speed * 1.5, -speed * 2)
-        : random(speed * 1, speed * 1.8);
-    water2Speed =
-      random() > 0.5
-        ? random(-speed * 1.4, speed * 1.9)
-        : random(-speed * 1.2, speed * 1.4);
-
-    // If both speeds have the same sign, adjust one of them
-    if (
-      (waterSpeed > 0 && water2Speed > 0) ||
-      (waterSpeed < 0 && water2Speed < 0)
-    ) {
-      waterSpeed = -waterSpeed * 1.2;
+    // Check if both directions are the same
+    if (isPositiveLane1Speed === isPositiveLane2Speed) {
+      // Invert the direction of one of them
+      isPositiveLane2Speed = !isPositiveLane2Speed;
     }
 
-    console.log(water2Speed);
-    console.log(waterSpeed);
+    // Assign positive or negative values based on the random boolean
+    const lane1Speed = isPositiveLane1Speed
+      ? random(speed * 2, speed * 2.2)
+      : -random(speed * 2, speed * 2.2);
+    const lane2Speed = isPositiveLane2Speed
+      ? random(speed * 1.6, speed * 1.8)
+      : -random(speed * 1.6, speed * 1.8);
 
-    // const lane3Speed = random(speed, speed * 2);
-    // const lane4Speed = random(speed, speed * 2);
-    // const lane5Speed = random(speed, speed * 2);
+    let isPositiveWaterSpeed = Math.random() < 0.5;
+    let isPositiveWater2Speed = Math.random() < 0.5;
+
+    // Check if both directions are the same
+    if (isPositiveWaterSpeed === isPositiveWater2Speed) {
+      // Invert the direction of one of them
+      isPositiveWater2Speed = !isPositiveWater2Speed;
+    }
+
+    // Assign positive or negative values based on the random boolean
+    const waterSpeed = isPositiveWaterSpeed ? speed * 2 : -speed * 2;
+    const water2Speed = isPositiveWater2Speed ? speed * 2 : -speed * 2;
 
     // Flytta entiteterna baserat på level id
     let levelHeight = -600;
@@ -47,12 +46,12 @@ class Level {
 
       // -------- Moving things Road ----------
 
-      new Car(300, 300 + yOffset, -lane1Speed, 100, 45),
+      new Car(300, 300 + yOffset, lane1Speed, 100, 45),
       new Car(width, 350 + yOffset, lane2Speed, 100, 45),
-      new Car(width, 400 + yOffset, -lane2Speed, 100, 45),
+      new Car(width, 400 + yOffset, lane1Speed, 100, 45),
 
-      new Motorcycle(300, 456 + yOffset, lane1Speed, 95, 42),
-      new Truck(300, 500 + yOffset, -lane2Speed, 118, 45),
+      new Motorcycle(300, 456 + yOffset, lane2Speed, 95, 42),
+      new Truck(300, 500 + yOffset, lane1Speed, 118, 45),
 
       // -------- Moving things Water ----------
       new Turtle(700, 200 + yOffset, water2Speed, 150, 50),
@@ -85,16 +84,17 @@ class Level {
       const xOffset = i + xOverlap; // random avstånd per lane om ni vill..
       xOverlap += -random(250, 300);
       speed += 0.05;
+
       console.log(deltaTime);
 
       this.gameEntities.push(
         ...[
-          new Car(300 - xOffset, 300 + yOffset, -lane1Speed, 100, 45),
+          new Car(300 - xOffset, 300 + yOffset, lane1Speed, 100, 45),
           new Car(width + xOffset, 350 + yOffset, lane2Speed, 100, 45),
-          new Car(width + xOffset, 400 + yOffset, -lane2Speed, 100, 45),
+          new Car(width + xOffset, 400 + yOffset, lane1Speed, 100, 45),
 
-          new Motorcycle(300 - xOffset, 458 + yOffset, lane1Speed, 95, 45),
-          new Truck(300 - xOffset, 500 + yOffset, -lane2Speed, 118, 45),
+          new Motorcycle(300 - xOffset, 458 + yOffset, lane2Speed, 95, 45),
+          new Truck(300 - xOffset, 500 + yOffset, lane1Speed, 118, 45),
         ],
       );
     }

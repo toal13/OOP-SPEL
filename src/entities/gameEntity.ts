@@ -38,7 +38,10 @@ abstract class GameEntity {
 
   public draw() {
     push();
-    image(this.img, this.x, this.y, this.width, this.height);
+    if (this.speed > 0) {
+      scale(-1, 1);
+      image(this.img, -this.x, this.y, -this.width, this.height);
+    } else image(this.img, this.x, this.y, this.width, this.height);
     pop();
   }
 

@@ -45,7 +45,7 @@ class GameBoard implements IMenu {
     this.viewportTimer += deltaTime;
 
     if (this.viewportTimer > 10000) {
-      this.worldSpeed += 0.05;
+      this.worldSpeed += 0.1;
       this.viewportTimer = 0;
     }
 
