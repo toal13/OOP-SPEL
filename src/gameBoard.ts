@@ -10,6 +10,11 @@ class GameBoard implements IMenu {
   private countDown: number;
   private countDownActive: boolean = true;
   public gameBoardMusic: p5.SoundFile;
+  private speedBoostDuration: number = 1500;
+  private speedBoostFactor: number = 1.8;
+  private speedBoostTimer: number = 0;
+  private isSpeedBoostActive: boolean = false;
+  private maxWorldSpeed: number = 2;
 
   constructor() {
     this.gameBoardMusic = music.gameboardmusic;
@@ -41,8 +46,26 @@ class GameBoard implements IMenu {
     }, 850);
   }
 
-  private moveViewPort() {
+  private handleUpKey(): void {
+    if (!this.isSpeedBoostActive) {
+      this.isSpeedBoostActive = true;
+      this.speedBoostTimer = 0;
+      this.worldSpeed *= this.speedBoostFactor;
+
+      this.worldSpeed = Math.min(this.worldSpeed, this.maxWorldSpeed);
+    }
+  }
+
+  private moveViewPort(deltaTime: number): void {
     this.viewportTimer += deltaTime;
+
+    if (this.isSpeedBoostActive) {
+      this.speedBoostTimer += deltaTime;
+      if (this.speedBoostTimer >= this.speedBoostDuration) {
+        this.worldSpeed /= this.speedBoostFactor;
+        this.isSpeedBoostActive = false;
+      }
+    }
 
     if (this.viewportTimer > 10000) {
       this.worldSpeed += 0.1;
@@ -144,6 +167,10 @@ class GameBoard implements IMenu {
   }
 
   public update() {
+    if (keyIsDown(UP_ARROW)) {
+      this.handleUpKey();
+    }
+
     if (this.countDownActive) return;
     for (let level of this.levels) {
       level.update();
@@ -153,7 +180,7 @@ class GameBoard implements IMenu {
       this.player.update();
       this.checkCollision();
       this.addLevel();
-      this.moveViewPort();
+      this.moveViewPort(deltaTime);
       this.incrementCoins(); // Coin collision detection
     }
   }
