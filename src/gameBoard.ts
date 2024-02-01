@@ -110,7 +110,7 @@ class GameBoard implements IMenu {
         }
       }
     }
-    
+
     if (gameOver) {
       soundeffect.gameOver.play();
       this.isGameOver = true;
@@ -143,6 +143,13 @@ class GameBoard implements IMenu {
     if (this.countDownActive) return;
     for (let level of this.levels) {
       level.update();
+    }
+
+    if (this.player.y >= height) {
+      this.isGameOver = true;
+      soundeffect.gameOver.play();
+      game.pushNewMenu(new GameOverMenu(this.player, 500));
+      return;
     }
 
     if (!this.isGameOver) {
