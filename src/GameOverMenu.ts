@@ -4,27 +4,23 @@ class GameOverMenu implements IMenu {
   private gameActive: boolean;
   private gameOverImage: p5.Image;
   private player: Player;
-  private playerScore: number;
 
   private highScore: number;
   private isScoreSaved: boolean;
   public gameBoardMusic: p5.SoundFile;
   private button: p5.SoundFile;
 
-
-  constructor(player: Player, score: number) {
+  constructor(player: Player) {
     this.gameOverImage = loadImage("./assets/images/gameOver.png");
     this.gameOverImage.resize(200, 0);
     this.gameActive = true;
     this.player = player;
-    this.playerScore = score;
 
     this.isScoreSaved = false;
     this.highScore = Number(localStorage.getItem("highScore") || "0");
 
     this.gameBoardMusic = music.gameboardmusic;
     this.button = soundeffect.button;
-
 
     let buttonWidth = 140;
     let buttonHeight = 40;

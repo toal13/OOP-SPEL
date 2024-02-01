@@ -107,6 +107,10 @@ class GameBoard implements IMenu {
           if (entity instanceof FreeZone) {
             this.player.speed = 0;
           }
+          if (this.player.y > height) {
+            gameOver = true;
+            soundeffect.gameOver.play();
+          }
         }
       }
     }
@@ -114,7 +118,7 @@ class GameBoard implements IMenu {
     if (gameOver) {
       soundeffect.gameOver.play();
       this.isGameOver = true;
-      game.pushNewMenu(new GameOverMenu(this.player, 500));
+      game.pushNewMenu(new GameOverMenu(this.player));
     }
   }
 
@@ -143,13 +147,6 @@ class GameBoard implements IMenu {
     if (this.countDownActive) return;
     for (let level of this.levels) {
       level.update();
-    }
-
-    if (this.player.y >= height) {
-      this.isGameOver = true;
-      soundeffect.gameOver.play();
-      game.pushNewMenu(new GameOverMenu(this.player, 500));
-      return;
     }
 
     if (!this.isGameOver) {
