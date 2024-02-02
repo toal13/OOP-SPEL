@@ -5,7 +5,6 @@ class Turtle extends GameEntity {
   private currentImageIndex: number;
   private animationSpeed: number;
   private tickCount: number;
-  public waterSpeed: number;
 
   constructor(
     x: number,
@@ -23,7 +22,6 @@ class Turtle extends GameEntity {
     this.currentImageIndex = 0;
     this.animationSpeed = 800;
     this.tickCount = 0;
-    this.waterSpeed = speed;
   }
 
   private updateSwim() {

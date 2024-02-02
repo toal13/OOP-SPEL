@@ -10,7 +10,7 @@ class GameBoard implements IMenu {
   private countDown: number;
   private countDownActive: boolean = true;
   public gameBoardMusic: p5.SoundFile;
-  private speedBoostDuration: number = 1000;
+  private speedBoostDuration: number = 500;
   private speedBoostFactor: number = 2;
   private speedBoostTimer: number = 0;
   private isSpeedBoostActive: boolean = false;
@@ -26,9 +26,7 @@ class GameBoard implements IMenu {
     this.isGameOver = false;
     this.viewportTimer = 0;
     this.worldMoved = 0;
-
     this.coins = [];
-
     this.countDown = 3;
     this.startCountdown();
     this.countDownActive = true;
