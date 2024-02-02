@@ -21,9 +21,7 @@ class Player extends GameEntity {
   private isJumping: boolean;
   private currentJumpFrame: number;
   private jumpTimer: number;
-
   private score: number;
-  private prevX: number;
   private prevY: number;
   private images: p5.Image[];
 
@@ -48,7 +46,6 @@ class Player extends GameEntity {
     this.jumpTimer = jumpSpeed;
 
     this.score = 0;
-    this.prevX = this.x;
 
     // Load saved score from localStorage or initialize to 0
     const savedScore = localStorage.getItem("playerScore");

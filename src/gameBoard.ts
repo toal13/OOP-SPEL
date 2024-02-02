@@ -10,6 +10,11 @@ class GameBoard implements IMenu {
   private countDown: number;
   private countDownActive: boolean = true;
   public gameBoardMusic: p5.SoundFile;
+  private speedBoostDuration: number = 500;
+  private speedBoostFactor: number = 2;
+  private speedBoostTimer: number = 0;
+  private isSpeedBoostActive: boolean = false;
+  private maxWorldSpeed: number = 2.5;
 
   constructor() {
     this.gameBoardMusic = music.gameboardmusic;
@@ -21,9 +26,7 @@ class GameBoard implements IMenu {
     this.isGameOver = false;
     this.viewportTimer = 0;
     this.worldMoved = 0;
-
     this.coins = [];
-
     this.countDown = 3;
     this.startCountdown();
     this.countDownActive = true;
@@ -44,11 +47,21 @@ class GameBoard implements IMenu {
     }, 850);
   }
 
-  /**
+
+      /**
    * Moves the game's viewport and adjusts the world speed.
    */
-  private moveViewPort() {
+
+  private moveViewPort(deltaTime: number): void {
     this.viewportTimer += deltaTime;
+
+    if (this.isSpeedBoostActive) {
+      this.speedBoostTimer += deltaTime;
+      if (this.speedBoostTimer >= this.speedBoostDuration) {
+        this.worldSpeed /= this.speedBoostFactor;
+        this.isSpeedBoostActive = false;
+      }
+    }
 
     if (this.viewportTimer > 10000) {
       this.worldSpeed += 0.1;
@@ -163,6 +176,10 @@ class GameBoard implements IMenu {
    * Updates the game state.
    */
   public update() {
+    if (keyIsDown(UP_ARROW)) {
+      this.handleUpKey();
+    }
+
     if (this.countDownActive) return;
     for (let level of this.levels) {
       level.update();
@@ -174,6 +191,7 @@ class GameBoard implements IMenu {
       this.addLevel();
       this.moveViewPort();
       this.incrementCoins();
+
     }
   }
 
