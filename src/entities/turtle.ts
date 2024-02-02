@@ -17,13 +17,13 @@ class Turtle extends GameEntity {
   ) {
     super(x, y, speed, width, height, turtle2Img.turtle2);
 
-   /*   /**
+    /**
      * Array of turtle frames for animation.
      * @type {p5.Image[]}
      * @private
      */
-    
 
+    /*  
     this.turtleFrames = [
 
       turtle2Img.turtle2,
@@ -35,9 +35,10 @@ class Turtle extends GameEntity {
     this.tickCount = 0;*/
   }
 
-/*  /**
+  /**
    * Update the turtle's swimming animation.
    */
+  /*
   private updateSwim() {
 
 
@@ -54,7 +55,6 @@ class Turtle extends GameEntity {
    * Update function for the turtle.
    */
 
-  } */
   public update() {
     super.update();
     /* this.updateSwim(); */

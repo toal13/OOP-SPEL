@@ -47,11 +47,19 @@ class GameBoard implements IMenu {
     }, 850);
   }
 
+  private handleUpKey(): void {
+    if (!this.isSpeedBoostActive) {
+      this.isSpeedBoostActive = true;
+      this.speedBoostTimer = 0;
+      this.worldSpeed *= this.speedBoostFactor;
 
-      /**
+      this.worldSpeed = Math.min(this.worldSpeed, this.maxWorldSpeed);
+    }
+  }
+
+  /**
    * Moves the game's viewport and adjusts the world speed.
    */
-
   private moveViewPort(deltaTime: number): void {
     this.viewportTimer += deltaTime;
 
@@ -76,7 +84,6 @@ class GameBoard implements IMenu {
       }
     }
   }
-
   /**
    * Adds a new level to the game.
    */
@@ -91,7 +98,6 @@ class GameBoard implements IMenu {
       console.log(this.levels[1]);
     }
   }
-
   /**
    * Removes the oldest level from the game.
    */
@@ -100,7 +106,6 @@ class GameBoard implements IMenu {
       this.levels.shift();
     }
   }
-
   /**
    * Checks for collisions between the player and game entities.
    */
@@ -148,7 +153,6 @@ class GameBoard implements IMenu {
       game.pushNewMenu(new GameOverMenu(this.player));
     }
   }
-
   /**
    * Increments the player's coins and removes collected coins from the game.
    */
@@ -165,13 +169,12 @@ class GameBoard implements IMenu {
         ) {
           if (entity instanceof Coin) {
             this.player.incrementCoins(); // Increase score
-            level.gameEntities.splice(level.gameEntities.indexOf(entity), 1);
+            level.gameEntities.splice(level.gameEntities.indexOf(entity), 1); // Remove coins
           }
         }
       }
     }
   }
-
   /**
    * Updates the game state.
    */
@@ -189,12 +192,10 @@ class GameBoard implements IMenu {
       this.player.update();
       this.checkCollision();
       this.addLevel();
-      this.moveViewPort();
+      this.moveViewPort(deltaTime);
       this.incrementCoins();
-
     }
   }
-
   /**
    * Draws the game elements on the canvas.
    */
@@ -225,7 +226,6 @@ class GameBoard implements IMenu {
       text(`Score: ${this.player.getScore()}`, width, 0);
     }
   }
-
   /**
    * Draws collected coins on the canvas.
    */
