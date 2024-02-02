@@ -1,5 +1,7 @@
-/// <reference path="./gameEntity.ts" />
-
+/**
+ * Represents a turtle in the game.
+ * @extends GameEntity
+ */
 class Turtle extends GameEntity {
   /*   private turtleFrames: p5.Image[];
     private currentImageIndex: number; 
@@ -14,7 +16,16 @@ class Turtle extends GameEntity {
     height: number,
   ) {
     super(x, y, speed, width, height, turtle2Img.turtle2);
-    /*  this.turtleFrames = [
+
+   /*   /**
+     * Array of turtle frames for animation.
+     * @type {p5.Image[]}
+     * @private
+     */
+    
+
+    this.turtleFrames = [
+
       turtle2Img.turtle2,
       turtle3Img.turtle3,
       turtle4Img.turtle4,
@@ -24,18 +35,34 @@ class Turtle extends GameEntity {
     this.tickCount = 0;*/
   }
 
-  /*   private updateSwim() {
+/*  /**
+   * Update the turtle's swimming animation.
+   */
+  private updateSwim() {
+
+
+
     this.tickCount += deltaTime;
 
     const timeForOneFrame = this.animationSpeed / this.turtleFrames.length;
     this.currentImageIndex =
       Math.floor(this.tickCount / timeForOneFrame) % this.turtleFrames.length;
+
+  }
+
+  /**
+   * Update function for the turtle.
+   */
+
   } */
   public update() {
     super.update();
     /* this.updateSwim(); */
   }
 
+  /**
+   * Draw the turtle with optional horizontal flipping.
+   */
   public draw() {
     /*     const jumpFrameImage = this.turtleFrames[this.currentImageIndex]; */
     push();

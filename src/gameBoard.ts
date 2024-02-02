@@ -6,7 +6,7 @@ class GameBoard implements IMenu {
   private viewportTimer: number;
   private levelCount: number;
   private worldMoved: number;
-  private coins: Coin[]; //number???
+  private coins: Coin[];
   private countDown: number;
   private countDownActive: boolean = true;
   public gameBoardMusic: p5.SoundFile;
@@ -32,6 +32,9 @@ class GameBoard implements IMenu {
     this.countDownActive = true;
   }
 
+  /**
+   * Starts the countdown timer.
+   */
   private startCountdown() {
     const countdownInterval = setInterval(() => {
       if (this.countDown > 1) {
@@ -44,15 +47,10 @@ class GameBoard implements IMenu {
     }, 850);
   }
 
-  private handleUpKey(): void {
-    if (!this.isSpeedBoostActive) {
-      this.isSpeedBoostActive = true;
-      this.speedBoostTimer = 0;
-      this.worldSpeed *= this.speedBoostFactor;
 
-      this.worldSpeed = Math.min(this.worldSpeed, this.maxWorldSpeed);
-    }
-  }
+      /**
+   * Moves the game's viewport and adjusts the world speed.
+   */
 
   private moveViewPort(deltaTime: number): void {
     this.viewportTimer += deltaTime;
@@ -79,6 +77,9 @@ class GameBoard implements IMenu {
     }
   }
 
+  /**
+   * Adds a new level to the game.
+   */
   private addLevel() {
     let wHeight = 600;
 
@@ -91,15 +92,21 @@ class GameBoard implements IMenu {
     }
   }
 
+  /**
+   * Removes the oldest level from the game.
+   */
   private removeLevel() {
     if (this.levels.length > 8) {
       this.levels.shift();
     }
   }
 
+  /**
+   * Checks for collisions between the player and game entities.
+   */
   private checkCollision() {
     const playerBoundingBox = this.player.getBoundingBox();
-    let gameOver = false; // Skapa en variabel för att hålla reda på om spelet ska avslutas
+    let gameOver = false;
 
     for (let level of this.levels) {
       for (let entity of level.gameEntities) {
@@ -118,12 +125,11 @@ class GameBoard implements IMenu {
               !(entity instanceof Turtle) &&
               !(entity instanceof Log))
           ) {
-            //DÖ
-            gameOver = true; // Sätt gameOver till true om spelaren kolliderar med farliga objekt
+            gameOver = true;
           }
           if (entity instanceof Turtle || entity instanceof Log) {
             this.player.speed = entity.speed;
-            gameOver = false; // Om spelaren kolliderar med Turtle eller Log, avsluta inte spelet
+            gameOver = false;
           }
           if (entity instanceof FreeZone) {
             this.player.speed = 0;
@@ -143,6 +149,9 @@ class GameBoard implements IMenu {
     }
   }
 
+  /**
+   * Increments the player's coins and removes collected coins from the game.
+   */
   private incrementCoins() {
     const playerBoundingBox = this.player.getBoundingBox();
 
@@ -154,16 +163,18 @@ class GameBoard implements IMenu {
           playerBoundingBox.y < entity.y + entity.height &&
           playerBoundingBox.y + playerBoundingBox.height > entity.y
         ) {
-          // What happens when a player touches a coin
           if (entity instanceof Coin) {
             this.player.incrementCoins(); // Increase score
-            level.gameEntities.splice(level.gameEntities.indexOf(entity), 1); // Remove coins
+            level.gameEntities.splice(level.gameEntities.indexOf(entity), 1);
           }
         }
       }
     }
   }
 
+  /**
+   * Updates the game state.
+   */
   public update() {
     if (keyIsDown(UP_ARROW)) {
       this.handleUpKey();
@@ -178,11 +189,15 @@ class GameBoard implements IMenu {
       this.player.update();
       this.checkCollision();
       this.addLevel();
-      this.moveViewPort(deltaTime);
-      this.incrementCoins(); // Coin collision detection
+      this.moveViewPort();
+      this.incrementCoins();
+
     }
   }
 
+  /**
+   * Draws the game elements on the canvas.
+   */
   public draw() {
     background("black");
     for (let level of this.levels) {
@@ -211,6 +226,9 @@ class GameBoard implements IMenu {
     }
   }
 
+  /**
+   * Draws collected coins on the canvas.
+   */
   private drawCoins() {
     for (let coin of this.coins) {
       coin.draw();

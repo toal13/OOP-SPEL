@@ -1,11 +1,25 @@
 //---- GLOBAL VARIABLES ----//
+
 let game: Game;
 
+/**
+ * Object containing music assets.
+ * @property {p5.SoundFile} mystery - The mystery music.
+ * @property {p5.SoundFile} gameboardmusic - The gameboard music.
+ * @property {p5.SoundFile} gamemenumusic - The gamemenu music.
+ */
 let music: {
   mystery: p5.SoundFile;
   gameboardmusic: p5.SoundFile;
   gamemenumusic: p5.SoundFile;
 };
+
+/**
+ * Object containing sound effect assets.
+ * @property {p5.SoundFile} frogJump - The frog jump sound effect.
+ * @property {p5.SoundFile} gameOver - The game over sound effect.
+ * @property {p5.SoundFile} button - The button click sound effect.
+ */
 let soundeffect: {
   frogJump: p5.SoundFile;
   gameOver: p5.SoundFile;
@@ -91,21 +105,24 @@ let turtle4Img: {
 };
 
 /**
- * Built in preload function in P5
- * This is a good place to load assets such as
- * sound files, images etc...
+ * Preload function in P5, used to load assets such as sound files and images.
  */
 function preload() {
+  // Load music assets
   music = {
     mystery: loadSound("/assets/music/mystery.mp3"),
     gameboardmusic: loadSound("/assets/music/gameboardmusic.mp3"),
     gamemenumusic: loadSound("/assets/music/gamemenumusic.mp3"),
   };
+
+  // Load sound effect assets
   soundeffect = {
     frogJump: loadSound("/assets/soundeffects/frog.mp3"),
     gameOver: loadSound("/assets/soundeffects/gameOver.mp3"),
     button: loadSound("/assets/soundeffects/button.mp3"),
   };
+
+  // Load image assetss
   redCarImg = {
     redCar: loadImage("./assets/images/redCar.png"),
   };
@@ -184,10 +201,7 @@ function preload() {
 }
 
 /**
- * Built in setup function in P5
- * This is a good place to create your first class object
- * and save it as a global variable so it can be used
- * in the draw function belows
+ * Setup function in P5, used to initialize the game and create the canvas.
  */
 function setup() {
   createCanvas(1000, 600);
@@ -202,9 +216,7 @@ function setup() {
 }
 
 /**
- * Built in draw function in P5
- * This is a good place to call public methods of the object
- * you created in the setup function above
+ * Draw function in P5, used to update and draw the game.
  */
 function draw() {
   game.update();

@@ -1,3 +1,7 @@
+/**
+ * Represents the game over menu.
+ * @implements IMenu
+ */
 class GameOverMenu implements IMenu {
   private buttonPlayAgain: Button;
   private buttonMenu: Button;
@@ -46,21 +50,22 @@ class GameOverMenu implements IMenu {
     );
   }
 
+  /**
+   * Saves the player's score in local storage.
+   */
   private saveScore() {
-    //// ls......
     let previousScores = JSON.parse(
       localStorage.getItem("previousHighScores") || "[]",
     );
-    // if (!Array.isArray(previousScores)) {
-    //   previousScores = [];
-    // }
     previousScores.push(this.player.getScore());
 
-    // Update the previous high score in localStorage
     localStorage.setItem("previousHighScores", JSON.stringify(previousScores));
     this.isScoreSaved = true;
   }
 
+  /**
+   * Updates the game over menu.
+   */
   public update() {
     if (!this.isScoreSaved) {
       this.saveScore();
@@ -79,6 +84,9 @@ class GameOverMenu implements IMenu {
     }
   }
 
+  /**
+   * Draws the game over menu on the canvas.
+   */
   public draw() {
     const centerX = width / 2 - this.gameOverImage.width / 2;
     const centerY = height / 2 - this.gameOverImage.height / 2;
@@ -88,17 +96,13 @@ class GameOverMenu implements IMenu {
     textSize(30);
     textAlign(CENTER, CENTER);
 
-    // Display the player's score
     const playerScore = this.player.getScore();
     text("Your Score: " + playerScore, width / 2, height / 2 + 70);
 
-    // Compare player's score with the high score
     if (playerScore > this.highScore) {
-      // If the player's score is higher, update the high score in localStorage
       localStorage.setItem("highScore", playerScore.toString());
       text("New High Score: " + playerScore, width / 2, height / 2 + 100);
     } else {
-      // If not, display the existing high score
       text("High Score: " + this.highScore, width / 2, height / 2 + 100);
     }
 
@@ -106,6 +110,10 @@ class GameOverMenu implements IMenu {
     this.buttonPlayAgain.draw();
   }
 
+  /**
+   * Checks if the game is still active.
+   * @returns {boolean} - True if the game is still active, otherwise false.
+   */
   public isGameActive(): boolean {
     return this.gameActive;
   }

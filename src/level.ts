@@ -1,18 +1,23 @@
+/**
+ * Represents a game level with various game entities.
+ */
 class Level {
+  /**
+   * An array of game entities in the level.
+   * @type {GameEntity[]}
+   */
   public gameEntities: GameEntity[];
 
   public constructor(id: number, worldMoved: number) {
+    // Randomization variables
     let speed = 0.05;
     const isPositiveLane1Speed = Math.random() < 0.5;
     let isPositiveLane2Speed = Math.random() < 0.5;
 
-    // Check if both directions are the same
     if (isPositiveLane1Speed === isPositiveLane2Speed) {
-      // Invert the direction of one of them
       isPositiveLane2Speed = !isPositiveLane2Speed;
     }
 
-    // Assign positive or negative values based on the random boolean
     const lane1Speed = isPositiveLane1Speed
       ? random(speed * 2, speed * 2.2)
       : -random(speed * 2, speed * 2.2);
@@ -23,30 +28,28 @@ class Level {
     let isPositiveWaterSpeed = Math.random() < 0.5;
     let isPositiveWater2Speed = Math.random() < 0.5;
 
-    // Check if both directions are the same
     if (isPositiveWaterSpeed === isPositiveWater2Speed) {
-      // Invert the direction of one of them
       isPositiveWater2Speed = !isPositiveWater2Speed;
     }
 
-    // Assign positive or negative values based on the random boolean
     const waterSpeed = isPositiveWaterSpeed ? speed * 2 : -speed * 2;
     const water2Speed = isPositiveWater2Speed ? speed * 2 : -speed * 2;
 
-    // Flytta entiteterna baserat på level id
     let levelHeight = -600;
     const yOffset = levelHeight * id + worldMoved;
+
+    // Add game entities to the level
     this.gameEntities = [
-      // ------------- Coins -------------
+
 
       // ---------- Landscape ------------
+
       new Water(0, 0 + yOffset),
       new FreeZone(0, 250 + yOffset),
       new Road(0, 300 + yOffset),
       new FreeZone(0, 550 + yOffset),
-      // ---------- Landscape ------------
 
-      // -------- Moving things Road ----------
+  
 
       // -------- Moving things Water ----------
       new Turtle(700, 200 + yOffset, water2Speed, 150, 50),
@@ -68,8 +71,10 @@ class Level {
       new Log(700, 0 + yOffset, water2Speed, 150, 50),
       new Turtle(350, 0 + yOffset, water2Speed, 150, 50),
 
+            // ------------- Coins -------------
       new Coin(random(0, 600), random(500 + yOffset, 300 + yOffset)),
 
+          // -------- Moving things Road ----------
       new Car(300, 297 + yOffset, lane1Speed, 100, 45),
       new Car(width, 355 + yOffset, lane2Speed, 100, 45),
       new Car(width, 405 + yOffset, lane1Speed, 100, 45),
@@ -81,8 +86,9 @@ class Level {
     const extraEntities = floor(id / 2);
     let xOverlap = -250;
 
+    // Add extra game entities based on the level ID
     for (let i = 0; i < extraEntities; i++) {
-      const xOffset = i + xOverlap; // random avstånd per lane om ni vill..
+      const xOffset = i + xOverlap;
       xOverlap += -random(250, 300);
       speed += 0.05;
 
@@ -99,14 +105,18 @@ class Level {
     }
   }
 
+  /**
+   * Updates the game entities in the level.
+   */
   public update() {
     for (let gameEntity of this.gameEntities) {
       gameEntity.update();
     }
   }
 
-  // spawn new entities after delay
-
+  /**
+   * Draws the game entities in the level.
+   */
   public draw() {
     for (let gameEntity of this.gameEntities) {
       gameEntity.draw();

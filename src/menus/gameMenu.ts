@@ -1,3 +1,7 @@
+/**
+ * Represents the game menu.
+ * @implements IMenu
+ */
 class GameMenu implements IMenu {
   private buttonNewGame: Button;
   private buttonInstructions: Button;
@@ -10,6 +14,7 @@ class GameMenu implements IMenu {
   constructor() {
     this.frogImage = loadImage("./assets/images/menuBackground.png");
     this.menuMusic = music.gamemenumusic;
+    // Play menu music if it's not already playing
     if (!this.menuMusic.isPlaying()) {
       this.menuMusic.loop();
     }
@@ -49,6 +54,9 @@ class GameMenu implements IMenu {
     );
   }
 
+  /**
+   * Update function for the game menu.
+   */
   public update() {
     if (this.buttonNewGame.isClicked()) {
       game.setCurrentMenu(new GameBoard());
@@ -64,7 +72,6 @@ class GameMenu implements IMenu {
     if (this.buttonLeaderboard.isClicked()) {
       game.setCurrentMenu(new LeaderBoard());
       this.button.play();
-
     }
     if (this.buttonSound.isClicked()) {
       this.button.play();
@@ -76,6 +83,9 @@ class GameMenu implements IMenu {
     }
   }
 
+  /**
+   * Draw function for the game menu.
+   */
   public draw() {
     imageMode(CORNER);
     image(this.frogImage, 0, 0, width, height);
