@@ -37,6 +37,8 @@ class Level {
     let levelHeight = -600;
     const yOffset = levelHeight * id + worldMoved;
     this.gameEntities = [
+      // ------------- Coins -------------
+
       // ---------- Landscape ------------
       new Water(0, 0 + yOffset),
       new FreeZone(0, 250 + yOffset),
@@ -45,13 +47,6 @@ class Level {
       // ---------- Landscape ------------
 
       // -------- Moving things Road ----------
-
-      new Car(300, 297 + yOffset, lane1Speed, 100, 45),
-      new Car(width, 355 + yOffset, lane2Speed, 100, 45),
-      new Car(width, 405 + yOffset, lane1Speed, 100, 45),
-
-      new Motorcycle(300, 456 + yOffset, lane2Speed, 95, 42),
-      new Truck(295, 500 + yOffset, lane1Speed, 118, 45),
 
       // -------- Moving things Water ----------
       new Turtle(700, 200 + yOffset, water2Speed, 150, 50),
@@ -73,8 +68,14 @@ class Level {
       new Log(700, 0 + yOffset, water2Speed, 150, 50),
       new Turtle(350, 0 + yOffset, water2Speed, 150, 50),
 
-      // ------------- Coins -------------
-      new Coin(150, 305 + yOffset, 40, 40),
+      new Coin(random(0, 600), random(500 + yOffset, 300 + yOffset)),
+
+      new Car(300, 297 + yOffset, lane1Speed, 100, 45),
+      new Car(width, 355 + yOffset, lane2Speed, 100, 45),
+      new Car(width, 405 + yOffset, lane1Speed, 100, 45),
+
+      new Motorcycle(300, 456 + yOffset, lane2Speed, 95, 42),
+      new Truck(295, 500 + yOffset, lane1Speed, 118, 45),
     ];
 
     const extraEntities = floor(id / 2);
@@ -84,8 +85,6 @@ class Level {
       const xOffset = i + xOverlap; // random avstånd per lane om ni vill..
       xOverlap += -random(250, 300);
       speed += 0.05;
-
-      console.log(deltaTime);
 
       this.gameEntities.push(
         ...[

@@ -14,7 +14,12 @@
 
 // Coin.ts
 class Coin extends GameEntity {
-  constructor(x: number, y: number, width: number, height: number) {
-    super(x, y, 0, width, height, entity.coin);
+  constructor(x: number, y: number) {
+    super(x, y, 0, 40, 40, entity.coin);
+  }
+
+  public update() {
+    super.update();
+    this.x += this.speed * deltaTime;
   }
 }
