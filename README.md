@@ -1,46 +1,53 @@
-# Slutprojektet
+# Frogger Game
 
-Välkommen till den förinställda kodbasen för slutprojektet.
-Se filen [Sketch](./src/sketch.ts) och [Game](./src/game.ts) filerna för hur ni bör börja skriva er kod!
+## Beskrivning
 
-Kom ihåg att använda git!
+Välkommen till Frogger Game, där du spelar som en modig groda och försöker ta dig så långt som möjligt genom olika hinder. I startmenyn finner du en kort beskrivning av spelets story och dess mål. Spelet erbjuder fyra huvudfunktioner:
 
-Projektet använder sig av [Typescript](https://www.typescriptlang.org/) och [p5.js](https://p5js.org/). Det är varmt rekommenderat att ni läser på om dessa två teknologier innan ni börjar skriva kod.
+1. **New Game:** Startar en ny spelsession.
+2. **Objectives:** Ger information om hinder och mynt.
+3. **Controls:** Visa kontrollerna för att styra grodan.
+4. **Ljud On/Off:** Styr ljudinställningarna.
 
-OBS: Undvik [DOM funktionerna i p5.js](https://p5js.org/reference/#group-DOM) eftersom de **inte** är canvasspecifika och kommer inte fungera som ni förväntar er.
+## Spelets Mål
 
-## Utveckling
+Du styr grodan med piltangenterna och får poäng för varje steg du tar. Extra poäng tilldelas när du samlar mynt. Banan försvinner bakom dig, och om du står stilla rör sig banan mot dig, medan den hänger lite snabbare om du rör dig framåt.
 
-### Installation
+## Olika Avsnitt
 
-Först behöver ni köra kommandot `npm install` för att installera nödvändiga moduler (p5, typescript, etc).
+### Vägen
 
-### Starta projektet
+- Undvik bilar, lastbilar och motorcyklar.
+- Dör om du nuddar fordonen.
+- För varje steg får du poäng.
 
-Kör kommandot `npm run dev` för att starta projektet och se det live i din webbläsare!
+### Safe Zone
 
-### Debugger
+- Belöning för att överleva vägen.
+- Förbered dig för nästa utmaning.
 
-Det är starkt rekommenderat att ni använder debug-verktyget i VSCode för att hitta och lösa problem. Metoden vi primärt har använt tidigare är att skriva `console.log` men vi kan bli mer effektiva!
+### Vatten
 
-Debuggern låter er stanna programmet och stega rad för rad samtidigt som ni kan titta på vad variablerna innehåller. Det är speciellt användbart när ni arbetar med funktioner som anropas 60 gånger per sekund - console overload otherwise... 🤯
+- Undvik ormar, stå på stockar och sköldpaddor.
+- Dör om du nuddar ormar.
+- Vissa sköldpaddor går under vattnet, andra stannar ovanför.
+- Står du på en sköldpadda som går under vattnet och nuddar vattnet, dör du.
 
-#### Starta Debuggern
+## Förlust och Återstart
 
-För att starta debuggern tycker du på `F5` eller via play-knappen i "ActionBaren", se dock till att du har startat projektet innan (`npm run dev`). Ett nytt fönster kommer att öppnas som behöver användas för att få koden att stanna vid utsatta debugg-punkter.
+Om du förlorar öppnas ett pop-up-fönster med alternativet att starta om eller gå till menysidan. Din highscore visas också.
 
-### Potentiella problem
+## Installation
 
-Versionen av p5.js är 1.5.0 medan senaste version av p5 typerna endast är uppdaterad till 1.4.3. Detta skulle kunna orsaka problem och det kan vara så att ni hittar något i p5's dokumentation som inte finns tillgängligt i detta projektet - dock osannolikt.
+För att installera spelet, använd följande kommandon:
 
-Typings för de globala variablerna relaterat till p5.sound fungerar tyvärr inte - exempel finns för hur ni kan kringgå detta. Se [loadSound funktionen](global.d.ts) för hur det kan göras.
+npm i
 
-Eftersom det här projektet är konfigurerat till att fungera utan `import/export` så det ibland vara så att typescript kompilatorn inte hittar en klass. För att lösa det kan du lägga till en referens kommentar som berättar för typescript vart klassen är deklarerad.
-
-Lägg till följande `/// <reference path="to-file-with-class" />` längst upp i filen som genererade felet och skriv korrekt sökväg.
-
-## TODO
-
-Lägg till ytterligare information som är specifikt för ert projekt!
-
-**LYCKA TILL!**
+## Contributor
+https://github.com/TamiJessica-Rodriguez
+https://github.com/linusansas
+https://github.com/toal13
+https://github.com/ricoace10
+https://github.com/linusnilssson
+https://github.com/Tsourdox
+https://github.com/KateKrmn
