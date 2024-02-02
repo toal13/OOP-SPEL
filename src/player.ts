@@ -18,9 +18,7 @@ class Player extends GameEntity {
   private isJumping: boolean;
   private currentJumpFrame: number;
   private jumpTimer: number;
-
   private score: number;
-  private prevX: number;
   private prevY: number;
   private images: p5.Image[];
 
@@ -41,7 +39,6 @@ class Player extends GameEntity {
     this.jumpTimer = jumpSpeed;
 
     this.score = 0;
-    this.prevX = this.x;
 
     // Hämta sparad poäng från localStorage vid skapandet av spelaren
     const savedScore = localStorage.getItem("playerScore");
@@ -129,7 +126,7 @@ class Player extends GameEntity {
     } else if (this.y < this.prevY) {
       // Endast öka poäng om spelaren har gått uppåt
       this.score += 1;
-       this.saveScore();
+      this.saveScore();
     }
 
     this.prevY = this.y;
@@ -137,7 +134,7 @@ class Player extends GameEntity {
 
   public incrementCoins() {
     this.score += 20;
-     this.saveScore();
+    this.saveScore();
   }
 
   public draw() {
