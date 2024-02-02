@@ -110,16 +110,16 @@ let turtle4Img: {
 function preload() {
   // Load music assets
   music = {
-    mystery: loadSound("/assets/music/mystery.mp3"),
-    gameboardmusic: loadSound("/assets/music/gameboardmusic.mp3"),
-    gamemenumusic: loadSound("/assets/music/gamemenumusic.mp3"),
+    mystery: loadSound("./assets/music/mystery.mp3"),
+    gameboardmusic: loadSound("./assets/music/gameboardmusic.mp3"),
+    gamemenumusic: loadSound("./assets/music/gamemenumusic.mp3"),
   };
 
   // Load sound effect assets
   soundeffect = {
-    frogJump: loadSound("/assets/soundeffects/frog.mp3"),
-    gameOver: loadSound("/assets/soundeffects/gameOver.mp3"),
-    button: loadSound("/assets/soundeffects/button.mp3"),
+    frogJump: loadSound("./assets/soundeffects/frog.mp3"),
+    gameOver: loadSound("./assets/soundeffects/gameOver.mp3"),
+    button: loadSound("./assets/soundeffects/button.mp3"),
   };
 
   // Load image assetss
