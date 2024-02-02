@@ -10,11 +10,11 @@ class GameBoard implements IMenu {
   private countDown: number;
   private countDownActive: boolean = true;
   public gameBoardMusic: p5.SoundFile;
-  private speedBoostDuration: number = 1500;
-  private speedBoostFactor: number = 1.8;
+  private speedBoostDuration: number = 1000;
+  private speedBoostFactor: number = 2;
   private speedBoostTimer: number = 0;
   private isSpeedBoostActive: boolean = false;
-  private maxWorldSpeed: number = 2;
+  private maxWorldSpeed: number = 2.5;
 
   constructor() {
     this.gameBoardMusic = music.gameboardmusic;
